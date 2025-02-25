@@ -1,0 +1,87 @@
+@extends("app")
+
+@section('title', 'Edit Laptop')
+
+@section('content')
+    <div class="container mx-auto p-6">
+        <div class="overflow-x-auto">
+            <h2 class="text-2xl font-bold text-center mb-6">Edit Laptop</h2>
+
+            @if(session('success'))
+                <div class="alert alert-success mb-4">{{ session('success') }}</div>
+            @endif
+
+            <form action="{{ route('laptop.update', $laptop -> id) }}" method="post" enctype="multipart/form-data" class="space-y-4">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label class="">Name</label>
+                    <input type="text" name="name" class="input input-bordered w-full" required value="{{ $laptop -> name }}">
+                </div>
+                <div>
+                    <label class="">Brand</label>
+                    <select name="brand_id">
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}">
+                                @if($brand -> id == $laptop->brand_id)
+                                    {{ 'selected' }}
+                                @endif
+                                    {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="">Brand</label>
+                    <select name="color_id">
+                        @foreach($colors as $color)
+                            <option value="{{ $color->id }}">
+                                @if($color -> id == $laptop->color_id)
+                                    {{ 'selected' }}
+                                @endif
+                                {{ $color->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="">CPU</label>
+                    <input type="text" name="cpu" class="input input-bordered w-full" required value="{{ $laptop -> cpu }}">
+                </div>
+
+                <div>
+                    <label class="">RAM</label>
+                    <input type="text" name="ram" class="input input-bordered w-full" required value="{{ $laptop -> ram }}">
+                </div>
+                <div>
+                    <label class="">VGA</label>
+                    <input type="text" name="vga" class="input input-bordered w-full" required value="{{ $laptop -> vga }}">
+                </div>
+                <div>
+                    <label class="">Storage (GB)</label>
+                    <input type="text" name="storage" class="input input-bordered w-full" required value="{{ $laptop -> storage }}">
+                </div>
+
+                <div>
+                    <label class="">Price (VND)</label>
+                    <input type="text" step="0.01" name="price" class="input input-bordered w-full" required  value="{{ $laptop -> price }}">
+                </div>
+
+                <div>
+                    <label class="">Quantity</label>
+                    <input type="number" name="quantity" class="input input-bordered w-full" required value="{{ $laptop -> quantity }}">
+                </div>
+
+                <div>
+                    <label class="">Image</label>
+                    <input type="text" name="image" class="file-input w-full" required value="{{ $laptop -> image }}">
+                </div>
+
+                <div class="flex justify-between mt-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{{ route('laptop.index') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
