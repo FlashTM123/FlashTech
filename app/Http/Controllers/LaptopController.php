@@ -25,10 +25,11 @@ class LaptopController extends Controller
                 });
         }
 
-        $laptops = $query->get();
-        return view('laptop.index', ['laptops' => $laptops]);
+        $laptops = $query->paginate(5); // Mỗi trang có 10 laptop
+        return view('laptop.index', [
+            'laptops' => $laptops
+        ]);
     }
-
 
     /**
      * Show the form for creating a new resource.

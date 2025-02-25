@@ -131,7 +131,7 @@
                     </summary>
                     <ul class="ml-4">
                         <li><a href="{{ url('/laptops') }}">Laptops</a></li>
-                        <li><a>Compoments</a></li>
+                        <li><a href="{{ url('/components') }}">Components</a></li>
                         <li><a>Accessories</a></li>
                     </ul>
                 </details>

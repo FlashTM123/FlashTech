@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\LaptopController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,11 @@ Route::get('/laptop/{laptop}/edit', [LaptopController::class, 'edit'])->name('la
 Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
 Route::delete('/laptop/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
 
+//Component
+
+Route::get('/components', [ComponentController::class, 'index'])->name('component.index');
+Route::get('/component/create', [ComponentController::class, 'create'])->name('component.create');
+Route::post('/component/store', [ComponentController::class, 'store'])->name('component.store');
 
 
 //Brands

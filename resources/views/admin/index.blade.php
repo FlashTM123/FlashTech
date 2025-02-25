@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                 @foreach ($admins as $index => $admin)
-                    <tr class="hover:bg-gray-100 border-b">
+                    <tr class="hover: border-b">
                         <th class="p-3">{{ $index + 1 }}</th>
                         <td class="p-3">{{ $admin->name }}</td>
                         <td class="p-3">{{ $admin->email }}</td>

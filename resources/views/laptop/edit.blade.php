@@ -24,7 +24,7 @@
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}">
                                 @if($brand -> id == $laptop->brand_id)
-                                    {{ 'selected' }}
+
                                 @endif
                                     {{ $brand->name }}
                             </option>
@@ -37,7 +37,7 @@
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}">
                                 @if($color -> id == $laptop->color_id)
-                                    {{ 'selected' }}
+
                                 @endif
                                 {{ $color->name }}
                             </option>
