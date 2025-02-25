@@ -32,8 +32,9 @@ Route::delete('/laptop/{laptop}', [LaptopController::class, 'destroy'])->name('l
 Route::get('/components', [ComponentController::class, 'index'])->name('component.index');
 Route::get('/component/create', [ComponentController::class, 'create'])->name('component.create');
 Route::post('/component/store', [ComponentController::class, 'store'])->name('component.store');
-
-
+Route::get('/component/{component}/edit', [ComponentController::class, 'edit'])->name('component.edit');
+Route::put('/component/{component}', [ComponentController::class, 'update'])->name('component.update');
+Route::delete('/component/{component}', [ComponentController::class, 'destroy'])->name('component.destroy');
 //Brands
 
 Route::get('/brands', [BrandController::class, 'index'])->name('brand.index');

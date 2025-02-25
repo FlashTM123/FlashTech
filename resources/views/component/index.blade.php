@@ -54,10 +54,10 @@
                         </td>
                         <td class="p-3 text-center">
                             <div class="flex space-x-2">
-                                <a href="" class="btn btn-warning btn-sm">
+                                <a href="{{ route('component.edit', $component->id) }}" class="btn btn-warning btn-sm">
                                     ✏️ Edit
                                 </a>
-                                <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this laptop?');">
+                                <form action="{{ route('component.destroy', $component->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this laptop?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-error btn-sm">
