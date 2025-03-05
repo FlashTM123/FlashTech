@@ -67,7 +67,10 @@
                 </label>
             </div>
             <div class="flex-1">
-                <a class="btn btn-ghost text-xl" href="{{ url('/') }}">LCAS</a>
+                <a class="btn btn-ghost text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ url('/manage') }}">
+                    <span class="font-bold text-3xl mr-3 bg-gradient-to-tr from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                            LCAS
+                    </span></a>
             </div>
 
             <div class="flex gap-2">
@@ -81,9 +84,9 @@
                     </div>
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Profile</a></li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <li><a href="">Profile</a></li>
+
+                        <li><a href="{{route('admin.logout')}}">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -97,7 +100,7 @@
         <ul class="menu p-4 w-64 min-h-full bg-base-200">
             <!-- Home -->
             <li>
-                <a href="{{ url('/') }}">
+                <a href="{{ route('manage.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -108,7 +111,7 @@
             </li>
             <!-- Admin -->
             <li>
-                <a href="{{ url('/admins') }}">
+                <a href="{{ route('admin.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -130,16 +133,16 @@
                         Products
                     </summary>
                     <ul class="ml-4">
-                        <li><a href="{{ url('/laptops') }}">Laptops</a></li>
-                        <li><a href="{{ url('/components') }}">Components</a></li>
-                        <li><a>Accessories</a></li>
+                        <li><a href="{{ route('laptop.index') }}">Laptops</a></li>
+                        <li><a href="{{ route('component.index') }}">Components</a></li>
+                        <li><a href="{{ route('accessories.index') }}">Accessories</a></li>
                     </ul>
                 </details>
             </li>
 
             <!-- Brands -->
             <li>
-                <a href="{{ url('/brands') }}">
+                <a href="{{ route('brand.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -151,7 +154,7 @@
 
             <!-- Colors -->
             <li>
-                <a href="{{ url('/colors') }}">
+                <a href="{{ route('color.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

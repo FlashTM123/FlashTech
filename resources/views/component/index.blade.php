@@ -57,7 +57,8 @@
                                 <a href="{{ route('component.edit', $component->id) }}" class="btn btn-warning btn-sm">
                                     ✏️ Edit
                                 </a>
-                                <form action="{{ route('component.destroy', $component->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this laptop?');">
+                                <form action="{{ route('component.destroy', $component->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this component' +
+                                 '?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-error btn-sm">

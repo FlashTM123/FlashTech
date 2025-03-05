@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="">Brand</label>
+                    <label class="">Color</label>
                     <select name="color_id">
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}">
@@ -77,9 +77,9 @@
                     <input type="text" name="image" class="file-input w-full" required value="{{ $laptop -> image }}">
                 </div>
 
-                <div class="flex justify-between mt-4">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('laptop.index') }}" class="btn btn-secondary">Cancel</a>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button type="submit" class="btn btn-primary">Add Laptop</button>
+                    <a href="{{ route('laptop.index') }}" class="btn btn-outline">Cancel</a>
                 </div>
             </form>
         </div>

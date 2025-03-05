@@ -4,42 +4,68 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <div class="overflow-x-auto">
-            <h2 class="text-2xl font-bold text-center mb-4">Add Admin</h2>
+        <div class="max-w-2xl mx-auto  p-6">
+            <!-- Title -->
+            <h2 class="text-2xl font-bold text-center mb-6 text-white-800 dark:text-dark-200">Add Admin</h2>
 
-            @if(session('success'))
-                <div class="alert alert-success mb-4">{{ session('success') }}</div>
+            <!-- Success Message -->
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <strong class="font-bold">Oops! Something went wrong.</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
+            <!-- Form -->
             <form action="{{ route('admin.store') }}" method="POST">
                 @csrf
 
-                <div class="mb-4">
-                    <label class="block">Name</label>
-                    <input type="text" name="name" class="input input-bordered w-full" required>
+                <!-- Name Field -->
+                <div class="mb-6">
+                    <label class="pt-0 label label-text font-semibold">Name</label>
+                    <input type="text" name="name" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none" required>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block ">Email</label>
-                    <input type="email" name="email" class="input input-bordered w-full" required>
+                <!-- Email Field -->
+                <div class="mb-6">
+                    <label class="pt-0 label label-text font-semibold">Email</label>
+                    <input type="email" name="email" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none" required>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block ">Password</label>
-                    <input type="password" name="password" class="input input-bordered w-full" required>
+                <!-- Password Field -->
+                <div class="mb-6">
+                    <label class="pt-0 label label-text font-semibold">Password</label>
+                    <input type="password" name="password" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none" required>
                 </div>
 
-                <div class="mb-4">
-                    <label class="block ">Phone</label>
-                    <input type="text" name="phone" class="input input-bordered w-full">
+                <!-- Phone Field -->
+                <div class="mb-6">
+                    <label class="pt-0 label label-text font-semibold">Phone</label>
+                    <input type="text" name="phone" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none">
                 </div>
 
-                <div class="flex justify-between">
-                    <a href="{{ route('admin.create') }}" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Add Admin</button>
+                <!-- Buttons -->
+                <!-- Buttons -->
+                <div class="flex justify-between items-center mt-8 gap-4">
+                    <button type="submit" class="btn btn-primary flex items-center justify-center w-full sm:w-auto px-6 py-2" >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add
+                    </button>
+                    <a href="{{ route('admin.index') }}" class="btn btn-soft">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Cancel
+                    </a>
                 </div>
+
             </form>
         </div>
     </div>
-
 @endsection

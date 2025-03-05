@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <div class="overflow-x-auto">
+        <div class="max-w-3xl mx-auto">
             <h2 class="text-2xl font-bold text-center mb-6">Add Laptop</h2>
 
             @if(session('success'))
@@ -71,9 +71,9 @@
                     <input type="text" name="image" class="file-input w-full" required>
                 </div>
 
-                <div class="flex justify-between mt-4">
+                <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-primary">Add Laptop</button>
-                    <a href="{{ route('laptop.index') }}" class="btn btn-secondary">Cancel</a>
+                    <a href="{{ route('laptop.index') }}" class="btn btn-outline">Cancel</a>
                 </div>
             </form>
         </div>

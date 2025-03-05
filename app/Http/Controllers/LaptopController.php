@@ -25,7 +25,7 @@ class LaptopController extends Controller
                 });
         }
 
-        $laptops = $query->paginate(5); // Mỗi trang có 10 laptop
+        $laptops = $query->paginate(4);
         return view('laptop.index', [
             'laptops' => $laptops
         ]);
@@ -50,9 +50,9 @@ class LaptopController extends Controller
             'name' => $request->name,
             'brand_id'=> $request->brand_id,
             'color_id'=> $request->color_id,
-            'cpu' => $request->cpu,  // Chữ thường
-            'ram' => $request->ram,  // Chữ thường
-            'vga' => $request->vga,  // Chữ thường
+            'cpu' => $request->cpu,
+            'ram' => $request->ram,
+            'vga' => $request->vga,
             'storage' => $request->storage,
             'price'=> $request->price,
             'quantity'=>$request->quantity,

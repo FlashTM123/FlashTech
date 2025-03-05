@@ -21,4 +21,7 @@ class Color extends Model
     public function laptop(){
         return $this->hasMany(Laptop::class);
     }
+    public function accessories(){
+        return $this->hasMany(Accessories::class);
+    }
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
@@ -33,14 +37,25 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $admins = Admin::create([
+        // Kiểm tra dữ liệu hợp lệ
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admin,email',
+            'password' => 'required|string|min:6',
+            'phone' => 'required|string|unique:admin,phone',
+        ]);
+
+        // Nếu hợp lệ, tạo admin mới
+        Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password, // Không dùng Hash nếu không muốn mã hóa
+            'password' => Hash::make($request->password), // Không mã hóa nếu không cần
             'phone' => $request->phone,
         ]);
-        return Redirect::route('admin.index');
+
+        return Redirect::route('admin.index')->with('success', 'Admin created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -63,14 +78,25 @@ class AdminController extends Controller
      */
     public function update(UpdateAdminRequest $request, Admin $admin)
     {
-        $admin->update([
-           'name' => $request['name'],
-           'email' => $request['email'],
-           'password' => $request['password'],
-           'phone' => $request['phone']
+        // Kiểm tra email và phone không trùng với admin khác
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admin,email,' . $admin->id,
+            'password' => 'nullable|string|min:6',
+            'phone' => 'required|string|unique:admin,phone,' . $admin->id,
         ]);
-        return Redirect::route('admin.index');
+
+        // Cập nhật admin
+        $admin->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ?? $admin->password,
+            'phone' => $request->phone
+        ]);
+
+        return Redirect::route('admin.index')->with('success', 'Admin updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +106,27 @@ class AdminController extends Controller
         $admin->delete();
         return Redirect::route('admin.index');
     }
+    public function login()
+    {
+        return view('admin.login');
+    }
+    public function LoginProcess(Request $request)
+    {
+        $admin = Admin::where('email', $request->email)->first();
 
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            Auth::guard('admin')->login($admin);
+            session(['admin' => $admin]);
+            return Redirect::route('manage.index');
+        } else {
+            return Redirect::back()->with('error', 'Email or password is incorrect!');
+        }
+    }
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        session()->forget('admin');
+        return Redirect::route('admin.login');
+    }
 
 }
