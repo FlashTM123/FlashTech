@@ -21,7 +21,6 @@ class ComponentController extends Controller
                 });
         }
 
-        $components = $query->paginate(5);
        return view ('component.index', ['components' => $components]);
     }
 
