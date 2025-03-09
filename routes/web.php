@@ -11,7 +11,7 @@ use App\Http\Controllers\ManageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('customerUI.index');
+    return view('home.home');
 });
 
 //Admin
