@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <label class="">Brand</label>
-                    <select name="brand_id">
+                    <select name="brand_id" class="select">
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}">
                                 {{ $brand->name }}
@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <label class="">Color</label>
-                    <select name="color_id">
+                    <select name="color_id" class="select">
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}">
                                 {{ $color->name }}
@@ -57,8 +57,17 @@
                 </div>
 
                 <div>
-                    <label class="">Price (VND)</label>
-                    <input type="text" step="0.01" name="price" class="input input-bordered w-full" required>
+                    <label class="">Original price (VND)</label>
+                    <input type="text" step="0.01" name="original_price" class="input input-bordered w-full" required>
+                </div>
+                <div>
+                    <label class="">Discount (%)</label>
+                    <input type="text"  name="discount" class="input input-bordered w-full" >
+                </div>
+
+                <div>
+                    <label class="">Promotional price (VND)</label>
+                    <input type="text" step="0.01" name="promotional_price" class="input input-bordered w-full" >
                 </div>
 
                 <div>
@@ -72,8 +81,17 @@
                 </div>
 
                 <div class="flex justify-end gap-4 mt-6">
-                    <button type="submit" class="btn btn-primary">Add Laptop</button>
-                    <a href="{{ route('laptop.index') }}" class="btn btn-outline">Cancel</a>
+                    <button type="submit" class="btn btn-outline btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add
+                    </button>
+                    <a href="{{ route('laptop.index') }}" class="btn btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Cancel</a>
                 </div>
             </form>
         </div>

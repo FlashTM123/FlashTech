@@ -9,14 +9,14 @@
             <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <h2 class="text-2xl font-semibold text-white-800 dark:text-dark-200">Admin List</h2>
 
-                <a href="{{ route('admin.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors dark:bg-blue-600 dark:hover:bg-blue-700">
+                <a href="{{ route('admin.create') }}" class="btn btn-outline">
                     ➕ Add Admin
                 </a>
             </div>
             <div class="my-3">
                 <div>
                     <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                        <table class="table" x-ref="headers">
+                        <table class="table" >
                             <thead class="text-white-800 dark:text-dark-700">
                                 <tr>
                                     <th class="text-center">#</th>
@@ -39,7 +39,7 @@
                                             <div class="flex justify-center space-x-2">
                                                 <!-- Edit Button -->
                                                 <a href="{{ route('admin.edit', $admin->id) }}"
-                                                   class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-colors dark:bg-yellow-600 dark:hover:bg-yellow-700">
+                                                   class="btn btn-outline btn-warning">
                                                     ✏️ Edit
                                                 </a>
                                                 <!-- Delete Button -->
@@ -48,7 +48,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-colors dark:bg-red-600 dark:hover:bg-red-700">
+                                                            class="btn btn-outline btn-error">
                                                         ❌ Delete
                                                     </button>
                                                 </form>

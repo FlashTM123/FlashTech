@@ -52,7 +52,7 @@
     </style>
 </head>
 <body>
-<div class="drawer">
+<div class="drawer drawer-start">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         <!-- Navbar -->

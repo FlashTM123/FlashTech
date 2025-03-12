@@ -20,7 +20,7 @@ class ComponentController extends Controller
                     $q->where('name', 'LIKE', '%' . $request->search . '%');
                 });
         }
-
+        $components = $query->paginate(4);
        return view ('component.index', ['components' => $components]);
     }
 

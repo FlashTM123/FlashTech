@@ -54,7 +54,9 @@ class LaptopController extends Controller
             'ram' => $request->ram,
             'vga' => $request->vga,
             'storage' => $request->storage,
-            'price'=> $request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
         ]);
@@ -96,7 +98,9 @@ class LaptopController extends Controller
             'ram' => $request->ram,
             'vga' => $request->vga,
             'storage' => $request->storage,
-            'price'=> $request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
         ]);

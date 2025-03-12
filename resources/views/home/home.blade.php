@@ -5,7 +5,14 @@
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-4">Danh sách sản phẩm</h2>
+        <div class="flex space-x-2 mb-6">
+            <button class="btn btn-outline">5tr-10tr</button>
+            <button class="btn btn-outline">10tr-20tr</button>
+            <button class="btn btn-outline">20tr-30tr</button>
+            <button class="btn btn-outline">30tr-40tr</button>
+            <button class="btn btn-outline"> >40tr </button>
 
+        </div>
         <!-- Đường kẻ ngăn cách -->
         <hr class="my-6 border-t border-gray-300">
 
@@ -23,61 +30,26 @@
         </div>
 
         <!-- Danh sách sản phẩm -->
-        <div class="overflow-x-auto">
-            <div class="grid grid-cols-5 gap-4">
-                <div class="card bg-base-100 shadow-md p-4 rounded-lg">
-                    <img src="https://laptopaz.vn/media/product/3221_loq_2024.jpg" class="rounded-md">
-                    <h3 class="font-bold mt-2 text-base-content">[New 100%] Lenovo LOQ 2024 15IAX9 83GS001RVN</h3>
-                    <div class="flex flex-wrap gap-1 mt-2">
-                        <span class="badge badge-outline">i5-12450HX</span>
-                        <span class="badge badge-outline">12GB DDR5</span>
-                        <span class="badge badge-outline">SSD 512GB</span>
-                    </div>
-                    <p class="text-sm text-base-content/70 mt-1">Card: RTX 3050 6GB, Màn: 15.6" 144Hz</p>
-                    <div class="mt-2">
-                        <span class="text-gray-400 line-through">21.990.000đ</span>
-                        <span class="ml-2 bg-red-500 text-white px-2 py-1 text-xs rounded">-8%</span>
-                    </div>
-                    <div class="text-xl font-bold text-orange-500 mt-1">20.290.000 </div>
-                    <button class="btn btn-soft btn-secondary">Detail</button>
-
-                </div>
-            </div>
+        <div class="grid grid-cols-5 gap-4">
+            <x-card-laptop image="https://laptopaz.vn/media/product/3221_loq_2024.jpg" name="[New 100%] Lenovo LOQ 2024 15IAX9 83GS001RVN" cpu="i5-12450HX" ram="12GB DDR5" storage="SSD 512GB" gpu="RTX 3050 6GB" quantity="1" price1="21.990.000" discount="-8" price2="20.290.000"></x-card-laptop>
+            <x-card-laptop image="https://cdn2.cellphones.com.vn/x/media/catalog/product/l/a/laptop-lenovo-legion-5-pro-16ach6h-82jq001vvn-1.jpg" name="Lenovo Legion 5 Pro 16ACH6H 82JQ001VVN" cpu="AMD Ryzen 7 5800H" ram="16 GB DDR4" storage="SSD 512GB" gpu="RTX 3060 6GB" quantity="0" price1="43.690.000" discount="-8" price2="41.190.000"></x-card-laptop>
         </div>
         <hr class="my-6 border-t border-gray-300">
-        <h2 class="text-2xl font-bold mt-4">Linh Kiện - Phụ Kiện</h2>
+        <h2 class="text-2xl font-bold mt-4">Linh Kiện</h2>
+
+            <div class="grid grid-cols-5 gap-4">
+
+                <x-card-component image="https://laptopaz.vn/media/product/3274_1649755742_864_o_cung_ssd_m2_pcie_1tb_wd_black_sn770_nvme_2280_1.jpg" name="Ổ cứng SSD WD Black SN770 PCIe Gen4 x4 NVMe M.2 2280 1TB" storage="1TB" type="SSD" quantity="1" price1="2.490.000" discount="-20" price2="1.990.000"></x-card-component>
+                <x-card-component image="https://cdn2.cellphones.com.vn/x/media/catalog/product/g/r/group_235_2_1.png" name="RAM PNY XLR8 DDR4 3200MHz Heatsink RGB 16GB" storage="16GB" type="RAM DDR4" quantity="0" price1="
+1.490.000" discount="-20" price2="1.190.00"></x-card-component>
+            </div>
+
+        <hr class="my-6 border-t border-gray-300">
+        <h2 class="text-2xl font-bold mt-4">Phụ Kiện</h2>
         <div class="overflow-x-auto">
             <div class="grid grid-cols-5 gap-4">
-                <div class="card bg-base-100 shadow-md p-4 rounded-lg">
-                    <img src="https://laptopaz.vn/media/product/3274_1649755742_864_o_cung_ssd_m2_pcie_1tb_wd_black_sn770_nvme_2280_1.jpg" class="rounded-md">
-                    <h3 class="font-bold mt-2 text-base-content">Ổ cứng SSD WD Black SN770 PCIe Gen4 x4 NVMe M.2 2280 1TB</h3>
-                    <div class="flex flex-wrap gap-1 mt-2">
-
-                        <span class="badge badge-outline">1TB</span>
-                    </div>
-                    <div class="mt-2">
-                        <span class="text-gray-400 line-through">2.490.000đ</span>
-                        <span class="ml-2 bg-red-500 text-white px-2 py-1 text-xs rounded">-20%</span>
-                    </div>
-                    <div class="text-xl font-bold text-orange-500 mt-1">1.990.000 </div>
-                    <button class="btn btn-soft btn-secondary">Detail</button>
-
-                </div>
-                <div class="card bg-base-100 shadow-md p-4 rounded-lg">
-                    <img src="https://laptopaz.vn/media/product/2967_l411.jpg" class="rounded-md">
-                    <h3 class="font-bold mt-2 text-base-content">Bàn phím Fuhlen L411 (USB/BLACK)</h3>
-                    <div class="flex flex-wrap gap-1 mt-2">
-
-                        <span class="badge badge-outline">USB 2.0</span>
-                    </div>
-                    <div class="mt-2">
-                        <span class="text-gray-400 line-through">250.000đ</span>
-                        <span class="ml-2 bg-red-500 text-white px-2 py-1 text-xs rounded">-12%</span>
-                    </div>
-                    <div class="text-xl font-bold text-orange-500 mt-1">219.000 </div>
-                    <button class="btn btn-soft btn-secondary">Detail</button>
-
-                </div>
+               <x-card-accessories image="https://laptopaz.vn/media/product/2967_l411.jpg" name="Bàn phím Fuhlen L411" type="USB 2.0" quantity="2" price1="250.000" discount="-12" price2="219.000"></x-card-accessories>
+                <x-card-accessories image="https://laptopaz.vn/media/product/2967_l411.jpg" name="Bàn phím Fuhlen L411" type="USB 2.0" quantity="0" price1="250.000" discount="-12" price2="219.000"></x-card-accessories>
             </div>
         </div>
     </div>

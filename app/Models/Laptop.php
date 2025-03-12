@@ -13,7 +13,7 @@ class Laptop extends Model
     protected $table = 'laptops';
 
     protected $primaryKey = 'id';
-    protected $fillable = ['name','brand_id', 'color_id', 'cpu', 'ram', 'vga', 'storage', 'price', 'quantity', 'image'];
+    protected $fillable = ['name','brand_id', 'color_id', 'cpu', 'ram', 'vga', 'storage', 'original_price', 'discount','promotional_price', 'quantity','status', 'image'];
 
     public $timestamps = false;
 
