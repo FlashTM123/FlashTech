@@ -51,7 +51,9 @@ class AccessoriesController extends Controller
             'brand_id'=>$request->brand_id,
             'color_id'=>$request->color_id,
             'type'=>$request->type,
-            'price'=>$request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
         ]);
@@ -88,7 +90,9 @@ class AccessoriesController extends Controller
             'brand_id'=>$request->brand_id,
             'color_id'=>$request->color_id,
             'type'=>$request->type,
-            'price'=>$request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
 

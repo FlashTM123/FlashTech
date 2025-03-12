@@ -18,12 +18,17 @@
                 <li><a>Item 3</a></li>
             </ul>
         </div>
-        <a class="btn btn-ghost text-xl">LCAS</a>
+        <div class="flex-1">
+            <a class="btn btn-ghost text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ url('/manage') }}">
+                    <span class="font-bold text-3xl mr-3 bg-gradient-to-tr from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                            LCAS
+                    </span></a>
+        </div>
     </div>
     <div role="tablist" class="navbar-center hidden lg:flex">
-        <a role="tab" class="tab">Tab 1</a>
-        <a role="tab" class="tab">Tab 2</a>
-        <a role="tab" class="tab">Tab 3</a>
+        <a role="tab" class="tab">Laptop</a>
+        <a role="tab" class="tab">Linh kiện</a>
+        <a role="tab" class="tab">Phụ kiện</a>
     </div>
     <div class="navbar-end">
         <div class="flex-none">
