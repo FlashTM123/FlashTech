@@ -43,7 +43,9 @@ class ComponentController extends Controller
             'brand_id' => $request->brand_id,
             'type' => $request->type,
             'capacity' => $request->capacity,
-            'price' => $request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity' => $request->quantity,
             'image' => $request->image,
         ]);
@@ -78,7 +80,9 @@ class ComponentController extends Controller
             'brand_id' => $request->brand_id,
             'type' => $request->type,
             'capacity' => $request->capacity,
-            'price' => $request->price,
+            'original_price' => $request->original_price,
+            'discount' => $request->discount,
+            'promotional_price'=> $request->promotional_price,
             'quantity' => $request->quantity,
             'image' => $request->image,
         ]);

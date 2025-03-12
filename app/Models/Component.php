@@ -14,7 +14,7 @@ class Component extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'price', 'quantity', 'image' ];
+    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'original_price', 'discount', 'promotional_price', 'quantity','status', 'image' ];
 
     public $timestamps = false;
 
