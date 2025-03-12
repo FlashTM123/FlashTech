@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\ManageController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('admin.edit');
         Route::put('/{admin}/edit', [AdminController::class, 'update'])->name('admin.update');
         Route::delete('/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
+    });
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
     });
     Route::prefix('brand')->group(function(){
         Route::get('/', [BrandController::class, 'index'])->name('brand.index');
