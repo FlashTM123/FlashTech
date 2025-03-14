@@ -89,7 +89,26 @@
             });
             @endif
 
-            @if(session('login_success'))
+                const loginForm = document.querySelector("form");
+
+                loginForm.addEventListener("submit", function (e) {
+                    e.preventDefault(); // Ngăn chặn submit ngay lập tức
+
+                    Swal.fire({
+                        title: "Signing in...",
+                        text: "Please wait a moment",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading(); // Hiển thị hiệu ứng loading
+                        }
+                    });
+
+                    setTimeout(() => {
+                        loginForm.submit(); // Sau 1.5s mới thực sự submit
+                    }, 3000);
+                });
+
+                @if(session('login_success'))
             Swal.fire({
                 title: "Success!",
                 text: "{{ session('login_success') }}",
