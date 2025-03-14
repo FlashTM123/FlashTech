@@ -96,4 +96,21 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        import Swal from "sweetalert2";
+
+        @if(session('add_success'))
+             Swal.fire({
+                title: "Success!",
+                text: "Laptop has been added successfully",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+        });
+        @endif
+
+
+    </script>
+
 @endsection

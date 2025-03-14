@@ -7,9 +7,9 @@
         <div class="flex flex-col h-full">
             <div class="grow">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Admin List</h2>
+                    <h2 class="text-lg font-semibold mb-4">Manage Admins</h2>
                     <a href="{{ route('admin.create') }}" class="btn btn-outline btn-primary">
-                       ➕ Add Admin
+                        ➕ Add Admin
                     </a>
                 </div>
                 <div class="my-3">
@@ -39,16 +39,15 @@
                                                 <!-- Edit Button -->
                                                 <a href="{{ route('admin.edit', $admin->id) }}"
                                                    class="btn btn-outline btn-warning">
-                                                     📝 Edit
+                                                    📝 Edit
                                                 </a>
-                                                <!-- Delete Button -->
-                                                <form action="{{ route('admin.destroy', $admin->id) }}" method="POST"
-                                                      onsubmit="return confirm('Are you sure you want to delete this admin?');">
+                                                <!-- Delete Button with SweetAlert -->
+                                                <form id="delete-form-{{ $admin->id }}" action="{{ route('admin.destroy', $admin->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                            class="btn btn-outline btn-error">
-                                                       🗑️ Delete
+                                                    <button type="button" class="btn btn-outline btn-error"
+                                                            onclick="confirmDelete({{ $admin->id }})">
+                                                        🗑️ Delete
                                                     </button>
                                                 </form>
                                             </div>
@@ -62,5 +61,57 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+
+
+            function confirmDelete(adminId) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(`delete-form-${adminId}`).submit();
+                    }
+                });
+            }
+
+            @if(session('add_success'))
+            Swal.fire({
+                title: "Added Successfully!",
+                text: "The admin has been added successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+            @endif
+
+            @if(session('edit_success'))
+            Swal.fire({
+                title: "Updated Successfully!",
+                text: "The admin details have been updated successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+            @endif
+
+            @if(session('delete_success'))
+            Swal.fire({
+                title: "Deleted Successfully!",
+                text: "The admin has been removed successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+            @endif
+        </script>
+
 @endsection

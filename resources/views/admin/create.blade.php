@@ -9,16 +9,7 @@
             <h2 class="text-2xl font-bold text-center mb-6 text-white-800 dark:text-dark-200">Add Admin</h2>
 
             <!-- Success Message -->
-            @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <strong class="font-bold">Oops! Something went wrong.</strong>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+
 
             <!-- Form -->
             <form action="{{ route('admin.store') }}" method="POST">
@@ -68,4 +59,30 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if(session('add_success'))
+        Swal.fire({
+            title: "Success!",
+            text: "Admin has been added successfully.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK"
+        });
+        @endif
+
+        @if ($errors->any())
+        Swal.fire({
+            title: "Oops! Something went wrong.",
+            html: `
+                @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+                @endforeach
+            `,
+            icon: "error",
+            confirmButtonColor: "#d33",
+        });
+        @endif
+    </script>
+
 @endsection

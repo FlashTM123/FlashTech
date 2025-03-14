@@ -53,7 +53,8 @@ class AdminController extends Controller
             'phone' => $request->phone,
         ]);
 
-        return Redirect::route('admin.index')->with('success', 'Admin created successfully.');
+        return redirect()->route('admin.index')->with('add_success', 'Admin has been added successfully!');
+
     }
 
 
@@ -94,7 +95,8 @@ class AdminController extends Controller
             'phone' => $request->phone
         ]);
 
-        return Redirect::route('admin.index')->with('success', 'Admin updated successfully.');
+        return redirect()->route('admin.index')->with('edit_success', 'Admin has been updated successfully!');
+
     }
 
 
@@ -104,7 +106,7 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
-        return Redirect::route('admin.index');
+        return redirect()->route('admin.index')->with('delete_success', 'Admin has been deleted successfully!');
     }
     public function login()
     {

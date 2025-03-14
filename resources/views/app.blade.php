@@ -121,7 +121,7 @@
 <!-- Navbar -->
 <div class="navbar shadow-lg">
     <div>
-        <a class="btn btn-ghost normal-case text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ url('/manage') }}">
+        <a class="btn btn-ghost normal-case text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ route('manage.index') }}">
             <span class="font-bold text-3xl mr-3 bg-gradient-to-tr from-blue-400 to-blue-600 bg-clip-text text-transparent">
                 LCAS
             </span>
@@ -148,24 +148,24 @@
 <!-- Sidebar -->
 <div class="sidebar bg-base-200 text-base-content shadow-lg">
     <ul class="menu p-4 w-64 min-h-full">
-        <li><a href="{{ route('manage.index') }}">Home</a></li>
-        <li><a href="{{ route('admin.index') }}">Admin</a></li>
+        <li><a href="{{ route('manage.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🏠</i> Home</a></li>
+        <li><a href="{{ route('admin.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🛡️</i> Admin</a></li>
         <li>
             <details>
-                <summary>Products</summary>
+                <summary><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Products</summary>
                 <ul class="ml-4">
-                    <li><a href="{{ route('laptop.index') }}">Laptops</a></li>
-                    <li><a href="{{ route('component.index') }}">Components</a></li>
-                    <li><a href="{{ route('accessories.index') }}">Accessories</a></li>
+                    <li><a href="{{ route('laptop.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">💻</i> Laptops</a></li>
+                    <li><a href="{{ route('component.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🔧</i> Components</a></li>
+                    <li><a href="{{ route('accessories.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎧</i> Accessories</a></li>
                 </ul>
             </details>
         </li>
-        <li><a href="{{ route('brand.index') }}">Brands</a></li>
-        <li><a href="{{ route('color.index') }}">Colors</a></li>
-        <li><a href="{{ route('customers.index') }}">Customer</a></li>
-        <li><a>Order</a></li>
-        <li><a>Employee</a></li>
-        <li><a>Salary</a></li>
+        <li><a href="{{ route('brand.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🏷️</i> Brands</a></li>
+        <li><a href="{{ route('color.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎨</i> Colors</a></li>
+        <li><a href="{{ route('customers.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">👥</i> Customer</a></li>
+        <li><a><i class="w3-large w3-text-red w3-hover-text-red">🛒</i> Order</a></li>
+        <li><a><i class="w3-large w3-text-red w3-hover-text-red">👔</i> Employee</a></li>
+        <li><a><i class="w3-large w3-text-red w3-hover-text-red">💵</i> Salary</a></li>
     </ul>
 </div>
 
