@@ -119,7 +119,7 @@ class AdminController extends Controller
         if ($admin && Hash::check($request->password, $admin->password)) {
             Auth::guard('admin')->login($admin);
             session(['admin' => $admin]);
-            return Redirect::route('manage.index');
+            return redirect()->route('manage.index')->with('login_success', 'Login successfully!');
         } else {
             return Redirect::back()->with('error', 'Email or password is incorrect!');
         }
@@ -128,6 +128,7 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
         session()->forget('admin');
+        session()->flash('logout_success', 'Logged out successfully!');
         return Redirect::route('admin.login');
     }
 

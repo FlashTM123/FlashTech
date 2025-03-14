@@ -139,7 +139,11 @@
             <ul tabindex="0"
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li><a href="">Profile</a></li>
-                <li><a href="{{route('admin.logout')}}">Logout</a></li>
+                <li><a href="#" onclick="confirmLogout()" >Logout</a>
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="hidden">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
@@ -180,6 +184,24 @@
 <button id="theme-toggle" class="theme-toggle">
     <span id="theme-icon">☀️</span>
 </button>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmLogout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Log out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("logout-form").submit();
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

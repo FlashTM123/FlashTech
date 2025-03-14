@@ -33,11 +33,7 @@
             <h2 class="text-center bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent uppercase text-3xl font-bold">LCAS Admin</h2>
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
-            @if(session('error'))
-                <div class="bg-red-100 text-red-700 border border-red-400 p-3 rounded-md mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
+
 
             <form action="{{ route('admin.LoginProcess') }}" method="POST" class="grid grid-flow-row auto-rows-min gap-3 space-y-6 border bg-white rounded-2xl border-gray-200 shadow-xl p-6">
                     <h2 class="text-2xl font-semibold">Sign in</h2>
@@ -79,6 +75,31 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            @if(session('error'))
+            Swal.fire({
+                title: "Error!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK"
+            });
+            @endif
+
+            @if(session('login_success'))
+            Swal.fire({
+                title: "Success!",
+                text: "{{ session('login_success') }}",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+            @endif
+        });
+    </script>
 
 
 </div>
