@@ -69,16 +69,16 @@
                         </td>
                         <td class="text-center">
                             <div class="flex space-x-2">
-                                <a href="{{ route('component.edit', $component->id) }}" class="btn btn-outline btn-primary">
+                                <a href="{{ route('component.edit', $component->id) }}" class="btn btn-outline btn-secondary">
                                     Edit
                                 </a>
-                                <form action="{{ route('component.destroy', $component->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this component' +
-                                 '?');">
+                                <button type="button" class="btn btn-outline btn-error" onclick="confirmDelete('{{ $component->id }}')">
+
+                                    Delete
+                                </button>
+                                <form id="delete-form-{{ $component->id }}" action="{{ route('component.destroy', $component->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-outline btn-error">
-                                        Delete
-                                    </button>
                                 </form>
                             </div>
                         </td>
@@ -93,6 +93,59 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+
+        function confirmDelete(componentId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${componentId}`).submit();
+                }
+            });
+        }
+
+        @if(session('add_success'))
+        Swal.fire({
+            title: "Added Successfully!",
+            text: "The admin has been added successfully.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK"
+        });
+        @endif
+
+        @if(session('edit_success'))
+        Swal.fire({
+            title: "Updated Successfully!",
+            text: "The admin details have been updated successfully.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK"
+        });
+        @endif
+
+        @if(session('delete_success'))
+        Swal.fire({
+            title: "Deleted Successfully!",
+            text: "The admin has been removed successfully.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK"
+        });
+        @endif
+    </script>
+
 
 @endsection
 

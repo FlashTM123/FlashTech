@@ -50,7 +50,7 @@ class ComponentController extends Controller
             'image' => $request->image,
         ]);
 
-        return redirect()->route('component.index');
+        return redirect()->route('component.index')->with('add_success','The component has been created successfully!');
     }
 
     /**
@@ -86,7 +86,7 @@ class ComponentController extends Controller
             'quantity' => $request->quantity,
             'image' => $request->image,
         ]);
-        return redirect ()->route('component.index');
+        return redirect ()->route('component.index')->with("edit_success","The component has been updated successfully!");
     }
 
     /**
@@ -95,6 +95,6 @@ class ComponentController extends Controller
     public function destroy(Component $component)
     {
         $component->delete();
-        return redirect()->route('component.index');
+        return redirect()->route('component.index')->with("delete_success","The component has been deleted successfully!");
     }
 }

@@ -104,8 +104,8 @@
                     });
 
                     setTimeout(() => {
-                        loginForm.submit(); // Sau 1.5s mới thực sự submit
-                    }, 3000);
+                        loginForm.submit();
+                    });
                 });
 
                 @if(session('login_success'))
