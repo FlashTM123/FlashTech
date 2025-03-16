@@ -40,7 +40,7 @@
                 </div>
                 <div class="mb-6">
                     <label class="block font-semibold">Profile Image</label>
-                    <input type="file" name="profile_image" class="w-full px-4 py-2 border rounded-lg">
+                    <input type="file" name="profile_image" class="file-input">
                     @if ($admin->profile_image)
                         <img src="{{ asset('storage/' . $admin->profile_image) }}" alt="Profile Image" class="mt-3 w-12 h-12 rounded-full">
                     @endif
