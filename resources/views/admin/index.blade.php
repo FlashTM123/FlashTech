@@ -21,6 +21,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Image</th>
                                     <th class="text-center">Password</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Action</th>
@@ -32,6 +33,14 @@
                                         <td class="text-center">{{ $index + 1 }}</td>
                                         <td class="text-center">{{ $admin->name }}</td>
                                         <td class="text-center">{{ $admin->email }}</td>
+                                        <td class="text-center">
+                                            @if($admin->profile_image)
+                                                <img src="{{ asset('storage/' . $admin->profile_image) }}" alt="Profile Image" class="w-12 h-12 rounded-full object-cover mx-auto">
+                                            @else
+                                                <span class="text-gray-500">No Image</span>
+                                            @endif
+                                        </td>
+
                                         <td class="text-center">{{ $admin->password }}</td>
                                         <td class="text-center">{{ $admin->phone }}</td>
                                         <td class="px-6 py-4 text-sm text-center">

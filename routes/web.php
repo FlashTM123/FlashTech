@@ -18,7 +18,6 @@ Route::get('/', function () {
 //Admin
 
 
-//Login
 Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/login', [AdminController::class, 'LoginProcess'])->name('admin.LoginProcess');
 Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -33,6 +32,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{admin}/edit', [AdminController::class, 'update'])->name('admin.update');
         Route::delete('/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
+
     Route::prefix('customers')->group(function () {
         Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
     });

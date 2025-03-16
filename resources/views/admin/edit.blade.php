@@ -22,8 +22,9 @@
 
 
             <!-- Form -->
-            <form action="{{ route('admin.update', $admin->id) }}" method="POST">
-                @csrf
+            <form action="{{ route('admin.update', $admin->id) }}" method="POST" enctype="multipart/form-data">
+
+            @csrf
                 @method('PUT')
 
                 <!-- Name Field -->
@@ -37,6 +38,14 @@
                     <label class="pt-0 label label-text font-semibold">Email</label>
                     <input type="email" name="email" value="{{ $admin->email }}" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none" required>
                 </div>
+                <div class="mb-6">
+                    <label class="block font-semibold">Profile Image</label>
+                    <input type="file" name="profile_image" class="w-full px-4 py-2 border rounded-lg">
+                    @if ($admin->profile_image)
+                        <img src="{{ asset('storage/' . $admin->profile_image) }}" alt="Profile Image" class="mt-3 w-12 h-12 rounded-full">
+                    @endif
+                </div>
+
 
                 <!-- Password Field -->
                 <div class="mb-6">

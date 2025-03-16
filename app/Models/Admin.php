@@ -12,8 +12,9 @@ class Admin extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     use HasFactory;
     use Authenticatable;
     protected $table = 'admin';
+
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'email', 'password', 'phone'];
+    protected $fillable = ['name', 'email','profile_image', 'password', 'phone'];
 
     protected $hidden = ['password'];
 
