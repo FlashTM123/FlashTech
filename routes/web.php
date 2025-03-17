@@ -7,6 +7,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\ManageController;
 use Illuminate\Support\Facades\Route;
@@ -79,8 +80,12 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{color}/edit', [ColorController::class, 'update'])->name('color.update');
         Route::delete('/{color}', [ColorController::class, 'destroy'])->name('color.destroy');
     });
+    Route::prefix('employees')->group(function (){
+        Route::get('/',[EmployeesController::class, 'index'])->name('employees.index');
+        Route::get('/create',[EmployeesController::class, 'create'])->name('employees.create');
+        Route::post('/store', [EmployeesController::class, 'store'])->name('employees.store');
+    });
 });
-
 
 
 
