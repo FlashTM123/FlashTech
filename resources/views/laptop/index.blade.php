@@ -8,17 +8,15 @@
             <div class="grow">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                     <h2 class="text-2xl font-semibold text-white-800 dark:text-dark-200">Laptop List</h2>
-                    <form method="GET" action="{{ route('laptop.index') }}" class="mb-4">
-                        <label class="input">
-                            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></g></svg>
-                            <input type="text"
-                                   name="search"
-                                   value="{{ request('search') }}"
-                                   placeholder="Search brand..."
-                                   class="input input-bordered w-full max-w-xs" />
-                            <kbd class="kbd kbd-sm">⌘</kbd>
-                            <kbd class="kbd kbd-sm">K</kbd>
-                        </label>
+                    <form method="GET" action="{{ route('laptop.index') }}" class="mb-4" id="brand-filter-form">
+                        <select name="brand" id="brand-select" class="select" onchange="document.getElementById('brand-filter-form').submit()">
+                            <option value="">All Brands</option>
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>
+                                    {{ $brand->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </form>
                     <a href="{{ route('laptop.create') }}" class="btn btn-outline">
                         ➕ Add Laptop
@@ -78,8 +76,7 @@
                                                     Edit
                                                 </a>
                                                 <button type="button" class="btn btn-outline btn-error" onclick="confirmDelete('{{ $laptop->id }}')">
-
-                                                Delete
+                                                    Delete
                                                 </button>
                                                 <form id="delete-form-{{ $laptop->id }}" action="{{ route('laptop.destroy', $laptop->id) }}" method="POST" style="display: none;">
                                                     @csrf
@@ -115,7 +112,6 @@
                     document.getElementById('delete-form-' + laptopId).submit();
                 }
             });
-
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -146,8 +142,6 @@
                 confirmButtonText: "OK"
             });
             @endif
-
         });
     </script>
-
 @endsection

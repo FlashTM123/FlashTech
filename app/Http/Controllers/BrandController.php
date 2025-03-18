@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
@@ -28,12 +29,16 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBrandRequest $request)
+
+
+    public function store(Request $request)
     {
-        $brands = Brand::create([
+        $brand = Brand::create([
             'name' => $request->name,
+            'category' => $request->category
         ]);
-        return redirect()->route('brand.index');
+
+        return response()->json($brand);
     }
 
     /**
@@ -60,8 +65,9 @@ class BrandController extends Controller
 
         $brand->update([
             'name' => $request['name'],
+            'category' => $request['category'],
         ]);
-        return redirect()->route('brand.index');
+        return response()->json($brand);
     }
 
     /**
@@ -69,7 +75,10 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        $brand->accessories()->delete();
+        $brand->components()->delete();
+        $brand->laptops()->delete();
         $brand->delete();
-        return redirect()->route('brand.index');
+        return redirect()->route('brand.index')->with('delete_success','Brand deleted successfully!');
     }
 }

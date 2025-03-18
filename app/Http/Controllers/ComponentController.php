@@ -14,14 +14,15 @@ class ComponentController extends Controller
     {
         $query = Component::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%')
-                ->orWhereHas('brand', function ($q) use ($request) {
-                    $q->where('name', 'LIKE', '%' . $request->search . '%');
-                });
+        if ($request->has('brand') && !empty($request->brand)) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('id', $request->brand);
+            });
         }
         $components = $query->paginate(4);
-       return view ('component.index', ['components' => $components]);
+
+        $brands = Brand::where('category', 'Component')->get();
+       return view ('component.index', ['components' => $components, 'brands' => $brands]);
     }
 
     /**
@@ -29,7 +30,7 @@ class ComponentController extends Controller
      */
     public function create()
     {
-        $brands = Brand::all();
+        $brands = Brand::where('category', 'Component')->get();
         return view('component.create', ['brands' => $brands]);
     }
 
@@ -66,8 +67,8 @@ class ComponentController extends Controller
      */
     public function edit(Component $component)
     {
-        $brand = Brand::all();
-        return view('component.edit', ['component' => $component, 'brands' => $brand]);
+        $brands = Brand::where('category', 'Component')->get();
+        return view('component.edit', ['component' => $component, 'brands' => $brands]);
     }
 
     /**

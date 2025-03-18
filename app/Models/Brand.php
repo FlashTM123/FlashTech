@@ -14,7 +14,7 @@ class Brand extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','category'];
 
     public $timestamps = false;
 

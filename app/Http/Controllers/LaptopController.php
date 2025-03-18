@@ -18,16 +18,23 @@ class LaptopController extends Controller
     {
         $query = Laptop::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%')
-                ->orWhereHas('brand', function ($q) use ($request) {
-                    $q->where('name', 'LIKE', '%' . $request->search . '%');
-                });
+        // Lọc theo brand nếu có brand được chọn
+        if ($request->has('brand') && !empty($request->brand)) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('id', $request->brand);
+            });
         }
 
+        // Phân trang kết quả
         $laptops = $query->paginate(4);
+
+        // Lấy danh sách brand để hiển thị trong dropdown
+        $brands = Brand::where('category', 'Laptop')->get();
+
+
         return view('laptop.index', [
-            'laptops' => $laptops
+            'laptops' => $laptops,
+            'brands' => $brands // Truyền danh sách brand vào view
         ]);
     }
 
@@ -36,7 +43,7 @@ class LaptopController extends Controller
      */
     public function create()
     {
-        $brands = Brand::all();
+        $brands = Brand::where('category', 'Laptop')->get();
         $colors = Color::all();
         return view('laptop.create',['brands' => $brands], ['colors' => $colors]);
     }
@@ -79,7 +86,7 @@ class LaptopController extends Controller
      */
     public function edit(Laptop $laptop)
     {
-        $brands = Brand::all();
+        $brands = Brand::where('category', 'Laptop')->get();
         $colors = Color::all();
 
         return view('laptop.edit', ['laptop' => $laptop, 'brands' => $brands], ['colors' => $colors]);

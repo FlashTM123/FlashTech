@@ -19,16 +19,16 @@ class AccessoriesController extends Controller
     {
         $query = Accessories::query();
 
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%')
-                ->orWhereHas('brand', function ($q) use ($request) {
-                    $q->where('name', 'LIKE', '%' . $request->search . '%');
-                });
+        if ($request->has('brand') && !empty($request->brand)) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('id', $request->brand);
+            });
         }
 
         $accessories = $query->paginate(5);
+        $brands = Brand::where('category', 'Accessories')->get();
 
-        return view('accessories.index', compact('accessories'));
+        return view('accessories.index', ['accessories' => $accessories, 'brands' => $brands]);
     }
 
     /**
@@ -36,7 +36,7 @@ class AccessoriesController extends Controller
      */
     public function create()
     {
-        $brands = Brand::all();
+        $brands = Brand::where('category', 'Accessories')->get();
         $colors = Color::all();
         return view('accessories.create', compact('brands', 'colors'));
     }
@@ -74,7 +74,7 @@ class AccessoriesController extends Controller
      */
     public function edit(Accessories $accessories)
     {
-        $brands = Brand::all();
+        $brands = Brand::where('category', 'Accessories')->get();
         $colors = Color::all();
 
         return view('accessories.edit', compact('accessories', 'brands', 'colors'));
