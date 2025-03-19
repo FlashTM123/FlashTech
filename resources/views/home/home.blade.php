@@ -3,6 +3,21 @@
 @section('title', 'Home')
 
 @section('content')
+    <form method="GET" action="/" class="w-full">
+        <div class="flex justify-center">
+            <label class="input">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input type="search" name="query" class="grow px-2 py-1 focus:outline-none" placeholder="Search..." value="{{ request('query') }}" autofocus />
+                <kbd class="kbd kbd-sm hidden md:inline">⌘</kbd>
+                <kbd class="kbd kbd-sm hidden md:inline">K</kbd>
+            </label>
+        </div>
+    </form>
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-4">Danh sách sản phẩm</h2>
         <div class="flex space-x-2 mb-6">
@@ -19,37 +34,64 @@
         <h2 class="text-2xl font-bold mb-4">Laptop</h2>
 
         <!-- Bộ lọc thương hiệu -->
-        <div class="flex space-x-2 mb-6">
-            <button class="btn btn-outline">Acer</button>
-            <button class="btn btn-outline">Lenovo</button>
-            <button class="btn btn-outline">Asus</button>
-            <button class="btn btn-outline">Dell</button>
-            <button class="btn btn-outline">Gigabyte</button>
-            <button class="btn btn-outline">Apple</button>
-            <button class="btn btn-outline">Xem tất cả ▼</button>
-        </div>
+
+
 
         <!-- Danh sách sản phẩm -->
         <div class="grid grid-cols-5 gap-4">
-            <x-card-laptop image="https://laptopaz.vn/media/product/3221_loq_2024.jpg" name="[New 100%] Lenovo LOQ 2024 15IAX9 83GS001RVN" cpu="i5-12450HX" ram="12GB DDR5" storage="SSD 512GB" gpu="RTX 3050 6GB" quantity="1" price1="21.990.000" discount="-8" price2="20.290.000"></x-card-laptop>
-            <x-card-laptop image="https://cdn2.cellphones.com.vn/x/media/catalog/product/l/a/laptop-lenovo-legion-5-pro-16ach6h-82jq001vvn-1.jpg" name="Lenovo Legion 5 Pro 16ACH6H 82JQ001VVN" cpu="AMD Ryzen 7 5800H" ram="16 GB DDR4" storage="SSD 512GB" gpu="RTX 3060 6GB" quantity="0" price1="43.690.000" discount="-8" price2="41.190.000"></x-card-laptop>
+         @foreach($laptops as $laptop)
+             <x-card-laptop
+                image="{{$laptop->image}}"
+                name="{{$laptop->name}}"
+                cpu="{{$laptop->cpu}}"
+                ram="{{$laptop->ram}}"
+                storage="{{$laptop->storage}}"
+                vga="{{$laptop->vga}}"
+                quantity="{{$laptop->quantity}}"
+                price1="{{ number_format($laptop->original_price) }}đ"
+                discount="{{ $laptop->discount }}"
+                price2="{{ number_format($laptop->promotional_price) }}đ">
+             ></x-card-laptop>
+         @endforeach
+
         </div>
         <hr class="my-6 border-t border-gray-300">
         <h2 class="text-2xl font-bold mt-4">Linh Kiện</h2>
 
             <div class="grid grid-cols-5 gap-4">
+                @foreach($components as $component)
+                    <x-card-component
+                        image="{{$component->image}}"
+                        name="{{$component->name}}"
+                        type="{{$component->type}}"
+                        storage="{{$component->capacity}}"
+                        quantity="{{$component->quantity}}"
+                        price1="{{number_format($component->original_price)}}đ"
+                        discount="{{$component->discount}}"
+                        price2="{{number_format($component->promotional_price)}}đ"
+                    ></x-card-component>
+                @endforeach
 
-                <x-card-component image="https://laptopaz.vn/media/product/3274_1649755742_864_o_cung_ssd_m2_pcie_1tb_wd_black_sn770_nvme_2280_1.jpg" name="Ổ cứng SSD WD Black SN770 PCIe Gen4 x4 NVMe M.2 2280 1TB" storage="1TB" type="SSD" quantity="1" price1="2.490.000" discount="-20" price2="1.990.000"></x-card-component>
-                <x-card-component image="https://cdn2.cellphones.com.vn/x/media/catalog/product/g/r/group_235_2_1.png" name="RAM PNY XLR8 DDR4 3200MHz Heatsink RGB 16GB" storage="16GB" type="RAM DDR4" quantity="0" price1="
-1.490.000" discount="-20" price2="1.190.00"></x-card-component>
             </div>
 
         <hr class="my-6 border-t border-gray-300">
         <h2 class="text-2xl font-bold mt-4">Phụ Kiện</h2>
         <div class="overflow-x-auto">
             <div class="grid grid-cols-5 gap-4">
-               <x-card-accessories image="https://laptopaz.vn/media/product/2967_l411.jpg" name="Bàn phím Fuhlen L411" type="USB 2.0" quantity="2" price1="250.000" discount="-12" price2="219.000"></x-card-accessories>
-                <x-card-accessories image="https://laptopaz.vn/media/product/2967_l411.jpg" name="Bàn phím Fuhlen L411" type="USB 2.0" quantity="0" price1="250.000" discount="-12" price2="219.000"></x-card-accessories>
+                @foreach($accessories as $accessory)
+              <x-card-accessories
+
+                    image="{{$accessory->image}}"
+                    name="{{$accessory->name}}"
+                    color="{{ $accessory->color ? $accessory->color->name : 'N/A'}}"
+                    type="{{$accessory->type}}"
+                    quantity="{{$accessory->quantity}}"
+                    price1="{{number_format($accessory->original_price)}}đ"
+                    discount="{{$accessory->discount}}"
+                    price2="{{number_format($accessory->promotional_price)}}đ"
+
+              ></x-card-accessories>
+                @endforeach
             </div>
         </div>
     </div>

@@ -19,14 +19,14 @@
             </ul>
         </div>
         <div class="flex-1">
-            <a class="btn btn-ghost text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ url('/manage') }}">
+            <a class="btn btn-ghost text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ url('/') }}">
                     <span class="font-bold text-3xl mr-3 bg-gradient-to-tr from-blue-400 to-blue-600 bg-clip-text text-transparent">
                             LCAS
                     </span></a>
         </div>
     </div>
     <div role="tablist" class="navbar-center hidden lg:flex">
-        <a role="tab" class="tab">Laptop</a>
+        <a role="tab" class="tab" href="{{url('/laptop')}}">Laptop</a>
         <a role="tab" class="tab">Linh kiện</a>
         <a role="tab" class="tab">Phụ kiện</a>
     </div>

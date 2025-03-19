@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <div class="overflow-x-auto">
+        <div class="max-w-2xl mx-auto p-6">
             <h2 class="text-2xl font-bold text-center mb-6">Edit Laptop</h2>
 
             @if(session('success'))

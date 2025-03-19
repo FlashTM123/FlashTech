@@ -24,8 +24,8 @@
                 </div>
                 <div class="my-3">
                     <div>
-                        <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                            <table class="table table-auto w-full">
+                        <div class="overflow-x-auto">
+                            <table class="table">
                                 <thead class="text-white-800 dark:text-dark-700">
                                 <tr>
                                     <th class="text-center">#</th>

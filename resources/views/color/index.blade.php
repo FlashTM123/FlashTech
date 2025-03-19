@@ -6,7 +6,7 @@
     <div class="container mx-auto p-6">
         <div class="flex justify-between items-center mb-6 max-w-5xl mx-auto">
             <h2 class="text-2xl font-semibold">Color List </h2>
-            <a href=" {{ route('color.create') }}" class="btn btn-primary">➕ Add Color</a>
+            <a href=" {{ route('color.create') }}" class="btn btn-outline">➕ Add Color</a>
         </div>
 
         <div class="overflow-x-auto">
@@ -25,13 +25,13 @@
                         <td class="p-3">{{ $color ->name }}</td>
                         <td class="p-3 text-center">
                             <div class="flex space-x-2">
-                                <a href="{{ route('color.edit', $color->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('color.edit', $color->id) }}" class="btn btn-outline btn-primary">
                                     ✏️ Edit
                                 </a>
                                 <form action="{{ route('color.destroy', $color->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this laptop?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-error btn-sm">
+                                    <button type="submit" class="btn btn-outline btn-error">
                                         ❌ Delete
                                     </button>
                                 </form>

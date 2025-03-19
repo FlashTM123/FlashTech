@@ -7,24 +7,41 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class CardLaptop extends Component
+
 {
-    /**
-     * Create a new component instance.
-     */
+    public $image;
+    public $name;
+    public $cpu;
+    public $ram;
+    public $storage;
+    public $vga;
+    public $quantity;
+    public $price1;
+    public $discount;
+    public $price2;
     public function __construct(
-        public string $image,
-        public string $name,
-        public string $cpu,
-        public string $ram,
-        public string $storage,
-        public string $gpu,
-        public string $quantity,
-        public string $price1,
-        public string $price2,
-        public string $discount
+        $image,
+        $name,
+        $cpu,
+        $ram,
+        $storage,
+        $vga,
+        $quantity,
+        $price1,
+        $discount,
+        $price2,
     )
     {
-        //
+        $this->image = $image;
+        $this->name = $name;
+        $this->cpu = $cpu;
+        $this->ram = $ram;
+        $this->storage = $storage;
+        $this->vga = $vga;
+        $this->quantity = $quantity;
+        $this->price1 = $price1;
+        $this->discount = $discount;
+        $this->price2 = $price2;
     }
 
     /**

@@ -14,6 +14,7 @@ class CardAccessories extends Component
     public function __construct(
         public string $image,
         public string $name,
+        public string $color,
         public string $type,
         public string $quantity,
         public string $price1,

@@ -10,11 +10,32 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\ManageController;
+use App\Models\Accessories;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home.home');
+
+use Illuminate\Http\Request;
+
+
+Route::get('/', function (Request $request) {
+    $query = $request->input('query');
+
+    // Tìm kiếm theo tất cả danh sách
+    $laptops = DB::table('laptops')->where('name', 'LIKE', "%$query%")->get();
+    $components = DB::table('components')->where('name', 'LIKE', "%$query%")->get();
+    $accessories = Accessories::with('color')->where('name', 'LIKE', "%$query%")->get();
+    $brands = DB::table('brands')->get();
+    $colors = DB::table('colors')->get();
+
+    return view('home.home', compact('laptops', 'components', 'accessories', 'brands', 'colors'));
 });
+
+Route::get('/laptop', function () {
+    $laptops = DB::table('laptops')->get();
+   return view('home.laptop', compact('laptops'));
+});
+
 
 //Admin
 

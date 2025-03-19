@@ -7,15 +7,19 @@
                 <span class="badge badge-outline">{{$cpu}}</span>
                 <span class="badge badge-outline">{{$ram}}</span>
                 <span class="badge badge-outline">{{$storage}}</span>
-                <span class="badge badge-outline">{{$gpu}}</span>
+                <span class="badge badge-outline">{{$vga}}</span>
             </div>
 
             <p>Quantity: {{$quantity}}</p>
             <div class="mt-2">
-                <span class="text-gray-400 line-through">{{$price1}}đ</span>
-                <span class="ml-2 bg-red-500 text-white px-2 py-1 text-xs rounded">{{$discount}}%</span>
+                @if($discount > 0 && $price2 > 0)
+                    <span class="text-gray-400 line-through">{{$price1}}</span>
+                    <span class="ml-2 bg-red-500 text-white px-2 py-1 text-xs rounded">(-{{ $discount }}%)</span>
+                @endif
             </div>
-            <div class="text-xl font-bold text-orange-500 mt-1">{{$price2}}đ</div>
+            <div class="text-xl font-bold text-orange-500 mt-1">
+                {{ $discount > 0 ? $price2 : $price1 }}
+            </div>
             <div class="d-flex gap-6">
                 @if($quantity > 0)
                     <button class="btn btn-outline btn-success">Buy Now</button>
