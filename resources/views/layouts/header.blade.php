@@ -27,8 +27,8 @@
     </div>
     <div role="tablist" class="navbar-center hidden lg:flex">
         <a role="tab" class="tab" href="{{url('/laptop')}}">Laptop</a>
-        <a role="tab" class="tab">Linh kiện</a>
-        <a role="tab" class="tab">Phụ kiện</a>
+        <a role="tab" class="tab" href="{{url('/component')}}">Linh kiện</a>
+        <a role="tab" class="tab" href="{{url('/accessories')}}">Phụ kiện</a>
     </div>
     <div class="navbar-end">
         <div class="flex-none">

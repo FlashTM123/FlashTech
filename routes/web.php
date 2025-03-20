@@ -13,9 +13,11 @@ use App\Http\Controllers\ManageController;
 use App\Models\Accessories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 
 use Illuminate\Http\Request;
+
 
 
 Route::get('/', function (Request $request) {
@@ -28,12 +30,23 @@ Route::get('/', function (Request $request) {
     $brands = DB::table('brands')->get();
     $colors = DB::table('colors')->get();
 
-    return view('home.home', compact('laptops', 'components', 'accessories', 'brands', 'colors'));
+    return view('customer.home', compact('laptops', 'components', 'accessories', 'brands', 'colors'));
 });
 
 Route::get('/laptop', function () {
     $laptops = DB::table('laptops')->get();
-   return view('home.laptop', compact('laptops'));
+   return view('customer.laptop', compact('laptops'));
+});
+Route::get('/component', function () {
+    $components = DB::table('components')->get();
+    return view('customer.component', compact('components'));
+});
+
+Route::get('/accessories', function () {
+    $accessories = Accessories::with('color')->get();
+
+    return view('customer.accessories', compact('accessories'));
+
 });
 
 

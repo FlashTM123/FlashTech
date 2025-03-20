@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();
             $table->string('storage')->nullable();
-            $table->string('vga')->nullable()->after('ram');
+            $table->string('vga')->nullable(); // Removed 'after' clause
             $table->decimal('original_price', 8, 0)->nullable();
             $table->integer('discount')->default(0);
             $table->decimal('promotional_price', 8, 0)->nullable();
             $table->integer('quantity')->default(1);
             $table->string('status')->nullable();
             $table->string('image')->nullable();
-            $table->timestamps();
+            $table->timestamps(); // Added timestamps for created_at and updated_at
         });
     }
 

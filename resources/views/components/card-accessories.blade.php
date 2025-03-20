@@ -17,7 +17,7 @@
     </div>
     <div class="d-flex gap-6">
         @if($quantity > 0)
-            <button class="btn btn-outline btn-success">Buy Now</button>
+            <button class="btn btn-outline btn-success">Add to cart</button>
         @else
             <button class="btn btn-outline btn-error" disabled>Out of stock</button>
         @endif
