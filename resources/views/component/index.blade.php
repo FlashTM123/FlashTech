@@ -43,7 +43,7 @@
                 <tbody>
                 @foreach ($components as $index => $component)
                     <tr class="hover:border-b">
-                        <th class="text-center">{{ ($components->currentPage() - 1) * $components->perPage() + $loop->iteration }}</th>
+                        <th class="text-center">{{ $component->id }}</th>
                         <td class="text-center">{{ $component->name }}</td>
                         <td class="p-3">{{ $component->brand ? $component->brand->name : 'N/A' }}</td>
                         <td class="p-3">{{ $component->type }}</td>

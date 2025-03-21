@@ -21,4 +21,14 @@ class Accessories extends Model
     public function color(){
         return $this->belongsTo(Color::class, 'color_id');
     }
+    // Trong model Accessories.php
+protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($accessories) {
+        Product::where('type', 'accessories')->where('type_id', $accessories->id)->delete();
+    });
+}
+
 }

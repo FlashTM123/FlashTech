@@ -44,7 +44,7 @@
                 <tbody>
                 @foreach ($accessories as $index => $accessory)
                     <tr class="hover:border-b">
-                        <th class="p-4">{{ ($accessories->currentPage() - 1) * $accessories->perPage() + $loop->iteration }}</th>
+                        <th class="p-4">{{ $accessory->id }}</th>
                         <td class="text-center">{{ $accessory->name }}</td>
                         <td class="p-3">{{ $accessory->brand ? $accessory->brand->name : 'N/A' }}</td>
                         <td class="p-4">{{ $accessory->color ? $accessory->color->name : 'N/A'}}</td>

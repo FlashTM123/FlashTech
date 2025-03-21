@@ -26,4 +26,14 @@ class Laptop extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+
+protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($laptop) {
+        Product::where('type', 'laptop')->where('type_id', $laptop->id)->delete();
+    });
+}
+
 }

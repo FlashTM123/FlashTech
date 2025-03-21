@@ -13,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -29,16 +30,42 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $request->validate([
+            'type' => 'required|in:laptop,component,accessories',
+            'type_id' => 'required|integer|exists:' . $this->getTableName($request->type) . ',id',
+        ]);
+
+        Product::create([
+            'type' => $request->type,
+            'type_id' => $request->type_id,
+        ]);
+
+        return redirect()->route('product.index')->with('success', 'Product created successfully.');
+    }
+
+    /**
+     * Get the table name for the given type.
+     */
+    private function getTableName($type)
+    {
+        $tableNames = [
+            'laptop' => 'laptops',
+            'component' => 'components',
+            'accessories' => 'accessories',
+        ];
+
+        return $tableNames[$type] ?? $type;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('product.show', compact('product'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

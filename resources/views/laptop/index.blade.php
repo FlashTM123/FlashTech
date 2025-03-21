@@ -46,9 +46,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($laptops as $index => $laptop)
+                                @foreach ($laptops as  $laptop)
                                     <tr class="hover:bg-base-200/50">
-                                        <th class="text-center">{{ ($laptops->currentPage() - 1) * $laptops->perPage() + $loop->iteration }}</th>
+                                        <th class="text-center">{{ $laptop->id}}</th>
                                         <td class="text-center">{{ $laptop->name }}</td>
                                         <td class="text-center">{{ $laptop->brand ? $laptop->brand->name : 'N/A' }}</td>
                                         <td class="text-center">{{ $laptop->color ? $laptop->color->name : 'N/A' }}</td>

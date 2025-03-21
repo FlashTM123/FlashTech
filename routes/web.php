@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\ManageController;
+use App\Http\Controllers\ProductController;
 use App\Models\Accessories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -123,7 +124,14 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
 
 
 
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/detail/{id}', [ProductController::class, 'show'])->name('product.show');
+    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
 
+    // Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
 
 
 

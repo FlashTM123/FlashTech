@@ -157,7 +157,8 @@
         <li>
             <details>
                 <summary><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Products</summary>
-                <ul class="ml-4">
+                <ul class="ml-4">   
+                    <li><a href="{{ route('product.index')}}"><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Product List</a></li>
                     <li><a href="{{ route('laptop.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">💻</i> Laptops</a></li>
                     <li><a href="{{ route('component.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🔧</i> Components</a></li>
                     <li><a href="{{ route('accessories.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎧</i> Accessories</a></li>

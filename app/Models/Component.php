@@ -21,4 +21,14 @@ class Component extends Model
     public function brand(){
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    // Trong model Component.php
+protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($component) {
+        Product::where('type', 'component')->where('type_id', $component->id)->delete();
+    });
+}
+
 }
