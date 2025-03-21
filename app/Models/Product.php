@@ -12,7 +12,7 @@ class Product extends Model
 
     protected $table = "products";
     protected $primaryKey = "id";
-    protected $fillable = ['type', 'type_id'];
+    protected $fillable = ['name','type', 'type_id', 'price'];
 
     public $timestamps = false;
 

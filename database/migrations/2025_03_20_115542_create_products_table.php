@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedInteger('id')->autoIncrement();
+            $table->string('name');
             $table->enum('type', ['laptop', 'component', 'accessories']);
             $table->integer('type_id');
             $table->decimal('price', 8, 0);
