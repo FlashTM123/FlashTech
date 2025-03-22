@@ -120,18 +120,16 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::get('/create',[EmployeesController::class, 'create'])->name('employees.create');
         Route::post('/store', [EmployeesController::class, 'store'])->name('employees.store');
     });
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        Route::get('/detail/{id}', [ProductController::class, 'show'])->name('product.show');
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+    });
 });
 
 
 
-Route::prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-    Route::get('/detail/{id}', [ProductController::class, 'show'])->name('product.show');
-    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
-
-    // Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-});
 
 
 
