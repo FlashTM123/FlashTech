@@ -31,6 +31,7 @@
                     <th class="text-center">Name</th>
                     <th>Brand</th>
                     <th>Color</th>
+                    <th class="text-center">Product</th>
                     <th>Type</th>
                     <th class="text-center">Original price</th>
                     <th class="text-center">Discount</th>
@@ -48,6 +49,7 @@
                         <td class="text-center">{{ $accessory->name }}</td>
                         <td class="p-3">{{ $accessory->brand ? $accessory->brand->name : 'N/A' }}</td>
                         <td class="p-4">{{ $accessory->color ? $accessory->color->name : 'N/A'}}</td>
+                        <td class="text-center"{{ $accessory->product_id }}></td>
                         <td class="p-3">{{ $accessory->type }}</td>
                         <td class="text-center">{{ number_format($accessory->original_price) }}Đ</td>
                         <td class="text-center">-{{ $accessory->discount }}%</td>

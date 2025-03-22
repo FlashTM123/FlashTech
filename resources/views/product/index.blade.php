@@ -29,7 +29,7 @@
                                 <tbody>
                                     @foreach($products as $index => $product)
                                         <tr> <!-- Thêm thẻ <tr> -->
-                                            <td class="text-center">{{ $index + 1 }}</td>
+                                            <td class="text-center">{{ $product->id }}</td>
                                             <td class="text-center">{{ $product->getProductName() }}</td>
                                             <td class="text-center">{{ $product->type }}</td>
                                             <td class="p-3 text-center">

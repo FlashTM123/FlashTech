@@ -54,7 +54,6 @@
 <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
             @include('layouts.header')
 
-            @include('layouts.carousel')
 
             <!-- Script Carousel -->
 

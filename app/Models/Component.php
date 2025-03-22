@@ -14,21 +14,26 @@ class Component extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'original_price', 'discount', 'promotional_price', 'quantity','status', 'image' ];
+    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id'];
 
     public $timestamps = false;
 
-    public function brand(){
+    public function brand()
+    {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
-    // Trong model Component.php
-protected static function boot()
-{
-    parent::boot();
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 
-    static::deleting(function ($component) {
-        Product::where('type', 'component')->where('type_id', $component->id)->delete();
-    });
-}
+    // Trong model Component.php
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($component) {
+            Product::where('type', 'component')->where('type_id', $component->id)->delete();
+        });
+    }
 
 }

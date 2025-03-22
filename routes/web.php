@@ -50,6 +50,14 @@ Route::get('/accessories', function () {
 
 });
 
+route::get('/detail', function () {
+    // $laptop = DB::table('laptops')->where('id', $id)->first();
+    // $components = DB::table('components')->where('laptop_id', $id)->get();
+    // $accessories = Accessories::with('color')->where('laptop_id', $id)->get();
+    // return view('customer.detail', compact('laptop', 'components', 'accessories'));
+    return view('customer.product_detail');
+});
+
 
 //Admin
 

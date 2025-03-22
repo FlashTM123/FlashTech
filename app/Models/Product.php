@@ -54,4 +54,16 @@ class Product extends Model
         return $productDetails ? $productDetails->image : null;
 
     }
+    public function laptop() {
+        return $this->hasOne(Laptop::class, 'product_id', 'id');
+    }
+
+    public function component() {
+        return $this->hasOne(Component::class, 'product_id', 'id');
+    }
+
+    public function accessories() {
+        return $this->hasOne(Accessories::class, 'product_id', 'id');
+    }
+
 }

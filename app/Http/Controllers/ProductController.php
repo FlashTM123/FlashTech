@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accessories;
+use App\Models\Component;
+use App\Models\Laptop;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -39,13 +42,24 @@ class ProductController extends Controller
             'type_id' => 'required|integer|exists:' . $this->getTableName($request->type) . ',id',
         ]);
 
-        Product::create([
+        // Tạo bản ghi trong bảng products
+        $product = Product::create([
             'type' => $request->type,
             'type_id' => $request->type_id,
         ]);
 
+        // Cập nhật product_id trong bảng tương ứng
+        if ($request->type === 'laptop') {
+            Laptop::where('id', $request->type_id)->update(['product_id' => $product->id]);
+        } elseif ($request->type === 'component') {
+            Component::where('id', $request->type_id)->update(['product_id' => $product->id]);
+        } elseif ($request->type === 'accessories') {
+            Accessories::where('id', $request->type_id)->update(['product_id' => $product->id]);
+        }
+
         return redirect()->route('product.index')->with('success', 'Product created successfully.');
     }
+
 
     /**
      * Get the table name for the given type.
@@ -64,11 +78,22 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('product.show', compact('product'));
+    public function show($id) {
+        $product = Product::with(['laptop', 'component', 'accessories'])->findOrFail($id);
+
+        if ($product->type === 'laptop') {
+            $detail = $product->laptop;
+        } elseif ($product->type === 'component') {
+            $detail = $product->component;
+        } elseif ($product->type === 'accessories') {
+            $detail = $product->accessories;
+        } else {
+            $detail = null;
+        }
+
+        return view('product.show', compact('product', 'detail'));
     }
+
 
 
     /**

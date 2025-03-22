@@ -29,6 +29,7 @@
                     <th class="text-center">#</th>
                     <th class="text-center">Name</th>
                     <th>Brand</th>
+                    <th class="text-center">Product</th>
                     <th>Type</th>
                     <th>Capacity</th>
                     <th class="text-center">Original price</th>
@@ -46,6 +47,7 @@
                         <th class="text-center">{{ $component->id }}</th>
                         <td class="text-center">{{ $component->name }}</td>
                         <td class="p-3">{{ $component->brand ? $component->brand->name : 'N/A' }}</td>
+                        <td class="text-center">{{ $component->product_id }}</td>
                         <td class="p-3">{{ $component->type }}</td>
                         <td class="p-6">{{ $component->capacity }}</td>
                         <td class="text-center">{{ number_format($component->original_price) }}Đ</td>

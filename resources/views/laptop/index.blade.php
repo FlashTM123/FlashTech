@@ -32,6 +32,7 @@
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Brand</th>
                                     <th class="text-center">Color</th>
+                                    <th class="text-center">Product</th>
                                     <th class="text-center">CPU</th>
                                     <th class="text-center">RAM</th>
                                     <th class="text-center">VGA</th>
@@ -52,6 +53,7 @@
                                         <td class="text-center">{{ $laptop->name }}</td>
                                         <td class="text-center">{{ $laptop->brand ? $laptop->brand->name : 'N/A' }}</td>
                                         <td class="text-center">{{ $laptop->color ? $laptop->color->name : 'N/A' }}</td>
+                                        <td class="text-center">{{ $laptop->product_id }}</td>
                                         <td class="text-center">{{ $laptop->cpu }}</td>
                                         <td class="text-center">{{ $laptop->ram }}</td>
                                         <td class="text-center">{{ $laptop->vga }}</td>
