@@ -21,6 +21,7 @@ class ProductController extends Controller
 
 
         $products = $query->paginate(5);
+
         return view('product.index', compact('products'));
     }
 
@@ -38,6 +39,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $request->validate([
+
             'type' => 'required|in:laptop,component,accessories',
             'type_id' => 'required|integer|exists:' . $this->getTableName($request->type) . ',id',
         ]);
@@ -101,7 +103,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('product.edit', compact('product'));
     }
 
     /**
@@ -109,7 +111,11 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update([
+            'type_id' => $request->type_id,
+            'description' => $request->description,
+        ]);
+        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
 
     /**

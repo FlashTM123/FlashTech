@@ -13,6 +13,6 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $primaryKey = 'id';
-    protected $fillable = [ 'name', 'date_of_birth', 'gender', 'address', 'phone', 'email'];
+    protected $fillable = [ 'name', 'date_of_birth', 'gender', 'address', 'phone', 'email','password'];
     public $timestamps = false;
 }

@@ -46,7 +46,9 @@
                                             </td>
                                             <td class="text-center">
                                                 <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-outline btn-primary">Detail</a>
-
+                                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-outline btn-secondary">
+                                                    Edit
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

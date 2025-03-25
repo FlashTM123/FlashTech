@@ -13,7 +13,7 @@ class Laptop extends Model
     protected $table = 'laptops';
 
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'brand_id', 'color_id', 'cpu', 'ram', 'vga', 'storage', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id'];
+    protected $fillable = ['name', 'brand_id', 'color_id', 'cpu', 'ram', 'vga', 'storage', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image'];
 
     public $timestamps = false;
 
@@ -27,7 +27,7 @@ class Laptop extends Model
         return $this->belongsTo(Color::class, 'color_id');
     }
     public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id','id');
     }
 
 

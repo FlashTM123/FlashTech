@@ -74,6 +74,11 @@
                 </button>
             </form>
         </div>
+        <div class="text-center mt-6 text-gray-500 text-sm">
+            <aside>
+                <p>Copyright © {{ date('Y') }} - All right reserved by FlashTM's teams</p>
+            </aside>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

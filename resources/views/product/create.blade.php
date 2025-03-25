@@ -25,9 +25,10 @@
                 </div>
 
                 <div>
-                    <label class="">Id</label>
-                    <input type="number" name="type_id" class="input input-bordered w-full" required>
+                    <label class="">TypeId</label>
+                    <input type="number" name="type_id" class="input input-bordered w-full" >
                 </div>
+
                 <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-outline btn-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

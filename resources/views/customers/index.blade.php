@@ -20,6 +20,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Password</th>
                                     <th class="text-center">Date</th>
                                     <th class="text-center">Gender</th>
                                     <th class="text-center">Phone</th>
@@ -32,6 +33,7 @@
                                         <td class="text-center">{{ $index + 1 }}</td>
                                         <td class="text-center">{{ $customer->name }}</td>
                                         <td class="text-center">{{ $customer->email }}</td>
+                                        <td class="text-center">{{ $customer->password}}</td>
                                         <td class="text-center">{{ \Carbon\Carbon::parse( $customer->date_of_birth)->format('d/m/Y')}}</td>
                                         <td class="text-center">{{ $customer->gender }}</td>
                                         <td class="text-center">{{ $customer->phone }}</td>

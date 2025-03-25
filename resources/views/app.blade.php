@@ -157,7 +157,7 @@
         <li>
             <details>
                 <summary><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Products</summary>
-                <ul class="ml-4">   
+                <ul class="ml-4">
                     <li><a href="{{ route('product.index')}}"><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Product List</a></li>
                     <li><a href="{{ route('laptop.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">💻</i> Laptops</a></li>
                     <li><a href="{{ route('component.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🔧</i> Components</a></li>
@@ -179,7 +179,13 @@
     <div class="p-6">
         @yield("content")
     </div>
+    <div class="text-center mt-6 text-gray-500 text-sm">
+        <aside>
+            <p>Copyright © {{ date('Y') }} - All right reserved by FlashTM's teams</p>
+        </aside>
+    </div>
 </div>
+
 
 <!-- Nút chuyển đổi theme -->
 <button id="theme-toggle" class="theme-toggle">

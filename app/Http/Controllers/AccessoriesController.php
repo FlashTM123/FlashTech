@@ -19,8 +19,8 @@ class AccessoriesController extends Controller
     {
         $query = Accessories::query();
 
-        if ($request->has('brand') && !empty($request->brand)) {
-            $query->whereHas('brand', function ($q) use ($request) {
+        if ($request->has('brands') && !empty($request->brand)) {
+            $query->whereHas('brands', function ($q) use ($request) {
                 $q->where('id', $request->brand);
             });
         }

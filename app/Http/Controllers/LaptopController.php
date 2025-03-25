@@ -66,6 +66,7 @@ class LaptopController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
+          
         ]);
 
 //        dd($request->all());

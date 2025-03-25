@@ -23,7 +23,7 @@ class Component extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
     public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id','id');
     }
 
     // Trong model Component.php

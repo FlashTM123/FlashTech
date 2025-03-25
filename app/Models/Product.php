@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $table = "products";
     protected $primaryKey = "id";
-    protected $fillable = ['type', 'type_id'];
+    protected $fillable = ['type', 'type_id','description'];
 
     public $timestamps = false;
 
@@ -24,6 +24,7 @@ class Product extends Model
             default => null,
         };
     }
+
 
     public function getProductName()
     {
@@ -54,8 +55,17 @@ class Product extends Model
         return $productDetails ? $productDetails->image : null;
 
     }
+    public function getProductDiscount()
+    {
+        $productDetails = $this->getProductType();
+        return $productDetails ? $productDetails->discount : null;
+    }
+    public function getProductQuantity(){
+        $productDetails = $this->getProductType();
+        return $productDetails ? $productDetails->quantity : null;
+    }
     public function laptop() {
-        return $this->hasOne(Laptop::class, 'product_id', 'id');
+        return $this->hasone(Laptop::class, 'product_id', 'id');
     }
 
     public function component() {

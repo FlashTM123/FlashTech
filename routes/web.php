@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\LaptopController;
@@ -15,51 +16,50 @@ use App\Models\Accessories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use App\Http\Controllers\CustomerProductController;
+use App\Models\Product;
 
 
 use Illuminate\Http\Request;
 
 
 
-Route::get('/', function (Request $request) {
-    $query = $request->input('query');
+// // Route::get('/', function (Request $request) {
+//     $query = $request->input('query');
 
-    // Tìm kiếm theo tất cả danh sách
-    $laptops = DB::table('laptops')->where('name', 'LIKE', "%$query%")->get();
-    $components = DB::table('components')->where('name', 'LIKE', "%$query%")->get();
-    $accessories = Accessories::with('color')->where('name', 'LIKE', "%$query%")->get();
-    $brands = DB::table('brands')->get();
-    $colors = DB::table('colors')->get();
+//     // Tìm kiếm theo tất cả danh sách
+//     $product = DB::table('products')->where('id', 'LIKE', "%$query%")->first();
+//     $laptops = DB::table('laptops')->where('name', 'LIKE', "%$query%")->get();
+//     $components = DB::table('components')->where('name', 'LIKE', "%$query%")->get();
+//     $accessories = Accessories::with('color')->where('name', 'LIKE', "%$query%")->get();
+//     $brands = DB::table('brands')->get();
+//     $colors = DB::table('colors')->get();
 
-    return view('customer.home', compact('laptops', 'components', 'accessories', 'brands', 'colors'));
-});
+//     return view('customer.home', compact('laptops', 'components', 'accessories', 'brands', 'colors','product'));
+// });
 
 Route::get('/laptop', function () {
-    $laptops = DB::table('laptops')->get();
-   return view('customer.laptop', compact('laptops'));
+    $products = Product::where('type', 'laptop')->get();
+    return view('customer.laptop', compact('products'));
 });
 Route::get('/component', function () {
-    $components = DB::table('components')->get();
-    return view('customer.component', compact('components'));
+    $products = Product::where('type', 'component')->get();
+    return view('customer.component', compact('products'));
 });
 
 Route::get('/accessories', function () {
-    $accessories = Accessories::with('color')->get();
-
-    return view('customer.accessories', compact('accessories'));
+    $products = Product::where('type', 'accessories')->get();
+    return view('customer.accessories', compact('products'));
 
 });
-
-route::get('/detail', function () {
-    // $laptop = DB::table('laptops')->where('id', $id)->first();
-    // $components = DB::table('components')->where('laptop_id', $id)->get();
-    // $accessories = Accessories::with('color')->where('laptop_id', $id)->get();
-    // return view('customer.detail', compact('laptop', 'components', 'accessories'));
-    return view('customer.product_detail');
-});
+Route::get('/', [CustomerProductController::class, 'index'])->name('customer.home');
+Route::get('/detail/{id}', [CustomerProductController::class, 'show'])->name('customer.show');
 
 
-//Admin
+
+Route::get('/customerlogin', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
+Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('customer.register');
+
 
 
 Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
@@ -93,7 +93,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::get('/create', [LaptopController::class, 'create'])->name('laptop.create');
         Route::post('/store', [LaptopController::class, 'store'])->name('laptop.store');
         Route::get('/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptop.edit');
-        Route::put('/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
+        Route::put('/{laptop}/edit', [LaptopController::class, 'update'])->name('laptop.update');
         Route::delete('/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
     });
     Route::prefix('manage')->group(function(){
@@ -127,25 +127,16 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::get('/',[EmployeesController::class, 'index'])->name('employees.index');
         Route::get('/create',[EmployeesController::class, 'create'])->name('employees.create');
         Route::post('/store', [EmployeesController::class, 'store'])->name('employees.store');
+        Route::get('/{employees}/edit', [EmployeesController::class, 'edit'])->name('employees.edit');
+        Route::put('/{employees}/edit', [EmployeesController::class, 'update'])->name('employees.update');
+        Route::delete('/{employees}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
     });
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::get('/detail/{id}', [ProductController::class, 'show'])->name('product.show');
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+        Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

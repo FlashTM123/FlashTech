@@ -64,7 +64,7 @@ class EmployeesController extends Controller
      */
     public function edit(Employees $employees)
     {
-        //
+        return view('employees.edit', compact('employees'));
     }
 
     /**
@@ -72,7 +72,15 @@ class EmployeesController extends Controller
      */
     public function update(UpdateEmployeesRequest $request, Employees $employees)
     {
-        //
+        $employees->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'password' => $request->password,
+            'phone' => $request->phone,
+            'role' => $request->role,
+        ]);
+        return redirect()->route('employees.index')->with('update_success', 'Employee has been updated successfully!');
     }
 
     /**
@@ -80,6 +88,7 @@ class EmployeesController extends Controller
      */
     public function destroy(Employees $employees)
     {
-        //
+        $employees->delete();
+        return redirect()->route('employees.index')->with('delete_success', 'Employee has been deleted successfully!');
     }
 }

@@ -21,17 +21,18 @@
                     <h3 class="font-semibold text-lg mt-2">
                         Specifications</h3>
                     @if ($product->type === 'laptop')
-                        <p>CPU: {{ $detail->cpu }}</p>
-                        <p>RAM: {{ $detail->ram }} GB</p>
-                        <p>VGA: {{ $detail->vga }}</p>
-                        <p>Storage: {{ $detail->storage }}</p>
+                        <p><strong>CPU: </strong> {{ $detail->cpu }}</p>
+                        <p><strong>RAM: </strong> {{ $detail->ram }} GB</p>
+                        <p><strong>GPU: </strong> {{ $detail->vga }}</p>
+                        <p><strong>Storage: </strong> {{ $detail->storage }}</p>
                     @elseif ($product->type === 'component')
-                        <p>Type: {{ $detail->type }}</p>
-                        <p>Capacity: {{ $detail->capacity }}</p>
+                        <p><strong>Type: </strong> {{ $detail->type }}</p>
+                        <p><strong>Capacity: </strong> {{ $detail->capacity }}</p>
                     @elseif ($product->type === 'accessories')
-                        <p>Type: {{ $detail->type }}</p>
+                        <p><strong>Type: </strong> {{ $detail->type }}</p>
                     @endif
                 @endif
+                <p><strong>Description:</strong> {{$product->description}}</p>
                 <p><strong>Price:</strong> {{ number_format($product->getProductPrice()) }}đ</p>
             </div>
         </div>
