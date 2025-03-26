@@ -20,10 +20,13 @@
                 <i class="fas fa-user-lock text-6xl text-white"></i>
             </figure>
             <div class="card-body">
-                <h2 class="card-title text-2xl font-bold text-center mb-1">Đăng nhập tài khoản</h2>
+                <h2 class="text-2xl font-bold text-center mb-1">Đăng nhập tài khoản</h2>
                 <p class="text-center text-gray-500 mb-6">Vui lòng nhập thông tin đăng nhập</p>
-
-                <form>
+                @if (session('error'))
+                    <p>{{ session('error')}}</p>
+                @endif
+                <form action="{{ route('customer.loginprocess') }}" method="POST">
+                    @csrf
                     <div class="form-control mb-4">
                         <label class="label">
                             <span class="label-text font-medium">Email</span>
@@ -33,7 +36,7 @@
                                 <i class="fas fa-envelope text-gray-400"></i>
                             </span>
                             <input type="email" placeholder="email@example.com"
-                                   class="input input-bordered w-full pl-10" required />
+                                   class="input input-bordered w-full pl-10" id="email" name="email" required />
                         </div>
                     </div>
 
@@ -46,7 +49,7 @@
                                 <i class="fas fa-lock text-gray-400"></i>
                             </span>
                             <input type="password" placeholder="••••••••"
-                                   class="input input-bordered w-full pl-10" required />
+                                   class="input input-bordered w-full pl-10" id="password" name="password" required />
                         </div>
                         <label class="label">
                             <a href="forgot-password.html" class="label-text-alt link link-hover text-blue-600">Quên mật khẩu?</a>
@@ -78,7 +81,7 @@
 
                     <p class="text-center">
                         Chưa có tài khoản?
-                        <a href="register.html" class="link link-primary font-medium">Đăng ký ngay</a>
+                        <a href="{{ route('customer.register')}}" class="link link-primary font-medium">Đăng ký ngay</a>
                     </p>
                 </form>
             </div>

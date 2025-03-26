@@ -20,16 +20,24 @@
                 <i class="fas fa-user-plus text-6xl text-white"></i>
             </figure>
             <div class="card-body">
-                <h2 class="card-title text-2xl font-bold text-center mb-1">Create Account</h2>
-                <p class="text-center text-gray-500 mb-6">Điền thông tin để đăng ký</p>
-
-                <form class="space-y-4">
+                <h2 class="text-2xl font-bold text-center mb-1">Create Account</h2>
+                @if (session('success'))
+                    <p>{{session('success')}}</p>
+                @endif
+                <form class="space-y-4" action="{{ route('customer.registerprocess') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <!-- Họ và tên -->
                     <div class="form-control">
                       <label class="label">
                         <span class="label-text">Họ và tên*</span>
                       </label>
-                      <input type="text" placeholder="Nguyễn Văn A" class="input input-bordered w-full" required>
+                      <input type="text" placeholder="Nguyễn Văn A" class="input input-bordered w-full" name="name" id="name" required>
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Image</span>
+                        </label>
+                        <input type="file" class="" name="image" id="image" required>
                     </div>
 
                     <!-- Email -->
@@ -37,9 +45,9 @@
                       <label class="label">
                         <span class="label-text">Email*</span>
                       </label>
-                      <input type="email" placeholder="email@example.com" class="input input-bordered w-full" required>
+                      <input type="email" placeholder="email@example.com" class="input input-bordered w-full" id="email" name="email" required>
                       <label class="label">
-                        <span class="label-text-alt">Vui lòng nhập email hợp lệ</span>
+
                       </label>
                     </div>
 
@@ -48,7 +56,7 @@
                       <label class="label">
                         <span class="label-text">Mật khẩu*</span>
                       </label>
-                      <input type="password" placeholder="Ít nhất 8 ký tự" class="input input-bordered w-full" minlength="8" required>
+                      <input type="password" placeholder="Ít nhất 8 ký tự" class="input input-bordered w-full" minlength="6" id="password" name="password" required>
                       <label class="label">
                         <span class="label-text-alt">Mật khẩu phải chứa chữ hoa, chữ thường và số</span>
                       </label>
@@ -59,7 +67,7 @@
                       <label class="label">
                         <span class="label-text">Ngày sinh*</span>
                       </label>
-                      <input type="date" class="input input-bordered w-full" required>
+                      <input type="date" class="input input-bordered w-full" id="date_of_birth" name="date_of_birth" required>
                     </div>
 
                     <!-- Giới tính -->
@@ -67,7 +75,7 @@
                       <label class="label">
                         <span class="label-text">Giới tính*</span>
                       </label>
-                      <select class="select select-bordered w-full" required>
+                      <select class="select select-bordered w-full" name="gender" id="gender" required>
                         <option disabled selected>Chọn giới tính</option>
                         <option value="male">Nam</option>
                         <option value="female">Nữ</option>
@@ -80,7 +88,7 @@
                       <label class="label">
                         <span class="label-text">Số điện thoại*</span>
                       </label>
-                      <input type="tel" placeholder="0123456789" pattern="[0-9]{10}" class="input input-bordered w-full" required>
+                      <input type="tel" placeholder="0123456789" pattern="[0-9]{10}" class="input input-bordered w-full" name="phone" id="phone" required>
                     </div>
 
                     <!-- Địa chỉ -->
@@ -88,7 +96,7 @@
                       <label class="label">
                         <span class="label-text">Địa chỉ</span>
                       </label>
-                      <input type="text" placeholder="Số nhà, đường, quận, thành phố" class="input input-bordered w-full">
+                      <input type="text" placeholder="Số nhà, đường, quận, thành phố" class="input input-bordered w-full" id="address" name="address">
                     </div>
 
                     <!-- Điều khoản -->
@@ -103,6 +111,8 @@
                     <div class="form-control mt-6">
                       <button type="submit" class="btn btn-primary">Đăng ký tài khoản</button>
                     </div>
+                    <a href="{{ route('customer.login') }}" class="text-center mb-1">Đã có tài khoản? Đăng nhập</a>
+
                   </form>
             </div>
         </div>

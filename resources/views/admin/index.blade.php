@@ -14,7 +14,66 @@
                 </div>
                 <div class="my-3">
                     <div>
-                        <div class="overflow-x-auto rounded-lg border border-base-content/5 bg-base-100 shadow-lg">
+                        <div class="overflow-x-auto rounded-lg border border-base-content/5 bg-base-100 shadow-lg">                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                document.querySelectorAll('.increase-quantity').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        const id = this.getAttribute('data-id');
+                                        const quantityElement = this.previousElementSibling;
+                                        const quantity = parseInt(quantityElement.innerText) + 1;
+                                        quantityElement.innerText = quantity;
+                                        updateTotal(id, quantity);
+                                        updateQuantity(id, quantity);
+                                    });
+                                });
+
+                                document.querySelectorAll('.decrease-quantity').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        const id = this.getAttribute('data-id');
+                                        const quantityElement = this.nextElementSibling;
+                                        const quantity = parseInt(quantityElement.innerText) - 1;
+                                        if (quantity > 0) {
+                                            quantityElement.innerText = quantity;
+                                            updateTotal(id, quantity);
+                                            updateQuantity(id, quantity);
+                                        }
+                                    });
+                                });
+
+                                function updateTotal(id, quantity) {
+                                    const row = document.querySelector(`tr[data-id="${id}"]`);
+                                    const price = parseInt(row.querySelector('.text-lg').innerText.replace(/[^0-9]/g, ''));
+                                    const totalPriceElement = row.querySelector('.total-price');
+                                    const totalPrice = price * quantity;
+                                    totalPriceElement.innerText = new Intl.NumberFormat().format(totalPrice) + '₫';
+
+                                    let subtotal = 0;
+                                    document.querySelectorAll('.total-price').forEach(element => {
+                                        subtotal += parseInt(element.innerText.replace(/[^0-9]/g, ''));
+                                    });
+
+                                    document.getElementById('subtotal').innerText = new Intl.NumberFormat().format(subtotal) + '₫';
+                                    document.getElementById('total').innerText = new Intl.NumberFormat().format(subtotal) + '₫';
+                                }
+
+                                function updateQuantity(id, quantity) {
+                                    fetch('{{ route('customer.updateQuantity') }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        },
+                                        body: JSON.stringify({ id: id, quantity: quantity })
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            console.log('Quantity updated successfully');
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
                             <table class="table w-full">
                                 <thead class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
                                 <tr>
@@ -24,6 +83,8 @@
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Password</th>
                                     <th class="text-center">Phone</th>
+                                    <th class="text-center">Created</th>
+                                    <th class="text-center">Updated</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -43,6 +104,8 @@
 
                                         <td class="text-center">{{ $admin->password }}</td>
                                         <td class="text-center">{{ $admin->phone }}</td>
+                                        <td class="text-center">{{ \Carbon\Carbon::parse($admin->created_at)->format('d/m/Y')}}</td>\
+                                        <td class="text-center">{{\Carbon\Carbon::parse($admin->updated_at)->format('d/m/Y')}}</td>
                                         <td class="px-6 py-4 text-sm text-center">
                                             <div class="flex justify-center space-x-2">
                                                 <!-- Edit Button -->

@@ -29,11 +29,18 @@
     </div>
     <div class="d-flex gap-6">
         @if ($product->getProductQuantity() > 0)
-            <button class="btn btn-outline btn-success">Add to cart</button>
+            <form action="{{ route('customer.addToCart') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="product_name" value="{{ $product->getProductName() }}">
+                <input type="hidden" name="product_price" value="{{ $product->getProductPrice() }}">
+                <input type="hidden" name="product_image" value="{{ $product->getProductImage() }}">
+                <button type="submit" class="btn btn-outline btn-success">Add to cart</button>
+            </form>
         @else
             <button class="btn btn-outline btn-error" disabled>Out of stock</button>
         @endif
 
-        <a href="{{ route('customer.show', ['id' => $product->id]) }}" class="btn btn-outline btn-secondary">Detail </a>
+        <a href="{{ route('customer.show', ['id' => $product->id]) }}" class="btn btn-outline btn-secondary">Detail</a>
     </div>
 </div>
