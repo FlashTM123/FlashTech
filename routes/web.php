@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\CustomerProductController;
 use App\Models\Product;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\OrderController;
 
 use Illuminate\Http\Request;
 
@@ -61,17 +61,29 @@ Route::get('/detail/{id}', [CustomerProductController::class, 'show'])->name('cu
 Route::get('/customerlogin', [CustomerAuthController::class, 'showLoginForm'])->name('customer.login');
 Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('customer.register');
 Route::post('/register', [CustomerAuthController::class, 'register'])->name('customer.registerprocess');
-Route::post('/customerlogin', [CustomerAuthController::class, 'login'])->name('customer.loginprocess');
+Route::post('/customerlogin', [CustomerAuthController::class, 'loginProcess'])->name('customer.loginprocess');
 Route::get('/profile', [CustomerAuthController::class, 'showProfile'])->name('customer.profile');
 Route::post('/customerlogout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 
+Route::middleware(['customerLoginMiddleware'])->group(function () {
 
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.cart');
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('customer.addToCart');
     Route::post('/cart/update', [CartController::class, 'updateCart'])->name('customer.cartUpdate');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('customer.cartRemove');
+    Route::get('/remove-all', [CartController::class, 'removeAll'])->name('customer.cartRemoveAll');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('customer.updateQuantity');
+    Route::post('/checkout', [CartController::class, 'processCheckout'])->name('customer.processCheckout');
+});
+
+
+    // Route::get('/cart', [CartController::class, 'cart'])->name('customer.cart');
+    // Route::post('/cart/add', [CartController::class, 'addToCart'])->name('customer.addToCart');
+    // Route::post('/cart/update', [CartController::class, 'updateCart'])->name('customer.cartUpdate');
+    // Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('customer.cartRemove');
+    // Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    // Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('customer.updateQuantity');
 
 Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/login', [AdminController::class, 'LoginProcess'])->name('admin.LoginProcess');
@@ -149,5 +161,11 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
+    });
+    Route::prefix('orders')->group(function(){
+
+            Route::get('/', [OrderController::class, 'index'])->name('order.index');
+            Route::put('/{id}/update-payment-method', [OrderController::class, 'updatePaymentMethod'])->name('orders.updatePaymentMethod');
+
     });
 });

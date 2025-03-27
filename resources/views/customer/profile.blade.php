@@ -14,7 +14,7 @@
             <h2 class="card-title text-2xl text-gray-100">{{$customer->name}}</h2>
             <div class="divider my-2"></div>
             <div class="space-y-2 text-left w-full">
-                <p><i class="fas fa-envelope mr-2 text-blue-400"></i> {{$customer->email}}</p>
+                <p><i class="fa-solid fa-envelope"></i> {{$customer->email}}</p>
                 <p><i class="fas fa-phone mr-2 text-green-400"></i> {{$customer->phone}}</p>
                 <p><i class="fas fa-map-marker-alt mr-2 text-red-400"></i> {{$customer->address}}</p>
             </div>
@@ -59,7 +59,9 @@
         </div>
     </div>
 </div>
+
 </div>
+
 
 
 @endsection

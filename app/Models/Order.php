@@ -14,4 +14,11 @@ class Order extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = ['customer_id', 'payment_method', 'total', 'status'];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
 }

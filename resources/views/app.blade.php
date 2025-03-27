@@ -168,7 +168,7 @@
         <li><a href="{{ route('brand.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🏷️</i> Brands</a></li>
         <li><a href="{{ route('color.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎨</i> Colors</a></li>
         <li><a href="{{ route('customers.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">👥</i> Customer</a></li>
-        <li><a><i class="w3-large w3-text-red w3-hover-text-red">🛒</i> Order</a></li>
+        <li><a href="{{ route('order.index')}}"><i class="w3-large w3-text-red w3-hover-text-red">🛒</i> Order</a></li>
         <li><a href="{{ route('employees.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">👔</i> Employee</a></li>
         <li><a><i class="w3-large w3-text-red w3-hover-text-red">💵</i> Salary</a></li>
     </ul>

@@ -54,6 +54,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="flex justify-end mt-4">
+                        <a href="{{ route('customer.cartRemoveAll')}}" class="btn btn-ghost text-error hover:bg-error/10">
+                            <i class="fas fa-trash-alt mr-2"></i> Xóa toàn bộ giỏ hàng
+                        </a>
+                    </div>
                 </div>
 
                 <div class="divider"></div>
@@ -91,9 +96,10 @@
                                         Tiến hành thanh toán <i class="fas fa-arrow-right ml-2"></i>
                                     </a>
                                 </div>
-                                <div class="text-center mt-2">
-                                    <a href="{{ route('customer.home') }}" class="link link-primary">
-                                        <i class="fas fa-chevron-left mr-1"></i> Tiếp tục mua sắm
+
+                                <div class="text-center mt-4">
+                                    <a href="{{ route('customer.home') }}" class="link link-primary inline-flex items-center">
+                                        <i class="fas fa-chevron-left mr-2"></i> Tiếp tục mua sắm
                                     </a>
                                 </div>
                             </div>
