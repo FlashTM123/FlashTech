@@ -60,8 +60,51 @@
     </div>
 </div>
 
+
+
 </div>
+<div class="card bg-gray-800 shadow-lg col-span-1 lg:col-span-3">
+    <div class="card-body">
+        <h2 class="card-title text-xl mb-4 text-gray-100">Lịch sử mua hàng</h2>
 
+        <div class="overflow-x-auto">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th class="bg-gray-700 text-gray-100">#</th>
+                        <th class="bg-gray-700 text-gray-100">Ngày đặt</th>
+                        <th class="bg-gray-700 text-gray-100">Tổng tiền</th>
+                        <th class="bg-gray-700 text-gray-100">Phương thức thanh toán</th>
+                        <th class="bg-gray-700 text-gray-100">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($customer->orders as $order)
+                        <tr>
+                            <td class="text-gray-100">{{ $order->id }}</td>
+                            <td class="text-gray-100">{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
+                            <td class="text-gray-100">{{ number_format($order->total_price) }}₫</td>
+                            <td class="text-gray-100">{{ ucfirst($order->payment_method) }}</td>
+                            <td class="text-gray-100">
+                                <span class="badge
+                                    @if($order->status == 'completed') badge-success
+                                    @elseif($order->status == 'processing') badge-info
+                                    @elseif($order->status == 'cancelled') badge-error
+                                    @else badge-warning @endif">
+                                    {{ ucfirst($order->status) }}
+                                </span>
+                            </td>
 
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-gray-100">Không có đơn hàng nào.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -99,7 +99,8 @@ class CartController extends Controller
             'customer_id' => session('customer')->id,
             'address' => $request->input('address'),
             'payment_method' => $request->input('payment_method'),
-            'total' => array_sum(array_map(function ($item) {
+            'address' => $request->input('address'),
+            'total_price' => array_sum(array_map(function ($item) {
                 return $item['price'] * $item['quantity'];
             }, $cart)),
             'status' => 'pending', // Đơn hàng đang chờ xử lý

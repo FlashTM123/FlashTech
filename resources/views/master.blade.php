@@ -28,6 +28,9 @@
         });
     </script>
     <style>
+        .navbar {
+    z-index: 9999;
+}
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -50,6 +53,8 @@
         }
 
     </style>
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
             @include('layouts.header')
@@ -66,5 +71,26 @@
             <button id="theme-toggle" class="theme-toggle">
                 <span id="theme-icon" class="sun-icon"></span>
             </button>
+            <!-- SweetAlert2 JS -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                @if(session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: '{{ session('success') }}',
+                        confirmButtonText: 'OK'
+                    });
+                @endif
+
+                @if(session('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: '{{ session('error') }}',
+                        confirmButtonText: 'OK'
+                    });
+                @endif
+            </script>
 </body>
 </html>

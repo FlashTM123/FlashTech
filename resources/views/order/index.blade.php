@@ -9,33 +9,37 @@
         <table class="table w-full">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Customer</th>
-                    <th>Total Price</th>
-                    <th>Payment Method</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Customer</th>
+                    <th class="text-center">Total Price</th>
+                    <th class="text-center">Payment Method</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($orders as $order)
                     <tr>
-                        <td>{{ $order->id }}</td>
-                        <td>{{ $order->customer->name ?? 'Guest' }}</td>
-                        <td>{{ number_format($order->total_price) }}₫</td>
-                        <td>
-                            <form action="{{ route('orders.updatePaymentMethod', $order->id) }}" method="POST">
+                        <td class="text-center">{{ $order->id }}</td>
+                        <td class="text-center">{{ $order->customer->name ?? 'Guest' }}</td>
+                        <td class="text-center">{{ number_format($order->total_price) }}₫</td>
+                        <td class="text-center">{{ ucfirst($order->payment_method) }}</td> <!-- Hiển thị payment_method -->
+                        <td class="text-center">{{$order->address}}</td>
+                        <td >
+                            <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <select name="payment_method" class="select select-bordered" onchange="this.form.submit()">
-                                    <option value="COD" {{ $order->payment_method == 'COD' ? 'selected' : '' }}>COD</option>
-                                    <option value="Banking" {{ $order->payment_method == 'Banking' ? 'selected' : '' }}>Banking</option>
+                                <select name="status" class="select select-bordered" onchange="this.form.submit()">
+                                    <option value="Pending" {{ $order->status == 'Pending' ? 'selected' : '' }} class="text-yellow-500">Pending</option>
+                                    <option value="Processing" {{ $order->status == 'Processing' ? 'selected' : '' }} class="text-blue-500">Processing</option>
+                                    <option value="Completed" {{ $order->status == 'Completed' ? 'selected' : '' }} class="text-green-500">Completed</option>
+                                    <option value="Cancel" {{ $order->status == 'Cancel' ? 'selected' : '' }} class="text-red-500">Cancel</option>
                                 </select>
                             </form>
                         </td>
-                        <td>{{ ucfirst($order->status) }}</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-primary">View</a>
+                        <td class="text-center">
+                            <a href="{{ route('order.show', $order->id)}}" class="btn btn-sm btn-primary">View</a>
                         </td>
                     </tr>
                 @endforeach

@@ -44,4 +44,5 @@ class CustomerProductController extends Controller
 
         return view('customer.product_detail', compact('product', 'detail'));
     }
+
 }

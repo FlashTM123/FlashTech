@@ -16,6 +16,12 @@ class CustomerController extends Controller
         $customers = Customer::all();
         return view('customers.index' , compact('customers'));
     }
+    public function profile($id)
+    {
+        $customer = Customer::with('orders')->findOrFail($id);
+
+        return view('customer.profile', compact('customer'));
+    }
 
     /**
      * Show the form for creating a new resource.

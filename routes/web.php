@@ -163,9 +163,8 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
     });
     Route::prefix('orders')->group(function(){
-
-            Route::get('/', [OrderController::class, 'index'])->name('order.index');
-            Route::put('/{id}/update-payment-method', [OrderController::class, 'updatePaymentMethod'])->name('orders.updatePaymentMethod');
-
+        Route::get('/', [OrderController::class, 'index'])->name('order.index');
+        Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('order.show');
     });
 });

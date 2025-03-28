@@ -13,12 +13,11 @@ class Orderdetail extends Model
     protected $table = "orderdetails";
     protected $fillable = ['order_id', 'product_id', 'product_type', 'quantity', 'price'];
 
-    public function product(){
-        return match ($this->product_type) {
-            'laptop' => Laptop::find($this->product_id),
-            'component' => Component::find($this->product_id),
-            'accessories' => Accessories::find($this->product_id),
-            default => null,
-        };
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function order(){
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }

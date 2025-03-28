@@ -14,7 +14,6 @@
             <span class="badge badge-outline">{{ $product->component->capacity }}</span>
         @elseif($product->type === 'accessories')
             <span class="badge badge-outline">{{ $product->accessories->type }}</span>
-            <span class="badge badge-outline">{{ $product->accessories->color }}</span>
         @endif
     </div>
 

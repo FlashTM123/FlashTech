@@ -24,5 +24,9 @@ class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatab
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }

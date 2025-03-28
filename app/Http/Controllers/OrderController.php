@@ -22,17 +22,23 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function updatePaymentMethod(Request $request, $id)
+
+    public function updateStatus(Request $request, $id)
     {
         // Tìm đơn hàng theo ID
         $order = Order::findOrFail($id);
 
-        // Cập nhật phương thức thanh toán
+        // Cập nhật trạng thái
         $order->update([
-            'payment_method' => $request->input('payment_method'),
+            'status' => $request->input('status'),
         ]);
 
         // Chuyển hướng lại trang danh sách đơn hàng với thông báo thành công
-        return redirect()->route('orders.index')->with('success', 'Payment method updated successfully.');
+        return redirect()->route('order.index')->with('success', 'Order status updated successfully.');
+    }
+    public function show($id){
+        $order = Order::with('items.product')->findOrFail($id); // Lấy thông tin đơn hàng theo ID
+
+        return view('order.show', compact('order')); // Trả về view với thông tin đơn hàng
     }
 }
