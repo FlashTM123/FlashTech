@@ -73,15 +73,15 @@
                     </div>
                     <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         <li>
-                            <a href="">
+                            <a href="{{ route('customer.profile') }}" class="flex items-center">
                                 {{ session('customer')->name }}
                             </a>
                         </li>
-                        <li><a href="{{ route('customer.profile')}}">Profile</a></li>
+
                         <li>
                             <form action="{{ route('customer.logout')}}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
+                                <button type="submit" class="btn btn-outline btn-primary">Logout</button>
                             </form>
                         </li>
                     </ul>

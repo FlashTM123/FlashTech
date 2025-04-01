@@ -14,9 +14,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-    $orders = Order::with('customer')->get(); // Lấy danh sách đơn hàng
-       return view('order.index', compact('orders')); // Trả về viewers = Order::all();
+        $orders = Order::with('customer')->get();
 
+        // Cộng phí vận chuyển nếu cần
+      
+
+        return view('order.index', compact('orders'));
     }
 
     /**

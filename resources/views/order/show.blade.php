@@ -75,30 +75,37 @@
                 </table>
             </div>
 
+
             <!-- Order Summary -->
             <div class="flex justify-end mt-6">
                 <div class="card bg-base-200 w-full md:w-1/2">
                     <div class="card-body">
                         <div class="space-y-2">
-                            <div class="flex justify-between">
-                                <span>Subtotal:</span>
-                                <span>{{ number_format($order->total_price - 30000) }}₫</span>
-                            </div>
+                            <!-- Subtotal -->
                             <div class="flex justify-between">
                                 <span>Shipping Fee:</span>
                                 <span>30,000₫</span>
                             </div>
+                            <div class="flex justify-between text-lg font-bold">
+                                <span>Subtotal:</span>
+                                <span class="text-primary">{{ number_format($order->total_price) }}₫</span>
+                            </div>
+
+                            <!-- Discount -->
                             @if($order->discount > 0)
                             <div class="flex justify-between">
                                 <span>Discount:</span>
                                 <span class="text-success">-{{ number_format($order->discount) }}₫</span>
                             </div>
                             @endif
+
+                            <!-- Shipping Fee -->
+
+
                             <div class="divider my-0"></div>
-                            <div class="flex justify-between text-lg font-bold">
-                                <span>Total:</span>
-                                <span class="text-primary">{{ number_format($order->total_price) }}₫</span>
-                            </div>
+
+                            <!-- Total -->
+
                         </div>
                     </div>
                 </div>

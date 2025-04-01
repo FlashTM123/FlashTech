@@ -16,11 +16,23 @@ class CustomerController extends Controller
         $customers = Customer::all();
         return view('customers.index' , compact('customers'));
     }
-    public function profile($id)
+
+    public function profile()
     {
-        $customer = Customer::with('orders')->findOrFail($id);
+        // Lấy thông tin khách hàng hiện tại
+        $customer = auth()->user(); // Giả sử bạn dùng Auth để lấy thông tin người dùng
+
+        // Tải lịch sử đơn hàng của khách hàng
+        $customer->load('orders'); // Eager load quan hệ 'orders'
 
         return view('customer.profile', compact('customer'));
+    }
+
+    public function getOrders()
+    {
+        $customer = auth()->user();
+        $orders = $customer->orders()->latest()->get(); // Lấy danh sách đơn hàng mới nhất
+        return response()->json($orders);
     }
 
     /**

@@ -10,6 +10,8 @@
                 <i class="fas fa-shopping-cart mr-2"></i> Giỏ hàng của bạn
             </h2>
 
+       
+
             @if(session('cart') && count(session('cart')) > 0)
                 <div class="overflow-x-auto">
                     <table class="table">
@@ -87,9 +89,15 @@
                                     <span>Giảm giá:</span>
                                     <span class="font-bold text-success">-0₫</span>
                                 </div>
+                                <div class="flex justify-between">
+                                    <span>Shipping Fee:</span>
+                                    <span>30,000₫</span>
+                                </div>
                                 <div class="flex justify-between text-xl mt-2">
                                     <span>Tổng cộng:</span>
-                                    <span class="font-bold text-primary" id="total">{{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, session('cart')))) }}₫</span>
+                                    <span class="font-bold text-primary" id="total">
+                                        {{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, session('cart'))) + 30000) }}₫
+                                    </span>
                                 </div>
                                 <div class="card-actions justify-end mt-4">
                                     <a href="{{ route('checkout') }}" class="btn btn-primary btn-block">
@@ -158,8 +166,9 @@
                 subtotal += parseInt(element.innerText.replace(/[^0-9]/g, ''));
             });
 
+            const shippingFee = 30000; // Phí ship cố định
             document.getElementById('subtotal').innerText = new Intl.NumberFormat().format(subtotal) + '₫';
-            document.getElementById('total').innerText = new Intl.NumberFormat().format(subtotal) + '₫';
+            document.getElementById('total').innerText = new Intl.NumberFormat().format(subtotal + shippingFee) + '₫';
         }
 
         function updateQuantity(id, quantity) {

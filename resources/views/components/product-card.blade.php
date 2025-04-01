@@ -26,15 +26,15 @@
     <div class="text-xl font-bold text-orange-500 mt-1">
         {{ number_format($product->getProductPrice()) }}đ
     </div>
-    <div class="d-flex gap-6">
+    <div class="flex gap-2 mt-4">
         @if ($product->getProductQuantity() > 0)
-            <form action="{{ route('customer.addToCart') }}" method="POST">
+            <form action="{{ route('customer.addToCart') }}" method="POST" class="flex-1">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="product_name" value="{{ $product->getProductName() }}">
                 <input type="hidden" name="product_price" value="{{ $product->getProductPrice() }}">
                 <input type="hidden" name="product_image" value="{{ $product->getProductImage() }}">
-                <button type="submit" class="btn btn-outline btn-success">Add to cart</button>
+                <button type="submit" class="btn btn-outline btn-primary">Add to cart</button>
             </form>
         @else
             <button class="btn btn-outline btn-error" disabled>Out of stock</button>

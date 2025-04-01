@@ -64,6 +64,7 @@ Route::post('/register', [CustomerAuthController::class, 'register'])->name('cus
 Route::post('/customerlogin', [CustomerAuthController::class, 'loginProcess'])->name('customer.loginprocess');
 Route::get('/profile', [CustomerAuthController::class, 'showProfile'])->name('customer.profile');
 Route::post('/customerlogout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
+Route::get('/profile/orders', [CustomerController::class, 'getOrders'])->name('customer.orders');
 
 Route::middleware(['customerLoginMiddleware'])->group(function () {
 
@@ -75,6 +76,7 @@ Route::middleware(['customerLoginMiddleware'])->group(function () {
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('customer.updateQuantity');
     Route::post('/checkout', [CartController::class, 'processCheckout'])->name('customer.processCheckout');
+    Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('customer.buyNow');
 });
 
 

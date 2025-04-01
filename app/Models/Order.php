@@ -25,4 +25,8 @@ class Order extends Model
         return $this->hasMany(Orderdetail::class);
     }
 
+    public function getTotalPriceWithShippingAttribute()
+    {
+        return $this->total_price + $this->shipping_fee; // Tổng tiền bao gồm phí ship
+    }
 }

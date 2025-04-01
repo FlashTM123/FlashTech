@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold mb-4">Checkout</h1>
     <div class="card bg-base-100 shadow-xl">
@@ -13,24 +15,26 @@
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($cart as $id => $product)
                         <tr>
                             <td>{{ $product['name'] }}</td>
-                            <td>{{ $product['quantity'] }}</td>
-                            <td>{{ number_format($product['price']) }}₫</td>
-                            <td>{{ number_format($product['price'] * $product['quantity']) }}₫</td>
+                            <td class="text-center">{{ $product['quantity'] }}</td>
+                            <td class="text-center">{{ number_format($product['price']) }}₫</td>
+                            <td class="text-center">{{ number_format($product['price'] * $product['quantity']) }}₫</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="text-right mt-4">
-                <h3 class="text-lg font-bold">Subtotal: {{ number_format($subtotal) }}₫</h3>
+                <h3 class="text-lg ">Subtotal: {{ number_format($subtotal) }}₫</h3>
+                <h3 class="text-lg ">Shipping Fee: {{ number_format(30000) }}₫</h3>
+                <h3 class="text-lg font-bold text-primary">Total: {{ number_format($subtotal + 30000) }}₫</h3>
             </div>
             <form action="{{ route('customer.processCheckout') }}" method="POST">
                 @csrf

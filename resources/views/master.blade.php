@@ -51,46 +51,50 @@
         .theme-toggle .moon-icon::before {
             content: "🌙";
         }
-
+        main {
+            margin-top: 20px; /* Thêm khoảng cách phía trên */
+        }
     </style>
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
-            @include('layouts.header')
+    <!-- Header -->
+    @include('layouts.header')
 
+    <!-- Main Content -->
+    <main class="container mx-auto p-6 flex-1 mt-6">
+        @yield('content')
+    </main>
 
-            <!-- Script Carousel -->
+    <!-- Footer -->
+    @include('layouts.footer')
 
-            <main class="container mx-auto p-6 flex-1">
-                @yield('content')
-            </main>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle">
+        <span id="theme-icon" class="sun-icon"></span>
+    </button>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
 
-            @include('layouts.footer')
-            <button id="theme-toggle" class="theme-toggle">
-                <span id="theme-icon" class="sun-icon"></span>
-            </button>
-            <!-- SweetAlert2 JS -->
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                @if(session('success'))
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: '{{ session('success') }}',
-                        confirmButtonText: 'OK'
-                    });
-                @endif
-
-                @if(session('error'))
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: '{{ session('error') }}',
-                        confirmButtonText: 'OK'
-                    });
-                @endif
-            </script>
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 </body>
 </html>

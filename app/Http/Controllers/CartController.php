@@ -20,19 +20,19 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $cart = session()->get('cart', []);
-        if (isset($cart[$request->product_id])) {
-            $cart[$request->product_id]['quantity']++;
-        } else {
-            $cart[$request->product_id] = [
-                'name' => $request->product_name,
-                'quantity' => 1,
-                'price' => $request->product_price,
-                'image' => $request->product_image,
-            ];
-        }
+
+        $cart[$request->product_id] = [
+            'name' => $request->product_name,
+            'price' => $request->product_price,
+            'image' => $request->product_image, // Đảm bảo lưu thông tin hình ảnh
+            'quantity' => isset($cart[$request->product_id]) ? $cart[$request->product_id]['quantity'] + 1 : 1,
+        ];
+
         session()->put('cart', $cart);
-        return redirect()->route('customer.cart')->with('success', 'Product added to cart successfully!');
+
+        return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
+
 
     public function updateCart(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -79,12 +79,16 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $cart = session()->get('cart', []);
+        $cart = session('cart', []); // Retrieve the cart from the session
         $subtotal = array_sum(array_map(function ($item) {
-            return $item['quantity'] * $item['price'];
+            return $item['price'] * $item['quantity'];
         }, $cart));
 
-        return view('customer.checkout', compact('cart', 'subtotal'));
+        $shippingFee = 30000; // Fixed shipping fee
+        $total = $subtotal + $shippingFee;
+
+        // Pass the cart and other variables to the view
+        return view('customer.checkout', compact('cart', 'subtotal', 'shippingFee', 'total'));
     }
 
     public function processCheckout(Request $request)
@@ -94,16 +98,19 @@ class CartController extends Controller
             return redirect()->route('customer.cart')->with('error', 'Your cart is empty.');
         }
 
-        // Lưu thông tin đơn hàng vào cơ sở dữ liệu (ví dụ)
+        $shippingFee = 30000; // Phí vận chuyển cố định
+        $subtotal = array_sum(array_map(function ($item) {
+            return $item['price'] * $item['quantity'];
+        }, $cart));
+        $totalPrice = $subtotal + $shippingFee; // Tổng tiền bao gồm phí ship
+
         $order = Order::create([
             'customer_id' => session('customer')->id,
             'address' => $request->input('address'),
             'payment_method' => $request->input('payment_method'),
-            'address' => $request->input('address'),
-            'total_price' => array_sum(array_map(function ($item) {
-                return $item['price'] * $item['quantity'];
-            }, $cart)),
-            'status' => 'pending', // Đơn hàng đang chờ xử lý
+            'total_price' => $totalPrice, // Lưu tổng tiền đã bao gồm phí ship
+            'shipping_fee' => $shippingFee, // Lưu phí ship riêng
+            'status' => 'pending',
         ]);
 
         foreach ($cart as $id => $product) {
@@ -124,4 +131,17 @@ class CartController extends Controller
 
         return redirect()->route('customer.home')->with('success', 'Order placed successfully! Your order will be delivered soon.');
     }
+    public function buyNow($id)
+{
+    // Lấy thông tin sản phẩm
+    $product = Product::findOrFail($id);
+    $cart = session()->get('cart', []);
+    // Kiểm tra số lượng sản phẩm
+    if ($product->getProductQuantity() <= 0) {
+        return redirect()->back()->with('error', 'Sản phẩm này hiện đã hết hàng.');
+    }
+
+    // Chuyển hướng đến trang thanh toán với sản phẩm
+    return view('customer.checkout', compact('product'));
+}
 }
