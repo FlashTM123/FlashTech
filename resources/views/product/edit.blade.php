@@ -23,7 +23,7 @@
                 <div>
                 <div>
                     <label class="">Description</label>
-                    <textarea name="description" class="textarea textarea-bordered w-full textarea-lg" rows="5" placeholder="Enter your description here..."  required  >{{ $product->description }}</textarea>
+                    <textarea name="description" class="textarea textarea-bordered w-full textarea-lg" rows="30"  placeholder="Enter your description here..."  required  >{{ $product->description }}</textarea>
                 </div>
                 <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-outline btn-secondary">

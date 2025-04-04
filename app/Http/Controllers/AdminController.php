@@ -42,21 +42,18 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admin,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|unique:admin,phone',
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Kiểm tra file ảnh
+
         ]);
 
         // Xử lý upload ảnh
-        $imagePath = null;
-        if ($request->hasFile('profile_image')) {
-            $imagePath = $request->file('profile_image')->store('profile_images', 'public');
-        }
+
 
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'profile_image' => $imagePath,
+
         ]);
 
         return redirect()->route('admin.index')->with('add_success', 'Admin has been added successfully!');
@@ -90,22 +87,18 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admin,email,' . $admin->id,
             'password' => 'nullable|string|min:6',
             'phone' => 'required|string|unique:admin,phone,' . $admin->id,
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Kiểm tra file ảnh
+
         ]);
 
         // Xử lý upload ảnh mới nếu có
-        if ($request->hasFile('profile_image')) {
-            $imagePath = $request->file('profile_image')->store('profile_images', 'public');
-        } else {
-            $imagePath = $admin->profile_image; // Giữ ảnh cũ nếu không upload mới
-        }
+
 
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $admin->password,
             'phone' => $request->phone,
-            'profile_image' => $imagePath,
+
         ]);
 
         return redirect()->route('admin.index')->with('edit_success', 'Admin has been updated successfully!');

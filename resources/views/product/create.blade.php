@@ -29,6 +29,11 @@
                     <input type="number" name="type_id" class="input input-bordered w-full" >
                 </div>
 
+                <div>
+                    <label class="">Description</label>
+                    <textarea name="description" class="textarea textarea-bordered w-full textarea-lg" rows="30"  placeholder="Enter your description here..."  ></textarea>
+                </div>
+
                 <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-outline btn-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

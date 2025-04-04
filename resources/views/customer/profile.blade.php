@@ -42,9 +42,7 @@
                 </div>
 
                 <div class="card-actions justify-center mt-6">
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fas fa-edit mr-2"></i> Chỉnh sửa hồ sơ
-                    </button>
+                   <a href="{{ route('customer.edit')}}" class="btn btn-primary"> <i class="fas fa-edit mr-2"></i> Chỉnh sửa hồ sơ</a>
                 </div>
             </div>
         </div>

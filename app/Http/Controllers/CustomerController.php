@@ -31,7 +31,7 @@ class CustomerController extends Controller
     public function getOrders()
     {
         $customer = auth()->user();
-        $orders = $customer->orders()->latest()->get(); // Lấy danh sách đơn hàng mới nhất
+        $orders = $customer->orders()->latest()->get();
         return response()->json($orders);
     }
 
@@ -62,10 +62,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.

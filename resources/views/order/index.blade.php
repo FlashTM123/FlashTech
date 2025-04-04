@@ -33,6 +33,7 @@
                                 <select name="status" class="select select-bordered" onchange="this.form.submit()">
                                     <option value="Pending" {{ $order->status == 'Pending' ? 'selected' : '' }} class="text-yellow-500">Pending</option>
                                     <option value="Processing" {{ $order->status == 'Processing' ? 'selected' : '' }} class="text-blue-500">Processing</option>
+                                    <option value="On delivery" {{ $order->status == 'On delivery' ? 'selected' : '' }} class="text-pink-500">On Delivery</option>
                                     <option value="Completed" {{ $order->status == 'Completed' ? 'selected' : '' }} class="text-green-500">Completed</option>
                                     <option value="Cancel" {{ $order->status == 'Cancel' ? 'selected' : '' }} class="text-red-500">Cancel</option>
                                 </select>

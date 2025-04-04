@@ -65,6 +65,8 @@ Route::post('/customerlogin', [CustomerAuthController::class, 'loginProcess'])->
 Route::get('/profile', [CustomerAuthController::class, 'showProfile'])->name('customer.profile');
 Route::post('/customerlogout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
 Route::get('/profile/orders', [CustomerController::class, 'getOrders'])->name('customer.orders');
+Route::get('/profile/edit', [CustomerAuthController::class, 'edit'])->name('customer.edit');
+Route::post('/profile/update', [CustomerAuthController::class, 'update'])->name('customer.update');
 
 Route::middleware(['customerLoginMiddleware'])->group(function () {
 

@@ -42,12 +42,14 @@ class ProductController extends Controller
 
             'type' => 'required|in:laptop,component,accessories',
             'type_id' => 'required|integer|exists:' . $this->getTableName($request->type) . ',id',
+            'description' => 'required|string|max:5000',
         ]);
 
         // Tạo bản ghi trong bảng products
         $product = Product::create([
             'type' => $request->type,
             'type_id' => $request->type_id,
+            'description' => $request->description,
         ]);
 
         // Cập nhật product_id trong bảng tương ứng

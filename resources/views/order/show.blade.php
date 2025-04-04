@@ -12,12 +12,7 @@
                     <i class="fas fa-receipt text-primary"></i>
                     Order #{{ $order->id }}
                 </h1>
-                <span class="badge badge-lg
-                    @if($order->status == 'completed') badge-success
-                    @elseif($order->status == 'processing') badge-info
-                    @elseif($order->status == 'shipped') badge-primary
-                    @elseif($order->status == 'cancelled') badge-error
-                    @else badge-warning @endif">
+                <span class="badge badge-lg badge-status badge-{{ $order->status }}">
                     {{ ucfirst($order->status) }}
                 </span>
             </div>

@@ -1,75 +1,108 @@
 @extends("app")
 
-@section('title', 'Manage Page')
+@section('title', 'Thống kê')
 
 @section("content")
-    <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Card: Tổng doanh thu -->
-            <div class="card bg-base-100 shadow-xl hover:bg-gray-700 transition-colors">
-                <div class="card-body">
-                    <h3 class="card-title">Total Sales</h3>
-                    <p class="text-2xl font-semibold text-blue-400 mt-2">$12,345</p>
-                </div>
-            </div>
+<div class="container mx-auto px-4 py-8">
+    <!-- Tiêu đề với icon -->
+    <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+        <i class="fas fa-chart-pie text-primary"></i>
+        Thống kê
+    </h1>
 
-            <!-- Card: Đơn hàng mới -->
-            <div class="card bg-base-100 shadow-xl hover:bg-gray-700 transition-colors">
-                <div class="card-body">
-                    <h3 class="card-title">New Orders</h3>
-                    <p class="text-2xl font-semibold text-green-400 mt-2">56</p>
-                </div>
+    <!-- Biểu đồ doanh thu -->
+    <div class="card bg-base-100 shadow-lg mb-8">
+        <div class="card-body">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-money-bill-wave text-green-500"></i>
+                Thống kê doanh thu
+            </h2>
+            <div class="w-full" style="height: 400px">
+                <canvas id="revenueChart"></canvas>
             </div>
-
-            <!-- Card: Khách hàng -->
-            <div class="card bg-base-100 shadow-xl hover:bg-gray-700 transition-colors">
-                <div class="card-body">
-                    <h3 class="card-title">Customers</h3>
-                    <p class="text-2xl font-semibold text-orange-400 mt-2">1,234</p>
-                </div>
-            </div>
-
-            <!-- Card: Doanh thu -->
-            <div class="card bg-base-100 shadow-xl hover:bg-gray-700 transition-colors">
-                <div class="card-body">
-                    <h3 class="card-title">Revenue</h3>
-                    <p class="text-2xl font-semibold text-purple-400 mt-2">$89,000</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chart: Revenue Over Time -->
-        <div class="mt-8 p-6 bg-base-100 shadow-xl rounded-lg">
-            <h3 class="text-xl font-bold mb-4">Revenue Over Time</h3>
-            <canvas id="revenueChart"></canvas>
         </div>
     </div>
 
-    <!-- Chart.js Script -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const ctx = document.getElementById('revenueChart').getContext('2d');
-            const revenueChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [{
-                        label: 'Revenue',
-                        data: [12000, 15000, 13000, 14000, 16000, 17000, 18000],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+    <!-- Bảng sản phẩm bán chạy -->
+    <div class="card bg-base-100 shadow-lg">
+        <div class="card-body">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-star text-yellow-400"></i>
+                Sản phẩm bán chạy
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr class="bg-base-200">
+                            <th class="text-center">#</th>
+                            <th>Tên sản phẩm</th>
+                            <th class="text-center">
+                                <i class="fas fa-shopping-cart mr-1"></i>
+                                Số lượng bán
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($bestSellingProducts as $index => $product)
+                            <tr>
+                                <td class="text-center">{{ $index + 1 }}</td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        @if($product->image)
+                                        <div class="avatar">
+                                            <div class="w-8 rounded">
+                                                <img src="{{ $product->getProductImage() }}" alt="{{ $product->getProductName() }}">
+                                            </div>
+                                        </div>
+                                        @endif
+                                        {{ $product->getProductName() }}
+                                    </div>
+                                </td>
+                                <td class="text-center">{{ $product->order_details_sum_quantity ?? 0 }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Biểu đồ doanh thu (giữ nguyên)
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($revenueByMonth->pluck('month')->map(fn($m) => "Tháng $m")) !!},
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: {!! json_encode($revenueByMonth->pluck('revenue')) !!},
+                    backgroundColor: 'rgba(79, 70, 229, 0.7)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + '₫';
+                            }
                         }
                     }
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 @endsection

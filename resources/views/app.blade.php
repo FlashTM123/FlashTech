@@ -1,5 +1,6 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
     <!doctype html>
 <html lang="en">
 <head>
@@ -115,6 +116,8 @@
             color: white;
         }
     </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-base-100 text-base-content">
 
@@ -128,49 +131,31 @@
         </a>
     </div>
     <div class="flex gap-2">
-        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-        <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                <div class="w-10 rounded-full">
-                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                         alt="Avatar">
-                </div>
-            </div>
-            <ul tabindex="0"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li><a href="">Profile</a></li>
-                <li><a href="#" onclick="confirmLogout()" >Logout</a>
-                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="hidden">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
-        </div>
+        Xin chào, {{ auth('admin')->user()?->name ?? 'Guest' }}
     </div>
 </div>
 
 <!-- Sidebar -->
 <div class="sidebar bg-base-200 text-base-content shadow-lg">
     <ul class="menu p-4 w-64 min-h-full">
-        <li><a href="{{ route('manage.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🏠</i> Home</a></li>
-        <li><a href="{{ route('admin.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🛡️</i> Admin</a></li>
+        <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="{{ route('admin.index') }}"><i class="fa-solid fa-user"></i> Admin</a></li>
         <li>
             <details>
-                <summary><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Products</summary>
+                <summary><i class="fa-solid fa-box"></i> Products</summary>
                 <ul class="ml-4">
-                    <li><a href="{{ route('product.index')}}"><i class="w3-large w3-text-red w3-hover-text-red">📦</i> Product List</a></li>
-                    <li><a href="{{ route('laptop.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">💻</i> Laptops</a></li>
-                    <li><a href="{{ route('component.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🔧</i> Components</a></li>
-                    <li><a href="{{ route('accessories.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎧</i> Accessories</a></li>
+                    <li><a href="{{ route('product.index')}}"><i class="fa-solid fa-box"></i> Product List</a></li>
+                    <li><a href="{{ route('laptop.index') }}"><i class="fa-solid fa-laptop"></i> Laptop</a></li>
+                    <li><a href="{{ route('component.index') }}"><i class="fa-solid fa-box"></i> Components</a></li>
+                    <li><a href="{{ route('accessories.index') }}"><i class="fa-solid fa-keyboard"></i> Accessories</a></li>
                 </ul>
             </details>
         </li>
-        <li><a href="{{ route('brand.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🏷️</i> Brands</a></li>
-        <li><a href="{{ route('color.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">🎨</i> Colors</a></li>
-        <li><a href="{{ route('customers.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">👥</i> Customer</a></li>
-        <li><a href="{{ route('order.index')}}"><i class="w3-large w3-text-red w3-hover-text-red">🛒</i> Order</a></li>
-        <li><a href="{{ route('employees.index') }}"><i class="w3-large w3-text-red w3-hover-text-red">👔</i> Employee</a></li>
-        <li><a><i class="w3-large w3-text-red w3-hover-text-red">💵</i> Salary</a></li>
+        <li><a href="{{ route('brand.index') }}"><i class="fa-solid fa-copyright"></i> Brands</a></li>
+        <li><a href="{{ route('color.index') }}"><i class="fa-solid fa-palette"></i> Colors</a></li>
+        <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Customer</a></li>
+        <li><a href="{{ route('order.index')}}"><i class="fa-solid fa-cart-shopping"></i> Order</a></li>
+        <li><a href="{{ route('employees.index') }}"><i class="fa-solid fa-user-tie"></i> Employee</a></li>
     </ul>
 </div>
 

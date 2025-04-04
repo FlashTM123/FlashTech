@@ -28,10 +28,7 @@
                     <input type="email" name="email" class="input border border-gray-300 rounded-lg w-full px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none" required>
                 </div>
                 <!-- Profile Image Field -->
-                <div class="mb-6">
-                    <label class="pt-0 label label-text font-semibold">Profile Image</label>
-                    <input type="file" name="profile_image" class="file-input">
-                </div>
+
 
 
                 <!-- Password Field -->

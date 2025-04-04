@@ -10,7 +10,7 @@
                 <i class="fas fa-shopping-cart mr-2"></i> Giỏ hàng của bạn
             </h2>
 
-       
+
 
             @if(session('cart') && count(session('cart')) > 0)
                 <div class="overflow-x-auto">
@@ -106,7 +106,7 @@
                                 </div>
 
                                 <div class="text-center mt-4">
-                                    <a href="{{ route('customer.home') }}" class="link link-primary inline-flex items-center">
+                                    <a href="{{ route('customer.home') }}" class="btn btn-outline btn-secondary">
                                         <i class="fas fa-chevron-left mr-2"></i> Tiếp tục mua sắm
                                     </a>
                                 </div>

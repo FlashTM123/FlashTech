@@ -72,5 +72,64 @@ class CustomerAuthController extends Controller
         Session::forget('customer');
         return redirect()->route('customer.home');
     }
+    public function edit(Customer $customer)
+    {
+        $customer = Session::get('customer');
+        if (!$customer) {
+            return redirect()->route('customer.login')->with('error', 'Bạn cần đăng nhập để chỉnh sửa thông tin.');
+        }
+        return view('customer.edit', compact('customer'));
+    }
 
+    public function update(Request $request)
+    {
+        // Lấy thông tin khách hàng từ Session
+        $customer = Session::get('customer');
+
+        // Kiểm tra nếu khách hàng không tồn tại
+        if (!$customer) {
+            return redirect()->route('customer.login')->with('error', 'Bạn cần đăng nhập để chỉnh sửa thông tin.');
+        }
+
+        // Validate dữ liệu
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:customers,email,' . $customer->id,
+            'password' => 'nullable|min:6',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Cập nhật thông tin khách hàng
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->date_of_birth = $request->date_of_birth;
+        $customer->gender = $request->gender;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+
+        // Nếu có mật khẩu mới, cập nhật mật khẩu
+        if ($request->filled('password')) {
+            $customer->password = Hash::make($request->password);
+        }
+
+        // Nếu có ảnh đại diện mới, xử lý upload
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $customer->image = $imageName;
+        }
+
+        // Lưu thông tin khách hàng vào cơ sở dữ liệu
+        $customer->save();
+
+        // Cập nhật lại thông tin trong Session
+        Session::put('customer', $customer);
+
+        return redirect()->route('customer.edit')->with('success', 'Hồ sơ đã được cập nhật thành công.');
+    }
 }
