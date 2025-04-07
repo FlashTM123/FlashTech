@@ -26,7 +26,7 @@ class LaptopController extends Controller
         }
 
         // Phân trang kết quả
-        $laptops = $query->paginate(4);
+        $laptops = $query->paginate(perPage: 5);
 
         // Lấy danh sách brand để hiển thị trong dropdown
         $brands = Brand::where('category', 'Laptop')->get();
@@ -66,7 +66,7 @@ class LaptopController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
-          
+
         ]);
 
 //        dd($request->all());

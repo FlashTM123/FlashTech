@@ -47,5 +47,8 @@
             </tbody>
         </table>
     </div>
+    <div class="mt-2">
+        {{ $orders->links('pagination::simple-tailwind') }}
+    </div>
 </div>
 @endsection

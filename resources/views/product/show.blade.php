@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Product Detail')
+@section('title',   $product->getProductName())
 
 @section('content')
     <div class="container mx-auto p-6">

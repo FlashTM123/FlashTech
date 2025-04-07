@@ -21,7 +21,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
-                                   
+
                                     <th class="text-center">Password</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Created</th>

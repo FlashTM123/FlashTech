@@ -57,7 +57,7 @@
                             </table>
                         </div>
                     </div>
-                    {{ $products->links() }}
+                    {{ $products->links('pagination::simple-tailwind') }}
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Component')
+@section('title', 'Linh kiện')
 
 @section('content')
     @include('layouts.carousel')

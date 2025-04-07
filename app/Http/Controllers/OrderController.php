@@ -14,10 +14,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('customer')->get();
+        $orders = Order::with('customer')->paginate(6);
 
-        // Cộng phí vận chuyển nếu cần
-      
+
+
 
         return view('order.index', compact('orders'));
     }

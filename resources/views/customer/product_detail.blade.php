@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Product Detail')
+@section('title',  $product->getProductName() )
 
 @section('content')
 

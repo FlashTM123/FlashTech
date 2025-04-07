@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', '')
+@section('title', 'Phụ Kiện')
 
 @section('content')
     @include('layouts.carousel')

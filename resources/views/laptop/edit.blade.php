@@ -1,6 +1,6 @@
 @extends("app")
 
-@section('title', 'Edit Laptop')
+@section('title', 'Edit Laptop: ' . $laptop->name)
 
 @section('content')
     <div class="container mx-auto p-6">
