@@ -45,9 +45,11 @@ class ManageController extends Controller
             ->groupBy('month')
             ->orderBy('month')
             ->get();
-            
+        $lowStockProducts = Product::all()->filter(function ($product) {
+            return $product->getProductQuantity() < 10;
+        });
 
-        return view('manage.index', compact('revenueByMonth', 'bestSellingProducts')); // Load trang quản lý
+        return view('manage.index', compact('revenueByMonth', 'bestSellingProducts','lowStockProducts')); // Load trang quản lý
     }
 
 

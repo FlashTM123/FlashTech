@@ -23,6 +23,7 @@
                                    <th class="text-center">Name</th>
                                    <th class="text-center">Type</th>
                                    <th class="text-center">Price</th>
+                                   <th class="text-center">Quantity</th>
                                    <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -44,12 +45,21 @@
                                                     <span>{{ number_format($product->getProductPrice()) }} Đ</span>
                                                 @endif
                                             </td>
+                                            <td class="text-center"> {{ $product->getProductQuantity()}}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-outline btn-primary">Detail</a>
                                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-outline btn-secondary">
                                                     Edit
                                                 </a>
+                                                <form action="{{ route('product.destroy', $product->id) }}" method="POST" >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline btn-error">
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -62,4 +72,5 @@
             </div>
         </div>
     </div>
+
 @endsection

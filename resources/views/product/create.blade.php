@@ -8,7 +8,16 @@
             <h2 class="text-2xl font-bold text-center mb-6">Add Product</h2>
 
             @if (session('success'))
-                <div class="alert alert-success mb-4">{{ session('success')}}</div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Product list loaded successfully!',
+                        confirmButtonText: 'OK',
+                    });
+                });
+            </script>
             @endif
 
 

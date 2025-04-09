@@ -165,6 +165,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     });
     Route::prefix('orders')->group(function(){
         Route::get('/', [OrderController::class, 'index'])->name('order.index');

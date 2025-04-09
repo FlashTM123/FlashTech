@@ -117,6 +117,7 @@
         }
     </style>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body class="bg-base-100 text-base-content">
@@ -131,15 +132,17 @@
         </a>
     </div>
     <div class="flex gap-2">
-        Xin chào, {{ auth('admin')->user()?->name ?? 'Guest' }}
+        {{ auth('admin')->user()?->name ?? 'Guest' }}
     </div>
 </div>
 
 <!-- Sidebar -->
 <div class="sidebar bg-base-200 text-base-content shadow-lg">
     <ul class="menu p-4 w-64 min-h-full">
-        <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-chart-line"></i> DashBoard</a></li>
         <li><a href="{{ route('admin.index') }}"><i class="fa-solid fa-user"></i> Admin</a></li>
+        <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Customer</a></li>
+        <li><a href="{{ route('employees.index') }}"><i class="fa-solid fa-user-tie"></i> Employee</a></li>
         <li>
             <details>
                 <summary><i class="fa-solid fa-box"></i> Products</summary>
@@ -153,9 +156,7 @@
         </li>
         <li><a href="{{ route('brand.index') }}"><i class="fa-solid fa-copyright"></i> Brands</a></li>
         <li><a href="{{ route('color.index') }}"><i class="fa-solid fa-palette"></i> Colors</a></li>
-        <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Customer</a></li>
         <li><a href="{{ route('order.index')}}"><i class="fa-solid fa-cart-shopping"></i> Order</a></li>
-        <li><a href="{{ route('employees.index') }}"><i class="fa-solid fa-user-tie"></i> Employee</a></li>
     </ul>
 </div>
 
