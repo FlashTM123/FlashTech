@@ -59,7 +59,7 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                            
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -67,7 +67,7 @@
                             </table>
                         </div>
                     </div>
-                    {{ $products->links('pagination::simple-tailwind') }}
+                    {{ $products->links('pagination::tailwind') }}
                 </div>
             </div>
         </div>

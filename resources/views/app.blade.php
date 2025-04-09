@@ -131,8 +131,14 @@
             </span>
         </a>
     </div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 items-center">
         {{ auth('admin')->user()?->name ?? 'Guest' }}
+        @auth('admin')
+            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="button" class="btn btn-outline btn-error" onclick="confirmLogout()">Log out</button>
+            </form>
+        @endauth
     </div>
 </div>
 

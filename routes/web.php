@@ -20,7 +20,7 @@ use App\Http\Controllers\CustomerProductController;
 use App\Models\Product;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Http\Request;
 
 

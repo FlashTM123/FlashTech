@@ -93,7 +93,7 @@
                             </table>
                         </div>
                     </div>
-                    {{ $laptops->links('pagination::simple-tailwind') }}
+                    {{ $laptops->links('pagination::tailwind') }}
                 </div>
             </div>
         </div>

@@ -111,7 +111,7 @@
                         </tr>
                         <tr>
                             <td class="font-semibold">RAM</td>
-                            <td>{{ $detail->ram }} GB</td>
+                            <td>{{ $detail->ram }}</td>
                         </tr>
                         <tr>
                             <td class="font-semibold">GPU</td>
