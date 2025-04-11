@@ -19,9 +19,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($colors as $index => $color)
+                @foreach($colors as  $color)
                     <tr class="hover:bg-gray-100 border-b">
-                        <th class="p-3">{{ $index + 1 }}</th>
+                        <th class="p-3">{{ $color->id }}</th>
                         <td class="p-3">{{ $color ->name }}</td>
                         <td class="p-3 text-center">
                             <div class="flex space-x-2">

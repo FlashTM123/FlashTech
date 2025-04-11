@@ -20,9 +20,9 @@
                 </tr>
                 </thead>
                 <tbody id="brand-list">
-                @foreach($brands as $index => $brand)
+                @foreach($brands as  $brand)
                     <tr class="hover:bg-gray-100 border-b">
-                        <th class="p-3">{{ $index + 1 }}</th>
+                        <th class="p-3">{{ $brand->id }}</th>
                         <td class="p-3">{{ $brand->name }}</td>
                         <td class="p-3">{{ $brand->category }}</td>
                         <td class="p-3 text-center">

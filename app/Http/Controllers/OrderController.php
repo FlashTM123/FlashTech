@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
@@ -25,6 +26,34 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $product = Product::find($validated['product_id']);
+
+        // Kiểm tra nếu số lượng sản phẩm đủ
+        if ($product->quantity < $validated['quantity']) {
+            return back()->with('error', 'Không đủ số lượng sản phẩm trong kho.');
+        }
+
+        // Giảm số lượng sản phẩm
+        $product->quantity -= $validated['quantity'];
+        $product->save();
+
+        // Tạo đơn hàng (nếu cần)
+        Order::create([
+            'product_id' => $product->id,
+            'customer_id' => auth()->id(),
+            'quantity' => $validated['quantity'],
+            'total_price' => $product->price * $validated['quantity'],
+        ]);
+
+        return back()->with('success', 'Mua hàng thành công!');
+    }
 
     public function updateStatus(Request $request, $id)
     {
