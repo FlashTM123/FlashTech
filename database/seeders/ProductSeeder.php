@@ -15,8 +15,10 @@ class ProductSeeder extends Seeder
     {
         $products = [[
             'type' => 'laptop',
-            'type_id' => 45,
-            'description' => 'Acer Nitro 5 AN515 là chiếc laptop gaming tầm trung được trang bị vi xử lý Intel Core i7 thế hệ 12 mạnh mẽ kết hợp với card đồ họa NVIDIA GeForce RTX 3050. Máy sở hữu thiết kế góc cạnh hầm hố, đậm chất game thủ cùng màn hình 15.6 inch Full HD 144Hz cho trải nghiệm hình ảnh mượt mà. Hệ thống tản nhiệt kép Acer CoolBoost giúp máy hoạt động ổn định ngay cả khi chơi game nặng. Đây là lựa chọn phù hợp cho các game thủ hoặc người dùng làm đồ họa ở mức độ khá.',
+            'type_id' => 58,
+            'description' => 'Asus TUF Gaming A15 FA506 là mẫu laptop gaming tầm trung nổi bật với hiệu năng ổn định và độ bền chuẩn quân đội. Máy được trang bị vi xử lý AMD Ryzen 5 5600H kết hợp với card đồ họa NVIDIA GeForce GTX 1650, mang lại khả năng chiến tốt các tựa game phổ biến như Liên Minh, Valorant, GTA V hay CS:GO ở thiết lập trung bình đến cao. RAM 16GB DDR4 và ổ SSD 512GB giúp xử lý đa nhiệm mượt mà, rút ngắn thời gian khởi động máy và mở ứng dụng. Thiết kế máy đậm chất game thủ, đạt chuẩn MIL-STD-810H về độ bền, đi kèm bàn phím RGB và hệ thống tản nhiệt hai quạt giúp máy hoạt động ổn định khi chơi game lâu. Đây là lựa chọn hợp lý cho sinh viên hoặc game thủ đang tìm kiếm một laptop gaming bền, mạnh và giá tốt.
+
+',
         ],
     ];
         foreach ($products as $product) {

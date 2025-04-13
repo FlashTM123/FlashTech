@@ -43,7 +43,7 @@
             </table>
         </div>
         <div class="mt-4">
-            {{ $brands->links('pagination::simple-tailwind') }}
+            {{ $brands->links('pagination::tailwind') }}
     </div>
 
     <script>

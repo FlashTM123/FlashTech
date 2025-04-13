@@ -19,7 +19,7 @@ class ComponentController extends Controller
                 $q->where('id', $request->brand);
             });
         }
-        $components = $query->paginate(4);
+        $components = $query->paginate(10);
 
         $brands = Brand::where('category', 'Component')->get();
        return view ('component.index', ['components' => $components, 'brands' => $brands]);

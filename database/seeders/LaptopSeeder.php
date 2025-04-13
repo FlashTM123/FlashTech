@@ -169,21 +169,66 @@ class LaptopSeeder extends Seeder
 
 
             [
-                'name'=> 'Asus TUF Gaming A15 FA506',
-                'brand_id'=> 4,
-                'color_id'=> 9,
-                'cpu'=> 'AMD Ryzen 5 5600H',
-                'ram'=> '8GB DDR4',
-                'vga'=> 'NVIDIA GeForce GTX 1650',
-                'storage'=> '512GB SSD',
-                'original_price'=> 26990000,
-                'discount'=> 4 ,
-                'promotional_price'=> 25990000,
-                'quantity'=> 0,
-                'image'=> 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/2/8/28_1_15.jpg',
+                'name' => 'Asus TUF Gaming A15 FA506',
+                'brand_id' => 4,
+                'color_id' => 9,
+                'cpu' => 'AMD Ryzen 5 5600H',
+                'ram' => '8GB DDR4',
+                'vga' => 'NVIDIA GeForce GTX 1650',
+                'storage' => '512GB SSD',
+                'original_price' => 26990000,
+                'discount' => 4,
+                'promotional_price' => 25990000,
+                'quantity' => 0,
+                'image' => 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/2/8/28_1_15.jpg',
 
 
-            ]
+            ],
+            [
+                "name" => "Acer Swift 3 SF314",
+                "brand_id" => 43, // Acer
+                "color_id" => 6, // Silver
+                "cpu" => "Intel Core i5-1240P",
+                "ram" => "16GB LPDDR4X",
+                "vga" => "Intel Iris Xe Graphics",
+                "storage" => "512GB SSD",
+                "original_price" => 18990000,
+                "discount" => 10,
+                "promotional_price" => 17091000,
+                "quantity" => 18,
+                "image" => "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_5__3_16.png",
+            ],
+            [
+                "name" => "ASUS Vivobook 14X OLED",
+                "brand_id" => 4, // ASUS
+                "color_id" => 1, // Xám
+                "cpu" => "AMD Ryzen 7 5800H",
+                "ram" => "16GB DDR4",
+                "vga" => "AMD Radeon Graphics",
+                "storage" => "512GB SSD",
+                "original_price" => 20990000,
+                "discount" => 8,
+                "promotional_price" => 19310800,
+                "quantity" => 14,
+                "image" => "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_10__3_23.png",
+
+            ],
+            [
+                "name" => "HP 240 G9",
+                "brand_id" => 30, // HP
+                "color_id" => 6, // Silver
+                "cpu" => "Intel Core i5-1215U",
+                "ram" => "8GB DDR4",
+                "vga" => "Intel UHD Graphics",
+                "storage" => "256GB SSD",
+                "original_price" => 10990000,
+                "discount" => 5,
+                "promotional_price" => 10440500,
+                "quantity" => 25,
+                "image" => "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_10__4_155.png",
+
+            ],
+
 
         ];
 
