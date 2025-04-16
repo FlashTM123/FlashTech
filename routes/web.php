@@ -122,6 +122,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::get('/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptop.edit');
         Route::put('/{laptop}/edit', [LaptopController::class, 'update'])->name('laptop.update');
         Route::delete('/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
+        Route::get('/laptops/search', [LaptopController::class, 'search'])->name('laptop.search');
     });
     Route::prefix('manage')->group(function(){
         Route::get('/', [ManageController::class, 'index'])->name('manage.index');

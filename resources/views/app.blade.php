@@ -1,9 +1,12 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
+
     <!doctype html>
 <html lang="en">
 <head>
+    @livewireStyles
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield("title")</title>
@@ -120,15 +123,18 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
+@livewireScripts
 <body class="bg-base-100 text-base-content">
 
 <!-- Navbar -->
 <div class="navbar shadow-lg">
     <div>
-        <a class="btn btn-ghost normal-case text-2xl font-bold tracking-wide text-primary hover:text-primary-focus transition-colors duration-300" href="{{ route('manage.index') }}">
-            <span class="font-bold text-3xl mr-3 bg-gradient-to-tr from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                LCAS
-            </span>
+        <a href="{{ route('manage.index') }}" class="flex items-center gap-2 text-3xl font-bold tracking-wide">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 animate-spin-slow text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.75 3a1 1 0 011 1v.43a8.008 8.008 0 013.5 0V4a1 1 0 112 0v.43a8.008 8.008 0 013.5 0V4a1 1 0 011 1v2a1 1 0 01-1 1h-.43a8.008 8.008 0 010 3.5H20a1 1 0 110 2h-.43a8.008 8.008 0 010 3.5H20a1 1 0 01-1 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-.43a8.008 8.008 0 01-3.5 0V20a1 1 0 01-2 0v-.43a8.008 8.008 0 01-3.5 0V20a1 1 0 01-1-1v-2a1 1 0 011-1h.43a8.008 8.008 0 010-3.5H4a1 1 0 110-2h.43a8.008 8.008 0 010-3.5H4a1 1 0 01-1-1V5a1 1 0 011-1h2a1 1 0 011 1v.43a8.008 8.008 0 013.5 0V4a1 1 0 011-1z" />
+            </svg>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500">FlashGear</span>
         </a>
     </div>
     <div class="flex gap-2 items-center">
@@ -171,11 +177,9 @@
     <div class="p-6">
         @yield("content")
     </div>
-    <div class="text-center mt-6 text-gray-500 text-sm">
-        <aside>
-            <p>Copyright © {{ date('Y') }} - All right reserved by FlashTM's teams</p>
-        </aside>
-    </div>
+    <div class="text-center py-4 border-t border-base-300 text-sm">
+        © {{ date('Y') }} FlashGear - All rights reserved by FlashTM.
+      </div>
 </div>
 
 

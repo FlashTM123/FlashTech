@@ -8,14 +8,7 @@
         <div class="flex justify-between items-center mb-6 max-w-5xl mx-auto">
             <h2 class="text-2xl font-semibold">Accessory List</h2>
             <form method="GET" action="{{ route('accessories.index') }}" class="mb-4" id="brand-filter-form">
-                <select name="brand" id="brand-select" class="select" onchange="document.getElementById('brand-filter-form').submit()">
-                    <option value="">All Brands</option>
-                    @foreach($brands as $brand)
-                        <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>
-                            {{ $brand->name }}
-                        </option>
-                    @endforeach
-                </select>
+                
 
             </form>
             <a href="{{ route('accessories.create') }}" class="btn btn-outline">

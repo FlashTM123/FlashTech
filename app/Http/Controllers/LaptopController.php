@@ -123,4 +123,20 @@ class LaptopController extends Controller
         $laptop->delete();
         return redirect()->route('laptop.index')->with('delete_success', 'Laptop has been deleted successfully!');
     }
+
+    /**
+     * Search laptops by name.
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Tìm kiếm laptop theo tên
+        $laptops = Laptop::with('brand', 'color')
+            ->where('name', 'like', '%' . $query . '%')
+            ->get();
+
+        // Trả về kết quả dưới dạng JSON
+        return response()->json($laptops);
+    }
 }

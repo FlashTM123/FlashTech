@@ -20,7 +20,12 @@ class BrandSeeder extends Seeder
         [
             'name'=> "Blala",
             "category"=>"Laptop",
-        ]
+        ],
+        [
+            "name"=> "Razer",
+            "category"=>"Accessories",
+        ],
+
     ];
     foreach ($brands as $brand) {
         if (!DB::table('brands')->where('name', $brand['name'])->exists()) {

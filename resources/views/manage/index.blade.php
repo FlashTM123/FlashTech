@@ -110,12 +110,7 @@
         </div>
     </div>
 
-    <div class="card bg-base-100 shadow-lg mt-8">
-        <div class="card-body">
-            <h2 class="text"></h2>
-        </div>
-    </div>
-
+  
 </div>
 
 <!-- Chart.js -->

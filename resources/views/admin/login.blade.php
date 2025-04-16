@@ -30,7 +30,7 @@
 <div class="px-6 py-12 lg:px-8">
     <div class="my-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-xl">
-            <h2 class="text-center bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent uppercase text-3xl font-bold">LCAS Admin</h2>
+            <h2 class="text-center bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent uppercase text-3xl font-bold">FlashGear Admin</h2>
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
 
@@ -76,7 +76,9 @@
         </div>
         <div class="text-center mt-6 text-gray-500 text-sm">
             <aside>
-                <p>Copyright © {{ date('Y') }} - All right reserved by FlashTM's teams</p>
+               
+                    © {{ date('Y') }} FlashGear - All rights reserved by FlashTM.
+
             </aside>
         </div>
     </div>

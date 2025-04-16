@@ -8,16 +8,7 @@
             <div class="grow">
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                     <h2 class="text-2xl font-semibold text-white-800 dark:text-dark-200">Laptop List</h2>
-                    <form method="GET" action="{{ route('laptop.index') }}" class="mb-4" id="brand-filter-form">
-                        <select name="brand" id="brand-select" class="select" onchange="document.getElementById('brand-filter-form').submit()">
-                            <option value="">All Brands</option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>
-                                    {{ $brand->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </form>
+                    <input type="text" id="search" placeholder="Search laptops..." class="input input-primary" />
                     <a href="{{ route('laptop.create') }}" class="btn btn-outline">
                         ➕ Add Laptop
                     </a>
