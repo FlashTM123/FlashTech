@@ -1,129 +1,105 @@
 @extends('master')
 
-@section('title', 'Chỉnh sửa hồ sơ')
+@section('title', 'Cập nhật hồ sơ khách hàng')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <!-- Header -->
-    <div class="flex items-center gap-4 mb-8">
-        <a href="{{ route('customer.profile') }}" class="btn btn-circle btn-ghost">
-            <i class="fas fa-arrow-left text-xl"></i>
-        </a>
-        <h1 class="text-3xl font-bold">
-            <i class="fas fa-user-edit text-primary mr-2"></i>
-            Chỉnh sửa hồ sơ
-        </h1>
-    </div>
-
-    <!-- Success Message -->
-    @if (session('success'))
-        <div class="alert alert-success shadow-lg mb-8">
-            <div>
-                <i class="fas fa-check-circle"></i>
-                <span>{{ session('success') }}</span>
+<div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Bên trái: Profile Summary -->
+        <div class="card shadow-xl bg-gradient-to-br from-primary to-blue-500 text-white p-6">
+            <div class="flex flex-col items-center text-center">
+                <div class="avatar mb-4">
+                    <div class="w-32 rounded-full ring ring-white ring-offset-base-100 ring-offset-2">
+                        @if ($customer->profile_image)
+                            <img src="{{ asset('storage/' . $customer->profile_image) }}" />
+                        @else
+                            <img src="{{ asset('uploads/avatar.jpg') }}" />
+                        @endif
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold">{{ $customer->name }}</h2>
+                <p class="text-sm">{{ $customer->email }}</p>
+                <p class="text-sm">{{ $customer->phone }}</p>
+                <div class="mt-4">
+                    <label class="cursor-pointer">
+                        <span class="btn btn-sm btn-outline text-white">Chọn ảnh mới</span>
+                        <input type="file" name="profile_image" class="hidden" form="updateForm">
+                    </label>
+                </div>
             </div>
         </div>
-    @endif
 
-    <!-- Profile Form -->
-    <div class="card bg-base-100 shadow-lg">
-        <div class="card-body">
-            <form action="{{ route('customer.update')}}" method="POST" enctype="multipart/form-data">
-                @csrf
+        <!-- Bên phải: Form cập nhật -->
+        <div class="md:col-span-2">
+            <div class="card bg-base-100 shadow-xl p-8">
+                <h2 class="text-2xl font-semibold mb-6">
+                    <i class="fas fa-edit mr-2 text-primary"></i> Cập nhật thông tin cá nhân
+                </h2>
 
-                <!-- Avatar Upload -->
-                <div class="form-control mb-6">
-                    <label class="label">
-                        <span class="label-text">Ảnh đại diện</span>
-                    </label>
-                    <div class="flex items-center gap-6">
-                        <div class="avatar">
-                            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                @if ($customer->profile_image)
-                                    <img src="{{ asset('storage/' . $customer->profile_image) }}" alt="Ảnh đại diện">
-                                @else
-                                    <div class="bg-neutral text-neutral-content w-full h-full flex items-center justify-center">
-                                        <i class="fas fa-user text-3xl"></i>
-                                    </div>
-                                @endif
-                            </div>
+                <!-- Flash -->
+                @if (session('success'))
+                    <div class="alert alert-success mb-4 shadow">
+                        <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
+                    </div>
+                @endif
+
+                <form id="updateForm" method="POST" action="{{ route('customer.update') }}" enctype="multipart/form-data" class="space-y-6">
+                    @csrf
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="label font-medium">Họ và tên*</label>
+                            <input type="text" name="name" value="{{ old('name', $customer->name) }}"
+                                   class="input input-bordered w-full" required>
                         </div>
-                        <input type="file" name="profile_image" class="file-input file-input-bordered file-input-primary w-full max-w-xs">
-                    </div>
-                </div>
 
-                <!-- Personal Info -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Họ và tên*</span>
-                        </label>
-                        <input type="text" name="name" value="{{ old('name', $customer->name) }}"
-                               class="input input-bordered" required>
-                    </div>
+                        <div>
+                            <label class="label font-medium">Email*</label>
+                            <input type="email" name="email" value="{{ old('email', $customer->email) }}"
+                                   class="input input-bordered w-full" required>
+                        </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Email*</span>
-                        </label>
-                        <input type="email" name="email" value="{{ old('email', $customer->email) }}"
-                               class="input input-bordered" required>
-                    </div>
+                        <div>
+                            <label class="label font-medium">Mật khẩu mới</label>
+                            <input type="password" name="password" class="input input-bordered w-full"
+                                   placeholder="Để trống nếu không đổi">
+                        </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Mật khẩu mới</span>
-                            <span class="label-text-alt">(Để trống nếu không đổi)</span>
-                        </label>
-                        <input type="password" name="password"
-                               class="input input-bordered" placeholder="Ít nhất 8 ký tự">
-                    </div>
+                        <div>
+                            <label class="label font-medium">Ngày sinh*</label>
+                            <input type="date" name="date_of_birth" value="{{ old('date_of_birth', $customer->date_of_birth) }}"
+                                   class="input input-bordered w-full" required>
+                        </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Ngày sinh*</span>
-                        </label>
-                        <input type="date" name="date_of_birth" value="{{ old('date_of_birth', $customer->date_of_birth) }}"
-                               class="input input-bordered" required>
+                        <div>
+                            <label class="label font-medium">Giới tính*</label>
+                            <select name="gender" class="select select-bordered w-full" required>
+                                <option value="male" {{ old('gender', $customer->gender) == 'male' ? 'selected' : '' }}>Nam</option>
+                                <option value="female" {{ old('gender', $customer->gender) == 'female' ? 'selected' : '' }}>Nữ</option>
+                                <option value="other" {{ old('gender', $customer->gender) == 'other' ? 'selected' : '' }}>Khác</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="label font-medium">Số điện thoại*</label>
+                            <input type="text" name="phone" value="{{ old('phone', $customer->phone) }}"
+                                   class="input input-bordered w-full" required>
+                        </div>
                     </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Giới tính*</span>
-                        </label>
-                        <select name="gender" class="select select-bordered" required>
-                            <option value="male" {{ old('gender', $customer->gender) == 'male' ? 'selected' : '' }}>Nam</option>
-                            <option value="female" {{ old('gender', $customer->gender) == 'female' ? 'selected' : '' }}>Nữ</option>
-                            <option value="other" {{ old('gender', $customer->gender) == 'other' ? 'selected' : '' }}>Khác</option>
-                        </select>
+                    <div>
+                        <label class="label font-medium">Địa chỉ*</label>
+                        <input type="text" name="address" value="{{ old('address', $customer->address) }}"
+                               class="input input-bordered w-full" required>
                     </div>
 
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Số điện thoại*</span>
-                        </label>
-                        <input type="text" name="phone" value="{{ old('phone', $customer->phone) }}"
-                               class="input input-bordered" required>
+                    <div class="text-right mt-6">
+                        <button class="btn btn-primary gap-2">
+                            <i class="fas fa-save"></i> Lưu thay đổi
+                        </button>
                     </div>
-                </div>
-
-                <!-- Address -->
-                <div class="form-control mt-6">
-                    <label class="label">
-                        <span class="label-text">Địa chỉ*</span>
-                    </label>
-                    <input type="text" name="address" value="{{ old('address', $customer->address) }}"
-                           class="input input-bordered" required>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="form-control mt-8">
-                    <button type="submit" class="btn btn-primary gap-2">
-                        <i class="fas fa-save"></i>
-                        Cập nhật hồ sơ
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
