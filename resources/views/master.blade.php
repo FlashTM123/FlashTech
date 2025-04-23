@@ -1,4 +1,5 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+@livewireStyles
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +29,12 @@
         });
     </script>
     <style>
-        .navbar {
-    z-index: 9999;
+    .navbar {
+    z-index: 50;
+}
+
+
+
 }
         .theme-toggle {
             position: fixed;
@@ -72,9 +77,7 @@
     @include('layouts.footer')
 
     <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle">
-        <span id="theme-icon" class="sun-icon"></span>
-    </button>
+
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -97,5 +100,6 @@
             });
         @endif
     </script>
+    @livewireScripts
 </body>
 </html>

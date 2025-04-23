@@ -29,8 +29,8 @@ class CartController extends Controller
         ];
 
         session()->put('cart', $cart);
-
-        return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
+        flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được thêm vào giỏ hàng.');
+        return Redirect::route('customer.home');
     }
 
 
@@ -128,8 +128,8 @@ class CartController extends Controller
         if ($request->input('payment_method') === 'bank_transfer') {
             return redirect()->route('customer.bankTransferInstructions')->with('success', 'Order placed successfully! Please follow the bank transfer instructions.');
         }
-
-        return redirect()->route('customer.home')->with('success', 'Order placed successfully! Your order will be delivered soon.');
+        flash()->options(['position' => 'bottom-center'])->success('Đặt hàng thành công!');
+        return Redirect::route('customer.home');
     }
     public function buyNow($id)
 {

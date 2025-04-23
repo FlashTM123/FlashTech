@@ -55,8 +55,8 @@ class AdminController extends Controller
             'phone' => $request->phone,
 
         ]);
-
-        return redirect()->route('admin.index')->with('add_success', 'Admin has been added successfully!');
+        flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được tạo thành công!');
+        return Redirect::route('admin.index');
     }
 
 
@@ -100,8 +100,9 @@ class AdminController extends Controller
             'phone' => $request->phone,
 
         ]);
+        flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được cập nhật thành công!');
+        return Redirect::route('admin.index');
 
-        return redirect()->route('admin.index')->with('edit_success', 'Admin has been updated successfully!');
     }
 
 
@@ -111,7 +112,8 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
-        return redirect()->route('admin.index')->with('delete_success', 'Admin has been deleted successfully!');
+        flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được xóa thành công!');
+        return Redirect::route('admin.index');
     }
     public function login()
     {
@@ -124,16 +126,18 @@ class AdminController extends Controller
         if ($admin && Hash::check($request->password, $admin->password)) {
             Auth::guard('admin')->login($admin);
             session(['admin' => $admin]);
-            return redirect()->route('manage.index')->with('login_success', 'Login successfully!');
+            flash()->options(['position' => 'bottom-center'])->success('Đăng nhập thành công!');
+            return Redirect::route('manage.index');
         } else {
-            return Redirect::back()->with('error', 'Email or password is incorrect!');
+            flash()->error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.');
+            return Redirect::back();
         }
     }
     public function logout()
     {
         Auth::guard('admin')->logout();
         session()->forget('admin');
-        session()->flash('logout_success', 'Logged out successfully!');
+        flash()->options(['position' => 'top-right'])->success('Đăng xuất thành công!');
         return Redirect::route('admin.login');
     }
 

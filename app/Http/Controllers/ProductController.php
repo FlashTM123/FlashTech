@@ -38,6 +38,12 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        $validTypes = ['laptop', 'component', 'accessories'];
+        if (!in_array($request->type, $validTypes)) {
+            // Hiển thị thông báo lỗi nếu loại sản phẩm không hợp lệ
+            flash()->options(['position' => 'bottom-center'])->error('Loại sản phẩm không hợp lệ!');
+            return redirect()->back()->withInput();
+        }
         $request->validate([
 
             'type' => 'required|in:laptop,component,accessories',
@@ -60,8 +66,8 @@ class ProductController extends Controller
         } elseif ($request->type === 'accessories') {
             Accessories::where('id', $request->type_id)->update(['product_id' => $product->id]);
         }
-
-        return redirect()->route('product.index')->with('success', 'Product created successfully.');
+        flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được thêm thành công!');
+        return redirect()->route('product.index');
     }
 
 
@@ -117,7 +123,8 @@ class ProductController extends Controller
             'type_id' => $request->type_id,
             'description' => $request->description,
         ]);
-        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
+        flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được cập nhật thành công!');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -126,6 +133,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
+        flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được xóa thành công!');
     }
 }

@@ -24,9 +24,12 @@ class CustomerAuthController extends Controller
 
             if($customer && Hash::check($request->password, $customer->password)){
                 Session::put('customer', $customer);
+                flash()->options(['position' => 'bottom-center', 'class' => 'success'])
+                ->success('Đăng nhập thành công');
                 return redirect()->route('customer.home');
             }
-            return back()->with('error', 'Sai tài khoản hoặc mật khẩu');
+            flash()->options(['position' => 'top-right', 'class' => 'error'])->error('Sai tai khoản hoặc mật khẩu');
+            return back();
     }
     public function showRegisterForm()
     {
@@ -62,7 +65,8 @@ class CustomerAuthController extends Controller
             'image' => $imageName,
         ]);
 
-        return redirect()->route('customer.login')->with('success', 'Đăng ký thành công');
+        flash()->options(['position' => 'bottom-center', 'class' => 'success'])->success('Đăng ký thành công! Hãy đăng nhập để tiếp tục');
+        return redirect()->route('customer.login');
     }
     public function showProfile(){
         $customer = Session::get('customer');
@@ -70,6 +74,7 @@ class CustomerAuthController extends Controller
     }
     public function logout(){
         Session::forget('customer');
+       flash()->options(['position' => 'bottom-center', 'class' => 'success'])->success('Đăng xuất thành công');
         return redirect()->route('customer.home');
     }
     public function edit(Customer $customer)

@@ -66,7 +66,8 @@ class OrderController extends Controller
         ]);
 
         // Chuyển hướng lại trang danh sách đơn hàng với thông báo thành công
-        return redirect()->route('order.index')->with('success', 'Order status updated successfully.');
+        flash()->options(['position' => 'bottom-center'])->success('Cập nhật trạng thái đơn hàng thành công!');
+        return redirect()->route('order.index');
     }
     public function show($id){
         $order = Order::with('items.product')->findOrFail($id); // Lấy thông tin đơn hàng theo ID

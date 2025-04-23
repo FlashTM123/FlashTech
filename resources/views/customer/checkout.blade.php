@@ -10,7 +10,7 @@
             <div class="lg:col-span-2 space-y-6">
                 <h1 class="text-4xl font-bold text-primary">Hoàn tất đơn hàng</h1>
 
-                <form action="{{ route('customer.processCheckout') }}" method="POST" class="bg-white rounded-2xl shadow-xl p-6 space-y-6">
+                <form action="{{ route('customer.processCheckout') }}" method="POST" class=" rounded-2xl shadow-xl p-6 space-y-6">
                     @csrf
                     <div>
                         <h2 class="text-xl font-semibold mb-2">1. Địa chỉ giao hàng</h2>
@@ -26,7 +26,7 @@
                             </label>
                             <label class="flex items-center gap-3 bg-base-200 p-3 rounded-xl cursor-pointer hover:bg-base-300 transition">
                                 <input type="radio" name="payment_method" value="bank_transfer" class="radio radio-primary" />
-                                <span>Chuyển khoản ngân hàng</span>
+                                <span>Chuyển khoản ngân hàng (Đang phát triển)</span>
                             </label>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
 
             {{-- Chi tiết đơn hàng --}}
             <div>
-                <div class="bg-white rounded-2xl shadow-xl p-6">
+                <div class= "rounded-2xl shadow-xl p-6">
                     <h2 class="text-2xl font-bold mb-4 text-primary">🛒 Đơn hàng của bạn</h2>
                     <div class="space-y-4">
                         @foreach($cart as $product)

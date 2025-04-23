@@ -14,7 +14,7 @@
 
             @if(session('cart') && count(session('cart')) > 0)
                 @foreach(session('cart') as $id => $product)
-                    <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+                    <div class="rounded-xl shadow-sm hover:shadow-md transition p-4">
                         <div class="flex flex-col md:flex-row items-center gap-4">
                             <div class="w-24 h-24 rounded-lg overflow-hidden">
                                 <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-cover">
@@ -138,18 +138,21 @@
         });
 
         function updateTotal(id, quantity) {
-            const row = document.querySelector(`.increase-quantity[data-id="${id}"]`).closest('.bg-white');
-            const priceText = row.querySelector('.text-gray-500').textContent;
-            const price = parseInt(priceText.replace(/[^\d]/g, ''));
-            const totalPrice = price * quantity;
+            const row = document.querySelector(`.increase-quantity[data-id="${id}"]`).closest('.rounded-xl'); // Tìm hàng hiện tại
+            const priceText = row.querySelector('.text-gray-500').textContent; // Lấy giá sản phẩm
+            const price = parseInt(priceText.replace(/[^\d]/g, '')); // Loại bỏ ký tự không phải số
+            const totalPrice = price * quantity; // Tính tổng giá
+
+            // Cập nhật tổng giá cho sản phẩm
             row.querySelector('.total-price').textContent = new Intl.NumberFormat().format(totalPrice) + '₫';
 
+            // Cập nhật tổng giá trị giỏ hàng
             let subtotal = 0;
             document.querySelectorAll('.total-price').forEach(el => {
                 subtotal += parseInt(el.textContent.replace(/[^\d]/g, ''));
             });
 
-            const shipping = 30000;
+            const shipping = 30000; // Phí giao hàng cố định
             document.getElementById('subtotal').textContent = new Intl.NumberFormat().format(subtotal) + '₫';
             document.getElementById('total').textContent = new Intl.NumberFormat().format(subtotal + shipping) + '₫';
         }

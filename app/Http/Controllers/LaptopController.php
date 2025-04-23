@@ -70,8 +70,8 @@ class LaptopController extends Controller
         ]);
 
 //        dd($request->all());
-
-        return redirect()->route('laptop.index')->with('add_success', 'Laptop has been added successfully!');
+        flash()->options(['position' => 'bottom-center'])->success('Laptop đã được thêm thành công!');
+        return redirect()->route('laptop.index');
     }
 
     /**
@@ -112,7 +112,8 @@ class LaptopController extends Controller
             'quantity'=>$request->quantity,
             'image'=>$request->image,
         ]);
-        return redirect()->route('laptop.index')->with("edit_success", "Laptop has been updated successfully!");
+        flash()->options(['position' => 'bottom-center'])->success('Laptop đã được cập nhật thành công!');
+        return redirect()->route('laptop.index');
     }
 
     /**
@@ -121,7 +122,8 @@ class LaptopController extends Controller
     public function destroy(Laptop $laptop)
     {
         $laptop->delete();
-        return redirect()->route('laptop.index')->with('delete_success', 'Laptop has been deleted successfully!');
+        flash()->options(['position' => 'bottom-center'])->success('Laptop đã được xóa thành công!');
+        return redirect()->route('laptop.index');
     }
 
     /**

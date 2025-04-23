@@ -1,65 +1,63 @@
 @extends('app')
 
-@section('title', 'Product Create')
+@section('title', 'Thêm Sản Phẩm')
 
 @section('content')
-    <div class="container mx-auto p-6">
-        <div class="max-w-2xl mx-auto p-6">
-            <h2 class="text-2xl font-bold text-center mb-6">Add Product</h2>
+<div class="container mx-auto p-6">
+    <div class="max-w-3xl mx-auto bg-white dark:bg-base-200 p-8 rounded-2xl shadow-xl">
+        <h2 class="text-3xl font-bold text-center text-gradient bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-8">
+            <i class="fa-solid fa-circle-plus mr-2 text-indigo-500"></i>Thêm sản phẩm mới
+        </h2>
 
-            @if (session('success'))
+        {{-- SweetAlert nếu thành công --}}
+        @if (session('success'))
             <script>
                 document.addEventListener('DOMContentLoaded', function(){
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success',
-                        text: 'Product list loaded successfully!',
+                        title: 'Thành công',
+                        text: 'Thêm sản phẩm thành công!',
                         confirmButtonText: 'OK',
                     });
                 });
             </script>
-            @endif
+        @endif
 
+        <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
 
-            <form action="{{ route('product.store')}}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                @csrf
+            {{-- Loại sản phẩm --}}
+            <div>
+                <label class="label font-semibold">Loại sản phẩm</label>
+                <select name="type" class="select select-bordered w-full">
+                    <option value="laptop">Laptop</option>
+                    <option value="component">Linh kiện</option>
+                    <option value="accessories">Phụ kiện</option>
+                </select>
+            </div>
 
-                <div>
-                    <label>Loại sản phẩm</label>
-                    <select name="type" class="select">
-                        <option value="laptop">Laptop</option>
-                        <option value="component">Component</option>
-                        <option value="accessories">Accessories</option>
-                    </select>
-                </div>
+            {{-- Type ID --}}
+            <div>
+                <label class="label font-semibold">Mã loại</label>
+                <input type="number" name="type_id" class="input input-bordered w-full" placeholder="Nhập mã loại">
+            </div>
 
-                <div>
-                    <label class="">TypeId</label>
-                    <input type="number" name="type_id" class="input input-bordered w-full" >
-                </div>
+            {{-- Mô tả sản phẩm --}}
+            <div>
+                <label class="label font-semibold">Mô tả sản phẩm</label>
+                <textarea name="description" class="textarea textarea-bordered w-full" rows="8" placeholder="Mô tả chi tiết sản phẩm..."></textarea>
+            </div>
 
-                <div>
-                    <label class="">Description</label>
-                    <textarea name="description" class="textarea textarea-bordered w-full textarea-lg" rows="30"  placeholder="Enter your description here..."  ></textarea>
-                </div>
-
-                <div class="flex justify-end gap-4 mt-6">
-                    <button type="submit" class="btn btn-outline btn-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add
-                    </button>
-                    <a href="{{ route('product.index') }}" class="btn btn-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Cancel</a>
-                </div>
-
-            </form>
-        </div>
+            {{-- Nút hành động --}}
+            <div class="flex justify-end gap-4 pt-4">
+                <a href="{{ route('product.index') }}" class="btn btn-outline btn-error">
+                    <i class="fa-solid fa-circle-xmark mr-2"></i>Huỷ bỏ
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-circle-check mr-2"></i>Thêm sản phẩm
+                </button>
+            </div>
+        </form>
     </div>
-
-
+</div>
 @endsection

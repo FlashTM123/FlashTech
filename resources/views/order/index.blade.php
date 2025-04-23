@@ -15,6 +15,7 @@
                     <th class="text-center">Payment Method</th>
                     <th class="text-center">Address</th>
                     <th class="text-center">Status</th>
+                    <th class="text-center">Ngày mua</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -39,6 +40,7 @@
                                 </select>
                             </form>
                         </td>
+                        <td class="text-center">{{ $order->created_at->format('d/m/Y ') }}</td>
                         <td class="text-center">
                             <a href="{{ route('order.show', $order->id)}}" class="btn btn-sm btn-primary">View</a>
                         </td>

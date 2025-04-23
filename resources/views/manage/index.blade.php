@@ -7,7 +7,7 @@
     <!-- Tiêu đề với icon -->
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
         <i class="fas fa-chart-pie text-primary"></i>
-        Dashboard
+        Thống kê
     </h1>
 
     <!-- Biểu đồ doanh thu -->
@@ -15,7 +15,7 @@
         <div class="card-body">
             <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
                 <i class="fas fa-money-bill-wave text-green-500"></i>
-                Revenue by Month
+                Doanh thu theo tháng
             </h2>
             <div class="w-full" style="height: 400px">
                 <canvas id="revenueChart"></canvas>
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-  
+
 </div>
 
 <!-- Chart.js -->
