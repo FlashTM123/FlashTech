@@ -151,14 +151,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{color}/edit', [ColorController::class, 'update'])->name('color.update');
         Route::delete('/{color}', [ColorController::class, 'destroy'])->name('color.destroy');
     });
-    Route::prefix('employees')->group(function (){
-        Route::get('/',[EmployeesController::class, 'index'])->name('employees.index');
-        Route::get('/create',[EmployeesController::class, 'create'])->name('employees.create');
-        Route::post('/store', [EmployeesController::class, 'store'])->name('employees.store');
-        Route::get('/{employees}/edit', [EmployeesController::class, 'edit'])->name('employees.edit');
-        Route::put('/{employees}/edit', [EmployeesController::class, 'update'])->name('employees.update');
-        Route::delete('/{employees}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
-    });
+ 
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
@@ -170,7 +163,9 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
     });
     Route::prefix('orders')->group(function(){
         Route::get('/', [OrderController::class, 'index'])->name('order.index');
-        Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])
+            ->name('orders.updateStatus')
+            ->middleware('auth:admin'); // Middleware xác thực admin
         Route::get('/{id}', [OrderController::class, 'show'])->name('order.show');
     });
 });

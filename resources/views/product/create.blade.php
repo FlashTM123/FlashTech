@@ -29,33 +29,34 @@
             {{-- Loại sản phẩm --}}
             <div>
                 <label class="label font-semibold">Loại sản phẩm</label>
-                <select name="type" class="select select-bordered w-full">
+                <select name="product_type" class="select select-bordered w-full" required>
+                    <option value="">Chọn loại sản phẩm</option>
                     <option value="laptop">Laptop</option>
                     <option value="component">Linh kiện</option>
                     <option value="accessories">Phụ kiện</option>
                 </select>
             </div>
 
-            {{-- Type ID --}}
+            {{-- ID sản phẩm --}}
             <div>
-                <label class="label font-semibold">Mã loại</label>
-                <input type="number" name="type_id" class="input input-bordered w-full" placeholder="Nhập mã loại">
+                <label class="label font-semibold">ID sản phẩm</label>
+                <input type="number" name="product_id" class="input input-bordered w-full" placeholder="Nhập ID sản phẩm (laptop_id, component_id, hoặc accessory_id)" required>
             </div>
 
             {{-- Mô tả sản phẩm --}}
             <div>
                 <label class="label font-semibold">Mô tả sản phẩm</label>
-                <textarea name="description" class="textarea textarea-bordered w-full" rows="8" placeholder="Mô tả chi tiết sản phẩm..."></textarea>
+                <textarea name="description" class="textarea textarea-bordered w-full" rows="8" placeholder="Mô tả chi tiết sản phẩm..." required></textarea>
             </div>
 
             {{-- Nút hành động --}}
             <div class="flex justify-end gap-4 pt-4">
-                <a href="{{ route('product.index') }}" class="btn btn-outline btn-error">
-                    <i class="fa-solid fa-circle-xmark mr-2"></i>Huỷ bỏ
-                </a>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-solid fa-circle-check mr-2"></i>Thêm sản phẩm
                 </button>
+                <a href="{{ route('product.index') }}" class="btn btn-outline btn-error">
+                    <i class="fa-solid fa-circle-xmark mr-2"></i>Huỷ bỏ
+                </a>
             </div>
         </form>
     </div>

@@ -11,73 +11,79 @@ class Product extends Model
 
     protected $table = "products";
     protected $primaryKey = "id";
-    protected $fillable = ['type', 'type_id','description'];
+    protected $fillable = ['laptop_id', 'component_id', 'accessories_id', 'description'];
 
     public $timestamps = false;
 
-    public function getProductType()
+    // Quan hệ với Laptop
+    public function laptop()
     {
-        return match ($this->type) {
-            'laptop' => Laptop::find($this->type_id),
-            'component' => Component::find($this->type_id),
-            'accessories' => Accessories::find($this->type_id),
-            default => null,
-        };
+        return $this->belongsTo(Laptop::class, 'laptop_id', 'id');
     }
 
-
-    public function getProductName()
+    // Quan hệ với Component
+    public function component()
     {
-        $productDetails = $this->getProductType();
-        return $productDetails ? $productDetails->name : null;
+        return $this->belongsTo(Component::class, 'component_id', 'id');
     }
 
-    public function getProductPrice()
+    // Quan hệ với Accessories
+    public function accessories()
     {
-        $productDetails = $this->getProductType();
-
-        if ($productDetails) {
-            return $productDetails->promotional_price ?? $productDetails->original_price;
-        }
-
-        return 0; // Return 0 if product not found
+        return $this->belongsTo(Accessories::class, 'accessories_id', 'id');
     }
 
-    public function getProductOriginalPrice()
-    {
-        $productDetails = $this->getProductType();
-        return $productDetails ? $productDetails->original_price : 0;
-    }
-
-    public function getProductImage()
-    {
-        $productDetails = $this->getProductType();
-        return $productDetails ? $productDetails->image : null;
-
-    }
-    public function getProductDiscount()
-    {
-        $productDetails = $this->getProductType();
-        return $productDetails ? $productDetails->discount : null;
-    }
-    public function getProductQuantity(){
-        $productDetails = $this->getProductType();
-        return $productDetails ? $productDetails->quantity : null;
-    }
-    public function laptop() {
-        return $this->hasone(Laptop::class, 'product_id', 'id');
-    }
-
-    public function component() {
-        return $this->hasOne(Component::class, 'product_id', 'id');
-    }
-
-    public function accessories() {
-        return $this->hasOne(Accessories::class, 'product_id', 'id');
-    }
+    // Quan hệ với OrderDetail
     public function orderDetails()
     {
         return $this->hasMany(Orderdetail::class, 'product_id');
     }
 
+    // Quan hệ với Brand
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    // Lấy tên sản phẩm
+    public function getProductName()
+    {
+        return $this->laptop?->name ?? $this->component?->name ?? $this->accessories?->name;
+    }
+
+    // Lấy giá sản phẩm
+    public function getProductPrice()
+    {
+        $productDetails = $this->laptop ?? $this->component ?? $this->accessories;
+
+        if ($productDetails) {
+            return $productDetails->promotional_price ?? $productDetails->original_price;
+        }
+
+        return 0; // Trả về 0 nếu không tìm thấy sản phẩm
+    }
+
+    // Lấy giá gốc của sản phẩm
+    public function getProductOriginalPrice()
+    {
+        return $this->laptop?->original_price ?? $this->component?->original_price ?? $this->accessories?->original_price ?? 0;
+    }
+
+    // Lấy hình ảnh sản phẩm
+    public function getProductImage()
+    {
+        return $this->laptop?->image ?? $this->component?->image ?? $this->accessories?->image;
+    }
+
+    // Lấy giảm giá của sản phẩm
+    public function getProductDiscount()
+    {
+        return $this->laptop?->discount ?? $this->component?->discount ?? $this->accessories?->discount;
+    }
+
+    // Lấy số lượng sản phẩm
+    public function getProductQuantity()
+    {
+        return $this->laptop?->quantity ?? $this->component?->quantity ?? $this->accessories?->quantity;
+    }
 }

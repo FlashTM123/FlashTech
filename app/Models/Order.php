@@ -14,7 +14,7 @@ class Order extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['customer_id', 'payment_method', 'total_price', 'status', 'address'];
+    protected $fillable = ['customer_id', 'payment_method', 'total_price', 'status', 'address','admin_id'];
 
     public function customer()
     {
@@ -22,11 +22,14 @@ class Order extends Model
     }
     public function items()
     {
-        return $this->hasMany(Orderdetail::class);
+        return $this->hasMany(Orderdetail::class, 'order_id', 'id');
     }
 
     public function getTotalPriceWithShippingAttribute()
     {
         return $this->total_price + $this->shipping_fee; // Tổng tiền bao gồm phí ship
+    }
+    public function admin(){
+        return $this->belongsTo(Admin::class,'admin_id', 'id');
     }
 }

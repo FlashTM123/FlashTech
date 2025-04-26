@@ -21,20 +21,22 @@
             {{ $product->getProductName() }}
         </h3>
 
+        {{-- Thông tin chi tiết sản phẩm --}}
         <div class="flex flex-wrap gap-2 text-xs md:text-sm font-medium text-gray-600 dark:text-gray-300">
-            @if($product->type === 'laptop')
+            @if ($product->laptop)
                 <span class="badge badge-outline badge-info">{{ $product->laptop->cpu }}</span>
                 <span class="badge badge-outline badge-info">{{ $product->laptop->ram }}</span>
                 <span class="badge badge-outline badge-info">{{ $product->laptop->storage }}</span>
                 <span class="badge badge-outline badge-info">{{ $product->laptop->vga }}</span>
-            @elseif($product->type === 'component')
+            @elseif ($product->component)
                 <span class="badge badge-outline badge-success">{{ $product->component->type }}</span>
                 <span class="badge badge-outline badge-success">{{ $product->component->capacity }}</span>
-            @elseif($product->type === 'accessories')
+            @elseif ($product->accessories)
                 <span class="badge badge-outline badge-accent">{{ $product->accessories->type }}</span>
             @endif
         </div>
 
+        {{-- Giá sản phẩm --}}
         <div class="text-right">
             @if ($product->getProductDiscount() > 0)
                 <p class="text-sm line-through text-gray-400">
@@ -46,6 +48,7 @@
             </p>
         </div>
 
+        {{-- Nút hành động --}}
         <div class="flex gap-3 pt-2">
             @if ($product->getProductQuantity() > 0)
                 <form action="{{ route('customer.addToCart') }}" method="POST" class="w-1/2">

@@ -25,7 +25,13 @@ class Brand extends Model
     public function components(){
         return $this->hasMany(Component::class);
     }
+
     public function accessories(){
         return $this->hasMany(Accessories::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'brand_id', 'id');
     }
 }

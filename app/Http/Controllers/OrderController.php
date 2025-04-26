@@ -60,9 +60,10 @@ class OrderController extends Controller
         // Tìm đơn hàng theo ID
         $order = Order::findOrFail($id);
 
-        // Cập nhật trạng thái
+        // Cập nhật trạng thái và admin_id
         $order->update([
             'status' => $request->input('status'),
+            'admin_id' => auth('admin')->id(),
         ]);
 
         // Chuyển hướng lại trang danh sách đơn hàng với thông báo thành công

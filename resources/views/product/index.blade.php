@@ -34,7 +34,15 @@
                             <td class="text-center font-semibold">{{ $product->id }}</td>
                             <td class="text-center">{{ $product->getProductName() }}</td>
                             <td class="text-center">
-                                <span class="badge badge-outline">{{ $product->type }}</span>
+                                @if ($product->laptop)
+                                    <span class="badge badge-outline">Laptop</span>
+                                @elseif ($product->component)
+                                    <span class="badge badge-outline">Component</span>
+                                @elseif ($product->accessories)
+                                    <span class="badge badge-outline">Accessories</span>
+                                @else
+                                    <span class="badge badge-outline">Unknown</span>
+                                @endif
                             </td>
                             <td class="text-center">
                                 @if($product->getProductPrice() < $product->getProductOriginalPrice())

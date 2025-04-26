@@ -14,6 +14,18 @@ class CartController extends Controller
     public function cart()
     {
         $cart = session()->get('cart', []);
+
+        // Kiểm tra sản phẩm trong giỏ hàng có tồn tại trong bảng products
+        foreach ($cart as $id => $product) {
+            if (!Product::find($id)) {
+                unset($cart[$id]); // Xóa sản phẩm không tồn tại
+            }
+        }
+
+        // Cập nhật lại giỏ hàng trong session
+        session()->put('cart', $cart);
+
+
         return view('customer.cart', compact('cart'));
     }
 
@@ -21,11 +33,24 @@ class CartController extends Controller
     {
         $cart = session()->get('cart', []);
 
-        $cart[$request->product_id] = [
-            'name' => $request->product_name,
-            'price' => $request->product_price,
-            'image' => $request->product_image, // Đảm bảo lưu thông tin hình ảnh
-            'quantity' => isset($cart[$request->product_id]) ? $cart[$request->product_id]['quantity'] + 1 : 1,
+        // Lấy thông tin sản phẩm từ cơ sở dữ liệu
+        $product = Product::with(['laptop', 'component', 'accessories'])->findOrFail($request->product_id);
+
+        // Kiểm tra loại sản phẩm và lấy thông tin chi tiết
+        $detail = $product->laptop ?? $product->component ?? $product->accessories;
+
+        // Kiểm tra và lấy giá từ bảng liên quan hoặc bảng products
+        $price = $detail->promotional_price ?? ($detail->original_price - ($detail->original_price * $detail->discount / 100)) ?? $product->price;
+
+        if (is_null($price)) {
+            return redirect()->route('customer.cart')->with('error', 'Sản phẩm không có giá hợp lệ.');
+        }
+
+        $cart[$product->id] = [
+            'name' => $detail->name ?? $product->name, // Lấy tên từ bảng liên quan hoặc bảng products
+            'price' => $price, // Lấy giá từ bảng liên quan hoặc bảng products
+            'image' => $product->getProductImage(), // Lấy hình ảnh từ phương thức
+            'quantity' => isset($cart[$product->id]) ? $cart[$product->id]['quantity'] + 1 : 1,
         ];
 
         session()->put('cart', $cart);
@@ -95,13 +120,28 @@ class CartController extends Controller
     {
         $cart = session()->get('cart', []);
         if (empty($cart)) {
-            return redirect()->route('customer.cart')->with('error', 'Your cart is empty.');
+            return redirect()->route('customer.cart')->with('error', 'Giỏ hàng của bạn đang trống.');
         }
 
         $shippingFee = 30000; // Phí vận chuyển cố định
-        $subtotal = array_sum(array_map(function ($item) {
-            return $item['price'] * $item['quantity'];
-        }, $cart));
+        $subtotal = 0;
+
+        foreach ($cart as $id => $product) {
+            $dbProduct = Product::find($id);
+            if (!$dbProduct) {
+                unset($cart[$id]); // Xóa sản phẩm không tồn tại khỏi giỏ hàng
+                continue;
+            }
+            $subtotal += $product['price'] * $product['quantity'];
+        }
+
+        // Cập nhật lại giỏ hàng trong session
+        session()->put('cart', $cart);
+
+        if (empty($cart)) {
+            return redirect()->route('customer.cart')->with('error', 'Một số sản phẩm trong giỏ hàng không còn tồn tại.');
+        }
+
         $totalPrice = $subtotal + $shippingFee; // Tổng tiền bao gồm phí ship
 
         $order = Order::create([
@@ -126,22 +166,10 @@ class CartController extends Controller
 
         // Xử lý theo phương thức thanh toán
         if ($request->input('payment_method') === 'bank_transfer') {
-            return redirect()->route('customer.bankTransferInstructions')->with('success', 'Order placed successfully! Please follow the bank transfer instructions.');
+            return redirect()->route('customer.bankTransferInstructions')->with('success', 'Đặt hàng thành công! Vui lòng làm theo hướng dẫn chuyển khoản.');
         }
         flash()->options(['position' => 'bottom-center'])->success('Đặt hàng thành công!');
         return Redirect::route('customer.home');
     }
-    public function buyNow($id)
-{
-    // Lấy thông tin sản phẩm
-    $product = Product::findOrFail($id);
-    $cart = session()->get('cart', []);
-    // Kiểm tra số lượng sản phẩm
-    if ($product->getProductQuantity() <= 0) {
-        return redirect()->back()->with('error', 'Sản phẩm này hiện đã hết hàng.');
-    }
 
-    // Chuyển hướng đến trang thanh toán với sản phẩm
-    return view('customer.checkout', compact('product'));
-}
 }

@@ -15,6 +15,7 @@
                     <th class="text-center">Payment Method</th>
                     <th class="text-center">Address</th>
                     <th class="text-center">Status</th>
+                    <th class="text-center">Người duyệt</th>
                     <th class="text-center">Ngày mua</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -39,6 +40,13 @@
                                     <option value="Cancel" {{ $order->status == 'Cancel' ? 'selected' : '' }} class="text-red-500">Cancel</option>
                                 </select>
                             </form>
+                        </td>
+                        <td class="text-center">
+                            @if ($order->admin)
+                                {{ $order->admin->name }}
+                            @else
+                                Chưa duyệt
+                            @endif
                         </td>
                         <td class="text-center">{{ $order->created_at->format('d/m/Y ') }}</td>
                         <td class="text-center">

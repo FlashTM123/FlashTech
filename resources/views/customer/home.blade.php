@@ -19,7 +19,7 @@
     </div>
 
     {{-- Search Bar --}}
-    <form method="GET" action="{{ route('customer.home') }}" class="flex justify-center">
+    <form method="GET" action="{{ route('customer.home') }}" class="flex flex-col md:flex-row justify-center gap-4">
         <div class="form-control w-full max-w-2xl">
             <label class="input input-bordered flex items-center gap-2 shadow rounded-full">
                 <i class="fas fa-search text-gray-500"></i>
@@ -32,9 +32,9 @@
     {{-- Danh mục sản phẩm --}}
     @php
         $sections = [
-            ['label' => 'Laptop', 'icon' => 'fa-laptop', 'type' => 'laptop'],
-            ['label' => 'Linh Kiện', 'icon' => 'fa-microchip', 'type' => 'component'],
-            ['label' => 'Phụ Kiện', 'icon' => 'fa-headphones-alt', 'type' => 'accessories'],
+            ['label' => 'Laptop', 'icon' => 'fa-laptop', 'relation' => 'laptop'],
+            ['label' => 'Linh Kiện', 'icon' => 'fa-microchip', 'relation' => 'component'],
+            ['label' => 'Phụ Kiện', 'icon' => 'fa-headphones-alt', 'relation' => 'accessories'],
         ];
     @endphp
 
@@ -48,7 +48,7 @@
                 <a href="#" class="text-blue-600 hover:underline text-sm">Xem tất cả</a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                @foreach ($products->where('type', $section['type']) as $product)
+                @foreach ($products->filter(fn($product) => $product->{$section['relation']}) as $product)
                     <x-product-card :product="$product" />
                 @endforeach
             </div>

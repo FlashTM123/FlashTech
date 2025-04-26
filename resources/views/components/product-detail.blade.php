@@ -91,15 +91,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($product->type === 'laptop')
+                            @if ($product->laptop)
                                 <tr><td>CPU</td><td>{{ $detail->cpu }}</td></tr>
                                 <tr><td>RAM</td><td>{{ $detail->ram }}</td></tr>
                                 <tr><td>GPU</td><td>{{ $detail->vga }}</td></tr>
                                 <tr><td>Lưu trữ</td><td>{{ $detail->storage }}</td></tr>
-                            @elseif ($product->type === 'component')
+                            @elseif ($product->component)
                                 <tr><td>Loại</td><td>{{ $detail->type }}</td></tr>
                                 <tr><td>Dung lượng</td><td>{{ $detail->capacity }}</td></tr>
-                            @elseif ($product->type === 'accessories')
+                            @elseif ($product->accessories)
                                 <tr><td>Loại</td><td>{{ $detail->type }}</td></tr>
                             @endif
                         </tbody>
