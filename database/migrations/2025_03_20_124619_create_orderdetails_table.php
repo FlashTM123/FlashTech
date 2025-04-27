@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orderdetails', function (Blueprint $table) {
-            $table->unsignedInteger('order_id'); // Define order_id column
-            $table->unsignedInteger('product_id'); // Define product_id column
-            $table->enum('product_type', ['laptop', 'component', 'accessories']);
+            $table->Integer('order_id'); // Define order_id column
+            $table->Integer('product_id'); // Define product_id column
             $table->integer('quantity');
             $table->decimal('price', 8, 0);
             $table->primary(['order_id', 'product_id']); // Composite primary key
+            $table->timestamps();   
 
             // Add foreign key constraints
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

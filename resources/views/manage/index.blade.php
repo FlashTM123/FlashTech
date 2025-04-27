@@ -80,7 +80,7 @@
                         <tr class="bg-base-200">
                             <th class="text-center">#</th>
                             <th>Tên sản phẩm</th>
-                            <th class="text-center">Loại</th>
+
                             <th class="text-center">Số lượng</th>
                         </tr>
                     </thead>
@@ -100,7 +100,7 @@
                                         {{ $product->getProductName() }}
                                     </div>
                                 </td>
-                                <td class="text-center">{{ ucfirst($product->type) }}</td>
+                        
                                 <td class="text-center">{{ $product->getProductQuantity() }}</td>
                             </tr>
                         @endforeach

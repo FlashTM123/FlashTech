@@ -28,13 +28,6 @@ class Accessories extends Model
     }
 
     // Trong model Accessories.php
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($accessories) {
-            Product::where('type', 'accessories')->where('type_id', $accessories->id)->delete();
-        });
-    }
+   
 
 }

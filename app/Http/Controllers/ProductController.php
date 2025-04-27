@@ -49,7 +49,7 @@ class ProductController extends Controller
         } elseif ($validated['product_type'] === 'component') {
             $product->component_id = $validated['product_id'];
         } elseif ($validated['product_type'] === 'accessories') {
-            $product->accessory_id = $validated['product_id'];
+            $product->accessories_id = $validated['product_id'];
         }
 
         $product->save();
@@ -80,33 +80,37 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'type' => 'required|in:laptop,component,accessories',
-            'type_id' => 'required|integer|exists:' . $this->getTableName($request->type) . ',id',
-            'description' => 'required|string|max:5000',
-        ]);
+        $product = Product::findOrFail($id);
 
-        $product->description = $request->description;
+        // Cập nhật thông tin chung
+        $product->description = $request->input('description');
 
-        if ($request->type === 'laptop') {
-            $product->laptop_id = $request->type_id;
-            $product->component_id = null;
-            $product->accessories_id = null;
-        } elseif ($request->type === 'component') {
-            $product->component_id = $request->type_id;
-            $product->laptop_id = null;
-            $product->accessory_id = null;
-        } elseif ($request->type === 'accessories') {
-            $product->accessories_id = $request->type_id;
-            $product->laptop_id = null;
-            $product->component_id = null;
+        // Xử lý loại sản phẩm
+        if ($request->input('product_type') === 'laptop') {
+            $product->laptop()->updateOrCreate([], [
+                'id' => $request->input('laptop_id'),
+            ]);
+            $product->component()->delete();
+            $product->accessories()->delete();
+        } elseif ($request->input('product_type') === 'component') {
+            $product->component()->updateOrCreate([], [
+                'id' => $request->input('component_id'),
+            ]);
+            $product->laptop()->delete();
+            $product->accessories()->delete();
+        } elseif ($request->input('product_type') === 'accessories') {
+            $product->accessories()->updateOrCreate([], [
+                'id' => $request->input('accessories_id'),
+            ]);
+            $product->laptop()->delete();
+            $product->component()->delete();
         }
 
         $product->save();
-
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được cập nhật thành công!');
+
         return redirect()->route('product.index');
     }
 
@@ -115,7 +119,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Xóa bản ghi liên quan dựa trên loại sản phẩm
+        if ($product->laptop_id) {
+            Laptop::where('id', $product->laptop_id)->delete();
+        } elseif ($product->component_id) {
+            Component::where('id', $product->component_id)->delete();
+        } elseif ($product->accessories_id) {
+            Accessories::where('id', $product->accessories_id)->delete();
+        }
+
+        // Xóa sản phẩm
         $product->delete();
+
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được xóa thành công!');
         return redirect()->route('product.index');
     }
@@ -123,14 +138,4 @@ class ProductController extends Controller
     /**
      * Get the table name for the given type.
      */
-    private function getTableName($type)
-    {
-        $tableNames = [
-            'laptop' => 'laptops',
-            'component' => 'components',
-            'accessories' => 'accessories',
-        ];
-
-        return $tableNames[$type] ?? $type;
-    }
 }

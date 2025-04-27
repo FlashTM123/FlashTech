@@ -29,6 +29,8 @@
         </div>
     </form>
 
+    {{-- Bộ lọc theo thương hiệu --}}
+
     {{-- Danh mục sản phẩm --}}
     @php
         $sections = [

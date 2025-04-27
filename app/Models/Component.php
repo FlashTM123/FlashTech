@@ -27,13 +27,5 @@ class Component extends Model
     }
 
     // Trong model Component.php
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($component) {
-            Product::where('type', 'component')->where('type_id', $component->id)->delete();
-        });
-    }
 
 }

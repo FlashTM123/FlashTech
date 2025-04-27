@@ -29,7 +29,7 @@
                     <h3 class="text-lg font-semibold mb-2">Shipping Information</h3>
                     <p><strong>Address:</strong> {{ $order->address }}</p>
                     <p><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</p>
-                    <p><strong>Order Date:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                    <p><strong>Order Date:</strong> {{ $order->created_at->format('d/m/Y ') }}</p>
                 </div>
             </div>
 

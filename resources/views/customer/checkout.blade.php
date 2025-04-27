@@ -25,7 +25,7 @@
                                 <span>Thanh toán khi nhận hàng (COD)</span>
                             </label>
                             <label class="flex items-center gap-3 bg-base-200 p-3 rounded-xl cursor-pointer hover:bg-base-300 transition">
-                                <input type="radio" name="payment_method" value="bank_transfer" class="radio radio-primary" />
+                                <input type="radio" name="payment_method" value="bank_transfer" class="radio radio-primary"  disabled/>
                                 <span>Chuyển khoản ngân hàng (Đang phát triển)</span>
                             </label>
                         </div>

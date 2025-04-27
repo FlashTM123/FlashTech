@@ -3,31 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class CustomerProductController extends Controller
 {
     public function index(Request $request)
     {
-        // Lấy từ khóa tìm kiếm từ request
+        // Lấy danh sách thương hiệu
+        $brands = Brand::all();
+
+        // Lấy từ khóa tìm kiếm và lọc theo thương hiệu
         $query = $request->input('query');
+        $brandId = $request->input('brand_id');
 
-        // Tìm kiếm sản phẩm dựa trên từ khóa
-        if ($query) {
-            $products = Product::whereHas('laptop', function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%');
-            })->orWhereHas('component', function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%');
-            })->orWhereHas('accessories', function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%');
-            })->get();
-        } else {
-            // Nếu không có từ khóa, lấy tất cả sản phẩm
-            $products = Product::with(['laptop', 'component', 'accessories'])->get();
-        }
+        // Tìm kiếm sản phẩm
+        $products = Product::with(['laptop', 'component', 'accessories', 'brand'])
+            ->when($query, function ($q) use ($query) {
+                $q->whereHas('laptop', function ($q) use ($query) {
+                    $q->where('name', 'like', '%' . $query . '%');
+                })->orWhereHas('component', function ($q) use ($query) {
+                    $q->where('name', 'like', '%' . $query . '%');
+                })->orWhereHas('accessories', function ($q) use ($query) {
+                    $q->where('name', 'like', '%' . $query . '%');
+                });
+            })
+            ->when($brandId, function ($q) use ($brandId) {
+                $q->where('brand_id', $brandId);
+            })
+            ->get();
 
-        // Truyền danh sách sản phẩm vào view
-        return view('customer.home', compact('products'));
+        // Truyền dữ liệu vào view
+        return view('customer.home', compact('products', 'brands'));
     }
 
     public function show($id)
