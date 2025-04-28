@@ -40,16 +40,16 @@ use Illuminate\Http\Request;
 // });
 
 Route::get('/laptop', function () {
-    $products = Product::where('type', 'laptop')->get();
+    $products = Product::whereNotNull( 'laptop_id')->get();
     return view('customer.laptop', compact('products'));
 });
 Route::get('/component', function () {
-    $products = Product::where('type', 'component')->get();
+    $products = Product::whereNotNull( 'component_id')->get();
     return view('customer.component', compact('products'));
 });
 
 Route::get('/accessories', function () {
-    $products = Product::where('type', 'accessories')->get();
+    $products = Product::whereNotNull('accessories_id')->get();
     return view('customer.accessories', compact('products'));
 
 });
@@ -151,15 +151,15 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{color}/edit', [ColorController::class, 'update'])->name('color.update');
         Route::delete('/{color}', [ColorController::class, 'destroy'])->name('color.destroy');
     });
- 
+
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-        Route::get('/detail/{id}', [ProductController::class, 'show'])->name('product.show');
+
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
-        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
     });
     Route::prefix('orders')->group(function(){
         Route::get('/', [OrderController::class, 'index'])->name('order.index');

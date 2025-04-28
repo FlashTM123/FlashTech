@@ -65,8 +65,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-base-100 text-base-content flex flex-col min-h-screen">
+
+
     <!-- Header -->
     @include('layouts.header')
+
+    
 
     <!-- Main Content -->
     <main class="container mx-auto p-6 flex-1 mt-6">

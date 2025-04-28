@@ -63,19 +63,11 @@
                             <td class="text-center">{{ $product->getProductQuantity() }}</td>
                             <td class="text-center">
                                 <div class="flex justify-center gap-2 flex-wrap">
-                                    <a href="{{ route('product.show', ['id' => $product->id]) }}" class="btn btn-sm btn-outline btn-info">
-                                        🔍 Xem
-                                    </a>
+                                    
                                     <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-outline btn-warning">
                                         ✏️ Sửa
                                     </a>
-                                    <form action="{{ route('product.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline btn-error">
-                                            🗑️ Xóa
-                                        </button>
-                                    </form>
+
                                 </div>
                             </td>
                         </tr>
