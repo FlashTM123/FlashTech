@@ -31,14 +31,7 @@
                 </div>
                 <div>
                     <label class="">Color</label>
-                    <select name="color_id" class="select">
-                        @foreach($colors as $color)
-                            <option value="{{ $color->id }}"
-                                {{ $color->id == $laptop->color_id ? 'selected' : '' }}>
-                                {{ $color->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="color" class="input input-bordered w-full" required value="{{ $laptop -> color}}">
                 </div>
                 <div>
                     <label class="">CPU</label>

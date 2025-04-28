@@ -66,7 +66,7 @@
             <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
             <li><a href="{{ route('admin.index') }}"><i class="fa-solid fa-user"></i> Admin</a></li>
             <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Customers</a></li>
-     
+
             <li>
                 <details open>
                     <summary><i class="fa-solid fa-box"></i> Products</summary>
@@ -79,7 +79,7 @@
                 </details>
             </li>
             <li><a href="{{ route('brand.index') }}"><i class="fa-solid fa-copyright"></i> Brands</a></li>
-            <li><a href="{{ route('color.index') }}"><i class="fa-solid fa-palette"></i> Colors</a></li>
+
             <li><a href="{{ route('order.index') }}"><i class="fa-solid fa-cart-shopping"></i> Orders</a></li>
         </ul>
     </aside>

@@ -28,16 +28,12 @@
                         @endforeach
                     </select>
                 </div>
+
                 <div>
-                    <label class="">Color</label>
-                    <select name="color_id" class="select">
-                        @foreach($colors as $color)
-                            <option value="{{ $color->id }}">
-                                {{ $color->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label for="" class="">Color</label>
+                    <input type="text" name="color" class="input input-bordered w-full" required>
                 </div>
+
                 <div>
                     <label class="">Type</label>
                     <input type="text" name="type" class="input input-bordered w-full" required>

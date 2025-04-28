@@ -13,21 +13,18 @@ class Accessories extends Model
     protected $table = 'accessories';
 
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'brand_id', 'color_id', 'type', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id'];
+    protected $fillable = ['name', 'brand_id', 'color', 'type', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id'];
     public $timestamps = false;
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
-    public function color()
-    {
-        return $this->belongsTo(Color::class, 'color_id');
-    }
+   
     public function product(){
         return $this->belongsTo(Product::class, 'product_id');
     }
 
     // Trong model Accessories.php
-   
+
 
 }

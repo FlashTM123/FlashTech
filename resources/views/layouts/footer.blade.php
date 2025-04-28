@@ -16,7 +16,7 @@
           <li><a href="{{ url('/laptop') }}" class="link link-hover">Laptop</a></li>
           <li><a href="{{ url('/component') }}" class="link link-hover">Linh kiện</a></li>
           <li><a href="{{ url('/accessories') }}" class="link link-hover">Phụ kiện</a></li>
-          <li><a href="#" class="link link-hover">Khuyến mãi</a></li>
+          <li><a href="{{ url('/')}}" class="link link-hover">Trang chủ</a></li>
         </ul>
       </div>
 

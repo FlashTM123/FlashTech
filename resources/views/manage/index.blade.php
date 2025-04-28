@@ -100,7 +100,7 @@
                                         {{ $product->getProductName() }}
                                     </div>
                                 </td>
-                        
+
                                 <td class="text-center">{{ $product->getProductQuantity() }}</td>
                             </tr>
                         @endforeach

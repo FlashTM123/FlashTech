@@ -44,8 +44,8 @@ class LaptopController extends Controller
     public function create()
     {
         $brands = Brand::where('category', 'Laptop')->get();
-        $colors = Color::all();
-        return view('laptop.create',['brands' => $brands], ['colors' => $colors]);
+
+        return view('laptop.create',['brands' => $brands], );
     }
 
     /**
@@ -56,7 +56,7 @@ class LaptopController extends Controller
         $laptops = Laptop::create([
             'name' => $request->name,
             'brand_id'=> $request->brand_id,
-            'color_id'=> $request->color_id,
+            'color' => $request->color,
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'vga' => $request->vga,
@@ -88,9 +88,9 @@ class LaptopController extends Controller
     public function edit(Laptop $laptop)
     {
         $brands = Brand::where('category', 'Laptop')->get();
-        $colors = Color::all();
 
-        return view('laptop.edit', ['laptop' => $laptop, 'brands' => $brands], ['colors' => $colors]);
+
+        return view('laptop.edit', ['laptop' => $laptop, 'brands' => $brands], );
     }
 
     /**
@@ -101,7 +101,7 @@ class LaptopController extends Controller
         $laptop->update([
             'name' => $request->name,
             'brand_id'=> $request->brand_id,
-            'color_id'=> $request->color_id,
+        'color' => $request->color,
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'vga' => $request->vga,

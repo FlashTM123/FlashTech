@@ -12,17 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('laptops', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->autoIncrement();
             $table->string('name');
             $table->foreignId('brand_id')->constrained('brands');
-            $table->foreignId('color_id')->constrained('colors');
+
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();
             $table->string('storage')->nullable();
             $table->string('vga')->nullable(); // Removed 'after' clause
-            $table->decimal('original_price', 8, 0)->nullable();
+            $table->string('color')->nullable();
+            $table->decimal('original_price', 12, 0)->nullable();
             $table->integer('discount')->default(0);
-            $table->decimal('promotional_price', 8, 0)->nullable();
+            $table->decimal('promotional_price', 12, 0)->nullable();
             $table->integer('quantity')->default(1);
             $table->string('status')->nullable();
             $table->string('image')->nullable();

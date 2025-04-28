@@ -37,8 +37,8 @@ class AccessoriesController extends Controller
     public function create()
     {
         $brands = Brand::where('category', 'Accessories')->get();
-        $colors = Color::all();
-        return view('accessories.create', compact('brands', 'colors'));
+
+        return view('accessories.create', compact('brands', ));
     }
 
     /**
@@ -49,7 +49,7 @@ class AccessoriesController extends Controller
         $accessories = Accessories::create([
             'name'=>$request->name,
             'brand_id'=>$request->brand_id,
-            'color_id'=>$request->color_id,
+            'color'=>$request->color,
             'type'=>$request->type,
             'original_price' => $request->original_price,
             'discount' => $request->discount,
@@ -75,9 +75,9 @@ class AccessoriesController extends Controller
     public function edit(Accessories $accessories)
     {
         $brands = Brand::where('category', 'Accessories')->get();
-        $colors = Color::all();
 
-        return view('accessories.edit', compact('accessories', 'brands', 'colors'));
+
+        return view('accessories.edit', compact('accessories', 'brands', ));
     }
 
     /**
@@ -88,7 +88,7 @@ class AccessoriesController extends Controller
         $accessories->update([
             'name'=>$request->name,
             'brand_id'=>$request->brand_id,
-            'color_id'=>$request->color_id,
+            'color'=>$request->color,
             'type'=>$request->type,
             'original_price' => $request->original_price,
             'discount' => $request->discount,
