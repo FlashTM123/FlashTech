@@ -1,5 +1,5 @@
 <div>
-    <div>
+    <div class="flex justify-center items-center mb-4">
         <input type="text" wire:model.live.debounce.300ms="search"   placeholder="Search by name" class="input input-bordered  mb-4" class="input input-bordered  mb-4" >
     </div>
     <div class="my-3">

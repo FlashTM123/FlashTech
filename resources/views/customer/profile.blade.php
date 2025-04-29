@@ -21,7 +21,7 @@
                 </div>
             </div>
             <h2 class="text-2xl font-bold mt-4 text-white">{{ $customer->name }}</h2>
-            <span class="badge badge-accent mt-2 mb-1">Khách hàng VIP</span>
+            <span class="badge badge-accent mt-2 mb-1">Khách hàng</span>
             <p class="text-sm text-gray-300">{{ $customer->email }}</p>
 
             <div class="mt-6 text-left text-sm text-gray-300 space-y-2">

@@ -74,6 +74,7 @@ class CustomerAuthController extends Controller
     }
     public function logout(){
         Session::forget('customer');
+        Session::forget('cart');
        flash()->options(['position' => 'bottom-center', 'class' => 'success'])->success('Đăng xuất thành công');
         return redirect()->route('customer.home');
     }

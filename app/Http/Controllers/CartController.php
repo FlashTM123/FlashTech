@@ -104,16 +104,20 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $cart = session('cart', []); // Retrieve the cart from the session
+        $cart = session('cart', []); // Lấy giỏ hàng từ session
         $subtotal = array_sum(array_map(function ($item) {
             return $item['price'] * $item['quantity'];
         }, $cart));
 
-        $shippingFee = 30000; // Fixed shipping fee
+        $shippingFee = 30000; // Phí vận chuyển cố định
         $total = $subtotal + $shippingFee;
 
-        // Pass the cart and other variables to the view
-        return view('customer.checkout', compact('cart', 'subtotal', 'shippingFee', 'total'));
+        // Lấy thông tin người dùng từ session
+        $customer = session('customer');
+        $address = $customer->address ?? ''; // Lấy địa chỉ từ thông tin người dùng, nếu không có thì để trống
+
+        // Truyền dữ liệu vào view
+        return view('customer.checkout', compact('cart', 'subtotal', 'shippingFee', 'total', 'address'));
     }
 
     public function processCheckout(Request $request)

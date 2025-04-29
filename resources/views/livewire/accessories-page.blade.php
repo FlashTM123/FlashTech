@@ -1,6 +1,6 @@
 <div>
     {{-- Input tìm kiếm --}}
-    <div class="mb-4">
+    <div class="flex justify-center items-center mb-4">
         <input
             type="text"
             wire:model.live.debounce.300ms="search"

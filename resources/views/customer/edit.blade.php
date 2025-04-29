@@ -10,11 +10,9 @@
             <div class="flex flex-col items-center text-center">
                 <div class="avatar mb-4">
                     <div class="w-32 rounded-full ring ring-white ring-offset-base-100 ring-offset-2">
-                        @if ($customer->profile_image)
-                            <img src="{{ asset('storage/' . $customer->profile_image) }}" />
-                        @else
-                            <img src="{{ asset('uploads/avatar.jpg') }}" />
-                        @endif
+
+                            <img src="{{ asset('images/' . $customer->profile_image) }}" />
+                     
                     </div>
                 </div>
                 <h2 class="text-2xl font-bold">{{ $customer->name }}</h2>

@@ -14,7 +14,13 @@
                     @csrf
                     <div>
                         <h2 class="text-xl font-semibold mb-2">1. Địa chỉ giao hàng</h2>
-                        <input type="text" name="address" class="input input-bordered w-full" placeholder="Số nhà, tên đường, phường/xã..." required>
+                        <input
+                            type="text"
+                            name="address"
+                            class="input input-bordered w-full"
+                            placeholder="Số nhà, tên đường, phường/xã..."
+                            value="{{ old('address', $address) }}"
+                            required>
                     </div>
 
                     <div>

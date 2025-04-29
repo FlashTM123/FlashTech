@@ -50,21 +50,8 @@
 
         {{-- Nút hành động --}}
         <div class="flex gap-3 pt-2">
-            @if ($product->getProductQuantity() > 0)
-                <form action="{{ route('customer.addToCart') }}" method="POST" class="w-1/2">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="hidden" name="product_name" value="{{ $product->getProductName() }}">
-                    <input type="hidden" name="product_price" value="{{ $product->getProductPrice() }}">
-                    <input type="hidden" name="product_image" value="{{ $product->getProductImage() }}">
-                    <button type="submit"
-                        class="btn btn-sm w-full bg-gradient-to-r from-pink-500 to-orange-400 text-white border-none hover:scale-105 transition-transform duration-300">
-                        🛒 Mua ngay
-                    </button>
-                </form>
-            @else
-                <button class="btn btn-sm w-1/2 btn-error" disabled>Hết hàng</button>
-            @endif
+
+                @livewire('add-to-cart', ['product' => $product], key($product->id))
 
             <a href="{{ route('customer.show', ['id' => $product->id]) }}"
                class="btn btn-sm w-1/2 btn-outline btn-primary hover:btn-accent transition-all duration-300">Chi tiết</a>

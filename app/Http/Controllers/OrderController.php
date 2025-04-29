@@ -15,10 +15,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('customer')->paginate(6);
-
-
-
+        $orders = Order::with(['customer', 'admin'])
+            ->orderByRaw("FIELD(status, 'Pending') DESC") // Đưa trạng thái "Pending" lên đầu
+            ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
+            ->paginate(10); // Phân trang
 
         return view('order.index', compact('orders'));
     }
