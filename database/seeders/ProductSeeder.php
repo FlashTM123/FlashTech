@@ -14,91 +14,151 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $products = [
-           [
-            'accessories_id' => 4,
-            'description' => 'Lót chuột Logitech Studio Series 20 x 23 cm là một phụ kiện được thiết kế tối ưu cho trải nghiệm sử dụng chuột mượt mà, chính xác, phù hợp cho cả công việc văn phòng lẫn sử dụng cá nhân tại nhà.
+            [
 
-Miếng lót có kích thước nhỏ gọn 20 x 23 cm, lý tưởng cho không gian bàn làm việc hạn chế hoặc người dùng thích sự gọn gàng. Bề mặt vải dệt mịn giúp chuột di chuyển nhẹ nhàng và chính xác, đồng thời tối ưu cho cả chuột quang lẫn chuột laser.
+                'accessories_id' => 16,
+                'description' => 'HyperX Cloud II Wireless là một trong những tai nghe gaming không dây phổ biến nhất hiện nay, được đánh giá cao nhờ thiết kế thoải mái, chất lượng âm thanh tốt và thời lượng pin ấn tượng. Dưới đây là tổng quan chi tiết về sản phẩm này:
 
-Mặt dưới của lót chuột được làm từ chất liệu cao su chống trượt, đảm bảo độ bám chắc trên mặt bàn, không bị xê dịch trong quá trình sử dụng. Ngoài ra, Logitech còn trang bị cho sản phẩm này khả năng chống thấm nước nhẹ, giúp bảo vệ miếng lót khỏi những sự cố đổ nước bất ngờ. Các mép viền được may tỉ mỉ để chống bong tróc và tăng độ bền qua thời gian.
+🎧 Thiết kế & Độ hoàn thiện
+Phong cách gaming hiện đại: Với phối màu đen đỏ đặc trưng, tai nghe mang đến vẻ ngoài mạnh mẽ và cá tính.
 
-Phong cách thiết kế đơn giản, tinh tế, nhiều màu sắc trang nhã, phù hợp với nhiều phong cách setup bàn làm việc hiện đại.',
-           ],
-              [
-                'accessories_id' => 5,
-                'description' => '​Logitech MX Master 3S là mẫu chuột không dây cao cấp, được thiết kế tối ưu cho công việc văn phòng, sáng tạo nội dung và lập trình viên, mang lại trải nghiệm sử dụng mượt mà, chính xác và tiện lợi.​
+Khung kim loại chắc chắn: Phần khung và quai đeo được làm từ kim loại phủ sơn nhám mờ, tăng độ bền và cảm giác cao cấp.
 
-🎯 Tính năng nổi bật
-Cảm biến Darkfield 8.000 DPI: Cho phép chuột hoạt động chính xác trên nhiều bề mặt, kể cả kính, với độ nhạy cao và khả năng tùy chỉnh theo nhu cầu sử dụng.​
-
-Công nghệ Quiet Clicks: Giảm tiếng ồn khi nhấn nút lên đến 90%, giúp môi trường làm việc yên tĩnh hơn mà vẫn giữ được cảm giác nhấn rõ ràng.​
-
-Cuộn siêu tốc MagSpeed: Bánh xe cuộn điện từ cho phép cuộn nhanh đến 1.000 dòng mỗi giây, đồng thời chuyển đổi mượt mà giữa chế độ cuộn từng dòng và cuộn tự do.​
-
-Kết nối đa thiết bị: Hỗ trợ kết nối lên đến 3 thiết bị cùng lúc qua Bluetooth hoặc đầu thu Logi Bolt, dễ dàng chuyển đổi giữa các thiết bị chỉ với một nút bấm.​
-
-Tùy chỉnh linh hoạt: Với phần mềm Logi Options+, người dùng có thể tùy chỉnh các nút chức năng và thiết lập các thao tác thông minh để tăng hiệu suất làm việc.​
+Đệm tai và headband êm ái: Sử dụng mút hoạt tính (memory foam) bọc da, mang lại cảm giác đeo thoải mái trong thời gian dài mà không gây đau tai.
 
 
-🧩 Thiết kế và thông số kỹ thuật
-Thiết kế công thái học: Phù hợp với người thuận tay phải, hỗ trợ cổ tay và ngón cái, giúp giảm mỏi khi sử dụng lâu dài.​
+🔊 Chất lượng âm thanh & Micro
+Driver 53mm: Cung cấp âm thanh chi tiết, với âm bass vừa phải và âm mid, treble rõ ràng, phù hợp cho cả chơi game và nghe nhạc.
 
-Kích thước: 124.9 x 84.3 x 51 mm​
-
-Trọng lượng: Khoảng 141g​
+Âm thanh vòm ảo 7.1: Hỗ trợ công nghệ DTS Headphone:X, giúp định vị âm thanh chính xác trong các tựa game FPS như CS:GO, Valorant.
 
 
-Pin sạc USB-C: Thời lượng pin lên đến 70 ngày sau mỗi lần sạc đầy.​
+Micro tháo rời: Microphone có khả năng lọc tiếng ồn, được chứng nhận bởi Discord và TeamSpeak, đảm bảo giao tiếp rõ ràng với đồng đội.
+
+🔋 Kết nối & Thời lượng pin
+Kết nối không dây 2.4GHz: Sử dụng USB dongle để kết nối với PC, PS4, PS5 và Nintendo Switch, đảm bảo độ trễ thấp và kết nối ổn định.
+
+Thời lượng pin lên đến 30 giờ: Cho phép sử dụng liên tục trong nhiều ngày mà không cần sạc lại.
+
+Phạm vi hoạt động 20 mét: Giúp bạn di chuyển tự do trong phòng mà không lo mất kết nối.
+
+✅ Ưu điểm
+Thiết kế đẹp, đeo thoải mái trong thời gian dài.
+
+Chất lượng âm thanh tốt, phù hợp cho nhiều mục đích sử dụng.
+
+Microphone chất lượng cao, dễ dàng tháo rời khi không sử dụng.
+
+Thời lượng pin dài, kết nối ổn định.
+
+⚠️ Nhược điểm
+Không hỗ trợ kết nối Bluetooth, chỉ sử dụng được với USB dongle.
+
+Không tương thích với Xbox.
+
+Phần mềm đi kèm hạn chế, không có EQ để tùy chỉnh âm thanh.
+
+',
+            ],
+            [
+
+                'accessories_id' => 12,
+                'description' => 'Hub chuyển đổi 6 in 1 Ugreen CM195 70411 là một thiết bị mở rộng cổng kết nối nhỏ gọn và đa năng, phù hợp cho người dùng laptop, MacBook, iPad Pro hoặc các thiết bị có cổng USB-C hỗ trợ DisplayPort Alt Mode và Power Delivery.
+
+🔌 Tính năng nổi bật
+HDMI 4K@30Hz: Cho phép xuất hình ảnh chất lượng cao lên màn hình ngoài, phù hợp cho thuyết trình, xem phim hoặc làm việc đa màn hình.
+
+2 cổng USB 3.0: Hỗ trợ tốc độ truyền dữ liệu lên đến 5Gbps, giúp kết nối nhanh chóng với các thiết bị ngoại vi như ổ cứng, chuột, bàn phím.
 
 
-Tương thích: Windows, macOS, Linux, iPadOS, ChromeOS.​
-
-'
-              ],
-              [
-                'accessories_id' => 6,
-                'description' => '​Razer BlackWidow V3 là bàn phím cơ chơi game cao cấp, nổi bật với thiết kế chắc chắn, hiệu năng mạnh mẽ và khả năng tùy biến cao, phù hợp cho cả game thủ và người dùng chuyên nghiệp.​
-
-🔧 Thông số kỹ thuật chính
-Loại bàn phím: Full-size (100%)
-
-Kích thước: Dài 45.2 cm x Rộng 15.5 cm x Cao 4.3 cm
-
-Trọng lượng: Khoảng 1 kg
-
-Kết nối: USB 2.0 Type-A
-
-Chất liệu: Khung nhôm trên, đế nhựa
-
-Keycap: ABS Doubleshot
-
-Đèn nền: RGB từng phím, hỗ trợ Razer Chroma
-
-Lưu trữ cấu hình: Tối đa 5 cấu hình trên bộ nhớ trong
-
-Phần mềm hỗ trợ: Razer Synapse​
+Đầu đọc thẻ SD/TF: Hỗ trợ đọc đồng thời hai loại thẻ nhớ với tốc độ lên đến 104MB/s, thuận tiện cho việc chuyển dữ liệu từ máy ảnh hoặc thiết bị di động.
 
 
-🎮 Tính năng nổi bật
-Switch cơ Razer: Lựa chọn giữa hai loại switch:
+Cổng USB-C PD 100W: Hỗ trợ sạc nhanh cho laptop hoặc thiết bị di động, đảm bảo nguồn điện ổn định khi sử dụng nhiều thiết bị cùng lúc.
 
-Razer Green: Cảm giác gõ rõ ràng, âm thanh "clicky" đặc trưng, phù hợp cho người thích phản hồi xúc giác mạnh.
+✅ Ưu điểm
+Thiết kế nhỏ gọn, dễ dàng mang theo khi di chuyển.
 
-Razer Yellow: Hành trình tuyến tính, yên tĩnh, thích hợp cho môi trường cần sự yên lặng hoặc chơi game tốc độ cao.​
+Vỏ nhôm chắc chắn, tản nhiệt tốt và tăng độ bền cho sản phẩm.
+
+Tương thích với nhiều hệ điều hành như Windows, macOS, iPadOS.
+
+',
+            ],
+            [
+
+                'accessories_id' => 10,
+                'description' => 'Razer Kraken V3 là dòng tai nghe gaming cao cấp của Razer, nổi bật với ba phiên bản chính: Kraken V3 có dây, Kraken V3 Pro không dây và Kraken V3 X. Mỗi phiên bản đều được trang bị công nghệ âm thanh tiên tiến và thiết kế tối ưu cho game thủ.
+
+🔊 Tính năng nổi bật
+Âm thanh vòm THX Spatial Audio: Cung cấp âm thanh vòm 7.1, giúp định vị chính xác nguồn âm thanh trong game, mang đến trải nghiệm chơi game sống động.
+
+Driver Razer™ TriForce Titanium 50mm: Thiết kế ba phần giúp tái tạo âm thanh chi tiết với dải cao, trung và thấp rõ ràng, mang lại chất lượng âm thanh vượt trội.
+
+Microphone Razer™ HyperClear Cardioid: Microphone có khả năng loại bỏ tiếng ồn xung quanh, đảm bảo giọng nói rõ ràng và tự nhiên.
+
+Razer Chroma™ RGB: Hệ thống đèn nền RGB với 16.8 triệu màu, có thể tùy chỉnh theo sở thích và đồng bộ với các thiết bị Razer khác.
+',
+            ],
+            [
+
+                'accessories_id' => 11,
+                'description' => 'Anker PowerCore Select 10000mAh (A1223) là một trong những pin sạc dự phòng phổ biến, được ưa chuộng nhờ thiết kế nhỏ gọn, hiệu suất ổn định và giá thành hợp lý.
+
+🔋 Thông số kỹ thuật nổi bật
+Dung lượng pin: 10.000 mAh, đủ để sạc đầy iPhone 8 khoảng 3.5 lần hoặc Samsung Galaxy S9 khoảng 2.2 lần.
+
+Kích thước: 10 x 6.3 x 2.5 cm, trọng lượng 190g – tương đương kích thước thẻ ATM, dễ dàng mang theo trong túi hoặc balo.
 
 
-Đèn nền Chroma RGB: Hỗ trợ tùy chỉnh màu sắc từng phím, đồng bộ với các thiết bị Razer khác và tương thích với hơn 150 trò chơi có tích hợp Chroma.​
+Đầu vào: Micro USB 5V/2A, thời gian sạc đầy khoảng 10–11 giờ với bộ sạc 1A.
 
-Phím media chuyên dụng: Bao gồm bánh xe cuộn âm lượng và các nút điều khiển media riêng biệt, tiện lợi cho việc điều chỉnh nhanh chóng.​
+Đầu ra: 2 cổng USB-A, mỗi cổng hỗ trợ 5V/2.4A, tổng công suất tối đa 12W khi sạc đồng thời hai thiết bị.
 
-Tuổi thọ phím: Lên đến 80 triệu lần nhấn, đảm bảo độ bền cao cho người dùng chuyên nghiệp.​
 
-🧩 Thiết kế và trải nghiệm sử dụng
-Với khung nhôm chắc chắn và thiết kế hiện đại, Razer BlackWidow V3 mang lại cảm giác cao cấp và bền bỉ. Các phím được thiết kế để giảm thiểu hiện tượng mờ chữ theo thời gian. Bàn phím cũng hỗ trợ tính năng ghi macro nhanh chóng và chế độ chơi game để vô hiệu hóa các phím không mong muốn trong khi chơi.​
+Công nghệ sạc thông minh: Trang bị PowerIQ và VoltageBoost, tự động nhận diện thiết bị và điều chỉnh dòng điện phù hợp để tối ưu tốc độ sạc.
 
-'
-              ]
-              ];
+
+Bảo vệ an toàn: Hệ thống MultiProtect tích hợp bảo vệ quá nhiệt, quá dòng và ngắn mạch, đảm bảo an toàn cho người sử dụng.
+
+✅ Ưu điểm
+Thiết kế nhỏ gọn: Dễ dàng mang theo khi di chuyển, phù hợp cho nhu cầu sử dụng hàng ngày hoặc du lịch.
+
+Hiệu suất ổn định: Cung cấp đủ năng lượng cho các thiết bị di động, giúp bạn yên tâm sử dụng trong suốt ngày dài.
+
+Công nghệ sạc thông minh: Tự động điều chỉnh dòng điện phù hợp với từng thiết bị, giúp sạc nhanh chóng và an toàn.
+
+Bảo vệ an toàn: Hệ thống bảo vệ tích hợp giúp bảo vệ thiết bị và người sử dụng khỏi các sự cố điện.
+
+⚠️ Nhược điểm
+Không hỗ trợ sạc nhanh Quick Charge: Không tương thích với các công nghệ sạc nhanh như Quick Charge, có thể sạc chậm hơn so với một số pin sạc dự phòng khác.
+
+Không có cổng USB-C: Chỉ hỗ trợ đầu vào Micro USB, không phù hợp với các thiết bị mới sử dụng cổng USB-C.
+
+',
+            ],
+            [
+
+                'accessories_id' => 8,
+                'description' => 'Keychron K2 V2 Wireless là một bàn phím cơ không dây nổi bật với thiết kế nhỏ gọn, khả năng kết nối linh hoạt và hiệu suất ổn định, phù hợp cho cả làm việc và giải trí.
+
+🔧 Tính năng nổi bật
+Thiết kế 75% (84 phím): Giữ lại đầy đủ hàng phím chức năng và phím mũi tên, tối ưu không gian làm việc mà vẫn đảm bảo tiện ích.
+
+Kết nối linh hoạt: Hỗ trợ kết nối không dây qua Bluetooth 5.1 với khả năng ghép nối lên đến 3 thiết bị và chuyển đổi dễ dàng. Ngoài ra, còn có thể kết nối có dây qua cổng USB Type-C.
+
+
+Tương thích đa hệ điều hành: Tương thích với cả macOS và Windows, đi kèm keycap phù hợp cho từng hệ điều hành.
+
+Pin dung lượng lớn: Trang bị pin 4000mAh, cho thời gian sử dụng lên đến 240 giờ khi tắt đèn nền và khoảng 72 giờ khi bật đèn nền RGB.
+
+Đèn nền RGB đa dạng: Cung cấp hơn 15 hiệu ứng ánh sáng khác nhau, dễ dàng tùy chỉnh để phù hợp với phong cách cá nhân.
+
+Tùy chọn switch Gateron: Có các lựa chọn switch Gateron Red (linear), Blue (clicky) và Brown (tactile) để phù hợp với sở thích gõ phím của người dùng.
+',
+            ],
+
+        ];
         foreach ($products as $product) {
             DB::table('products')->insert($product);
         }

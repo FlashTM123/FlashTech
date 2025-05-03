@@ -8,7 +8,7 @@
 
         @if ($product->getProductDiscount() > 0)
             <div class="absolute top-2 right-2 z-10 animate-bounce">
-                <span class="badge badge-warning text-xs shadow-md">🔥 -{{ $product->getProductDiscount() }}%</span>
+                <span class="badge badge-warning text-white shadow-md">🔥 -{{ $product->getProductDiscount() }}%</span>
             </div>
         @endif
 

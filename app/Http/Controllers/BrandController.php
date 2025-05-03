@@ -37,7 +37,7 @@ class BrandController extends Controller
     {
         $brand = Brand::create([
             'name' => $request->name,
-            'category' => $request->category
+
         ]);
 
         return response()->json($brand);
@@ -67,7 +67,7 @@ class BrandController extends Controller
 
         $brand->update([
             'name' => $request['name'],
-            'category' => $request['category'],
+
         ]);
         return response()->json($brand);
     }
@@ -77,9 +77,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $brand->accessories()->delete();
-        $brand->components()->delete();
-        $brand->laptops()->delete();
+       
         $brand->delete();
         return redirect()->route('brand.index')->with('delete_success','Brand deleted successfully!');
     }

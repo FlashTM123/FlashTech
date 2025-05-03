@@ -26,7 +26,7 @@ class AccessoriesController extends Controller
         }
 
         $accessories = $query->paginate(5);
-        $brands = Brand::where('category', 'Accessories')->get();
+        $brands = Brand::get();
 
         return view('accessories.index', ['accessories' => $accessories, 'brands' => $brands]);
     }
@@ -36,7 +36,7 @@ class AccessoriesController extends Controller
      */
     public function create()
     {
-        $brands = Brand::where('category', 'Accessories')->get();
+        $brands = Brand::get();
 
         return view('accessories.create', compact('brands', ));
     }
@@ -74,7 +74,7 @@ class AccessoriesController extends Controller
      */
     public function edit(Accessories $accessories)
     {
-        $brands = Brand::where('category', 'Accessories')->get();
+        $brands = Brand::get();
 
 
         return view('accessories.edit', compact('accessories', 'brands', ));

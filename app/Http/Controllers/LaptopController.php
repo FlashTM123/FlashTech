@@ -29,7 +29,7 @@ class LaptopController extends Controller
         $laptops = $query->paginate(perPage: 5);
 
         // Lấy danh sách brand để hiển thị trong dropdown
-        $brands = Brand::where('category', 'Laptop')->get();
+        $brands = Brand::get();
 
 
         return view('laptop.index', [
@@ -43,7 +43,7 @@ class LaptopController extends Controller
      */
     public function create()
     {
-        $brands = Brand::where('category', 'Laptop')->get();
+        $brands = Brand::get();
 
         return view('laptop.create',['brands' => $brands], );
     }
@@ -87,7 +87,7 @@ class LaptopController extends Controller
      */
     public function edit(Laptop $laptop)
     {
-        $brands = Brand::where('category', 'Laptop')->get();
+        $brands = Brand::get();
 
 
         return view('laptop.edit', ['laptop' => $laptop, 'brands' => $brands], );
@@ -134,7 +134,7 @@ class LaptopController extends Controller
         $query = $request->input('query');
 
         // Tìm kiếm laptop theo tên
-        $laptops = Laptop::with('brand', 'color')
+        $laptops = Laptop::with('brand')
             ->where('name', 'like', '%' . $query . '%')
             ->get();
 

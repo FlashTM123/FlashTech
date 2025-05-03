@@ -21,7 +21,7 @@ class ComponentController extends Controller
         }
         $components = $query->paginate(10);
 
-        $brands = Brand::where('category', 'Component')->get();
+        $brands = Brand::get();
        return view ('component.index', ['components' => $components, 'brands' => $brands]);
     }
 
@@ -30,7 +30,7 @@ class ComponentController extends Controller
      */
     public function create()
     {
-        $brands = Brand::where('category', 'Component')->get();
+        $brands = Brand::get();
         return view('component.create', ['brands' => $brands]);
     }
 
@@ -50,8 +50,11 @@ class ComponentController extends Controller
             'quantity' => $request->quantity,
             'image' => $request->image,
         ]);
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('The component has been added successfully!');
 
-        return redirect()->route('component.index')->with('add_success','The component has been created successfully!');
+        return redirect()->route('component.index');
     }
 
     /**
@@ -67,7 +70,7 @@ class ComponentController extends Controller
      */
     public function edit(Component $component)
     {
-        $brands = Brand::where('category', 'Component')->get();
+        $brands = Brand::get();
         return view('component.edit', ['component' => $component, 'brands' => $brands]);
     }
 
@@ -87,7 +90,11 @@ class ComponentController extends Controller
             'quantity' => $request->quantity,
             'image' => $request->image,
         ]);
-        return redirect ()->route('component.index')->with("edit_success","The component has been updated successfully!");
+
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('The component has been updated successfully!');  
+        return redirect ()->route('component.index');
     }
 
     /**

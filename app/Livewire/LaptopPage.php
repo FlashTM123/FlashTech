@@ -12,7 +12,17 @@ class LaptopPage extends Component
 {
     use WithPagination;
 
+    // Số lượng sản phẩm hiển thị trên mỗi trang
     public $search = ''; // Biến lưu từ khóa tìm kiếm
+    public $limit = 10; // Số lượng sản phẩm hiển thị trên mỗi trang
+
+    // Biến lưu trang hiện tại
+
+    // From update
+    public $laptopId;
+    public $name;
+    public $brand;
+
 
     protected $queryString = ['search']; // Lưu từ khóa tìm kiếm vào URL
 
@@ -20,6 +30,7 @@ class LaptopPage extends Component
     {
         $this->resetPage(); // Reset về trang đầu tiên khi thay đổi từ khóa
     }
+
     public function delete($id)
     {
         $laptop = Laptop::find($id);
@@ -37,15 +48,16 @@ class LaptopPage extends Component
     public function render()
     {
         $laptops = Laptop::query()
-            ->where('name', 'like', '%' . $this->search . '%')
+        ->where(function ($query) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhereHas('brand', function ($q) {
+                    $q->where('name', 'like', '%' . $this->search . '%');
+                });
+        })
+        ->paginate($this->limit);
 
 
 
-
-            ->orWhereHas('brand', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->paginate(10);
         return view('livewire.laptop-page', compact('laptops'));
     }
 }

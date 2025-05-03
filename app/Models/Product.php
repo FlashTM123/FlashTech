@@ -18,7 +18,7 @@ class Product extends Model
     // Quan hệ với Laptop
     public function laptop()
     {
-        return $this->belongsTo(Laptop::class, 'laptop_id', 'id');
+        return $this->belongsTo(Laptop::class);
     }
 
     // Quan hệ với Component

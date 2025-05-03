@@ -23,8 +23,9 @@ class Laptop extends Model
     }
 
 
-    public function product(){
-        return $this->belongsTo(Product::class, 'product_id','id');
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'laptop_id', 'id');
     }
 
 

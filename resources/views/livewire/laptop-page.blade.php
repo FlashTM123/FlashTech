@@ -1,6 +1,15 @@
-<div>
+<div x-data="{laptopId: @entangle('LaptopId'), name: @entangle('name'), brand: @entangle('brand'))}" >
+    <div class="flex justify-between mb-3">
+        <select name="" id="" class="select w-fit" wire:model.live='limit'>
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+    </div>
     <div class="flex justify-center items-center mb-4">
+
         <input type="text" wire:model.live.debounce.300ms="search"   placeholder="Search by name" class="input input-bordered  mb-4" class="input input-bordered  mb-4" >
+
     </div>
     <div class="my-3">
         <div>
@@ -26,7 +35,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($laptops as  $laptop)
+                    @forelse ($laptops as  $laptop)
                         <tr class="hover:bg-base-200/50">
                             <th class="text-center">{{ $laptop->id}}</th>
                             <td class="text-center">{{ $laptop->name }}</td>
@@ -61,11 +70,15 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="14" class="text-center">No laptops found.</td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-        {{ $laptops->links('pagination::tailwind') }}
+        {{ $laptops->links('') }}
     </div>
 </div>

@@ -1,7 +1,40 @@
-<div>
-    <div class="flex justify-center items-center mb-4">
-        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search by name"
-               class="input input-bordered  mb-4" class="input input-bordered  mb-4">
+<div x-data="{ComponentId: @entangle('ComponentId'), name: @entangle('name'))}" >
+    <div class="flex justify-between items-center mb-6 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-semibold">Component List</h2>
+        <form method="GET" action="{{ route('component.index') }}" class="mb-4" id="brand-filter-form">
+
+
+
+        </form>
+        <select name="" id="" class="select w-fit" wire:model.live='limit'>
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+        <div>
+
+            <label class="input">
+
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                </svg>
+                <input type="search" class="grow" placeholder="Search" wire:model.live.debounce.150ms='search' />
+                <kbd class="kbd kbd-sm">⌘</kbd>
+                <kbd class="kbd kbd-sm">K</kbd>
+              </label>
+        </div>
+
+        <a href="{{ route('component.create') }}" class="btn btn-outline">
+            ➕ Add Component
+        </a>
     </div>
     <div class="overflow-x-auto">
         <table class="table">
@@ -23,7 +56,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($components as $index => $component)
+            @forelse ($components as $index => $component)
                 <tr class="hover:border-b">
                     <th class="text-center">{{ $component->id }}</th>
                     <td class="text-center">{{ $component->name }}</td>
@@ -59,13 +92,17 @@
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="12" class="text-center text-gray-500">No components found.</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
 
 
         <div class="mt-4">
-            {!! $components->links('pagination::tailwind') !!}
+            {!! $components->links() !!}
         </div>
     </div>
 </div>

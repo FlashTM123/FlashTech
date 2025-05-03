@@ -11,6 +11,13 @@ class ComponentPage extends LivewireComponent
     use WithPagination;
 
     public $search = '';
+    public $limit = 10;
+
+    // Biến lưu trang hiện tạ
+    public $componentId;
+    public $name;
+   
+    
 
     protected $queryString = ['search'];
 
@@ -39,7 +46,7 @@ class ComponentPage extends LivewireComponent
             ->orWhereHas('brand', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             })
-            ->paginate(10);
+            ->paginate($this->limit);
         return view('livewire.component-page', compact('components'));
     }
 }

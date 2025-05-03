@@ -13,18 +13,39 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        $brands = [[
-            "name"=> "Xiaomi",
-            "category"=>"Laptop",
-        ],
-        [
-            'name'=> "Blala",
-            "category"=>"Laptop",
-        ],
-        [
-            "name"=> "Razer",
-            "category"=>"Accessories",
-        ],
+        $brands = [
+            ['name' => 'ASUS'],
+            ['name' => 'Acer'],
+            ['name' => 'HP'],
+            ['name' => 'Dell'],
+            ['name' => 'Lenovo'],
+            ['name' => 'MSI'],
+            ['name' => 'Apple'],
+
+            // Linh kiện máy tính
+            ['name' => 'Intel'],
+            ['name' => 'AMD'],
+            ['name' => 'NVIDIA'],
+            ['name' => 'GIGABYTE'],
+            ['name' => 'ASRock'],
+            ['name' => 'Corsair'],
+            ['name' => 'Kingston'],
+            ['name' => 'Samsung'],
+            ['name' => 'Western Digital'],
+            ['name' => 'Seagate'],
+            ['name' => 'Crucial'],
+
+            // Phụ kiện
+            ['name' => 'Logitech'],
+            ['name' => 'Razer'],
+            ['name' => 'Anker'],
+            ['name' => 'SteelSeries'],
+            ['name' => 'HyperX'],
+            ['name' => 'Cooler Master'],
+            ['name' => 'NZXT'],
+            ['name' => 'ASUS ROG'],
+            ['name' => 'Microsoft'],
+            ['name' => 'TP-Link'],
 
     ];
     foreach ($brands as $brand) {

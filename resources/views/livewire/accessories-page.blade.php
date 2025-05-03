@@ -1,12 +1,39 @@
 <div>
-    {{-- Input tìm kiếm --}}
-    <div class="flex justify-center items-center mb-4">
-        <input
-            type="text"
-            wire:model.live.debounce.300ms="search"
-            placeholder="Search accessories..."
-            class="input input-primary justify-center"
-        />
+
+    <div class="flex justify-between items-center mb-6 max-w-5xl mx-auto">
+        <h2 class="text-2xl font-semibold">Accessory List</h2>
+        <form method="GET" action="{{ route('accessories.index') }}" class="mb-4" id="brand-filter-form">
+
+
+        </form>
+        <select name="" id="" class="select w-fit" wire:model.live='limit'>
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+        <div>
+
+            <label class="input">
+
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                </svg>
+                <input type="search" class="grow" placeholder="Search" wire:model.live.debounce.150ms='search' />
+                <kbd class="kbd kbd-sm">⌘</kbd>
+                <kbd class="kbd kbd-sm">K</kbd>
+              </label>
+        </div>
+        <a href="{{ route('accessories.create') }}" class="btn btn-outline">
+            ➕ Add Accessory
+        </a>
     </div>
 
     {{-- Bảng hiển thị phụ kiện --}}
@@ -71,7 +98,7 @@
 
         {{-- Phân trang --}}
         <div class="mt-4">
-            {{ $accessories->links('pagination::tailwind') }}
+            {{ $accessories->links() }}
         </div>
     </div>
 </div>

@@ -11,7 +11,8 @@ class AccessoriesPage extends Component
 {
     use WithPagination;
 
-    public $search = ''; // Biến lưu từ khóa tìm kiếm
+    public $search = '';
+    public $limit = 10; // Số lượng sản phẩm hiển thị trên mỗi trang
 
     protected $queryString = ['search']; // Lưu từ khóa tìm kiếm vào URL
 
@@ -44,7 +45,7 @@ class AccessoriesPage extends Component
             ->orWhereHas('brand', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             })
-            ->paginate(10);
+            ->paginate($this->limit);
 
         return view('livewire.accessories-page', compact('accessories'));
     }
