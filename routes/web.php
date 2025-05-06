@@ -143,13 +143,11 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{accessories}/edit', [AccessoriesController::class, 'update'])->name('accessories.update');
         Route::delete('/{accessories}', [AccessoriesController::class, 'destroy'])->name('accessories.destroy');
     });
-  
+
 
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
-        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
 
-        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
 

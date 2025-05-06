@@ -31,7 +31,7 @@
         </button>
     </div>
 
-    
+
 
     <div class="overflow-x-auto rounded-lg shadow border bg-white">
         <table class="table w-full">
@@ -103,7 +103,7 @@
             confirmButtonText: 'Update',
             preConfirm: () => {
                 const name = document.getElementById('brand-name').value;
-                const category = document.getElementById('brand-category').value;
+
                 if (!name ) {
                     Swal.showValidationMessage('Please fill all fields');
                 }

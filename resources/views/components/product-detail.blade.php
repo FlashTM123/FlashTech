@@ -13,7 +13,8 @@
     <div class="flex flex-col justify-between space-y-6">
         <div>
             <h1 class="text-4xl font-bold text-base-content tracking-tight">{{ $product->getProductName() }}</h1>
-
+            <br>
+            <span class="badge badge-outline badge-info">{{$product->getProductColor()}}</span>
             <div class="mt-4 flex items-center gap-4">
                 <span class="text-3xl font-extrabold text-primary">
                     {{ number_format($product->getProductPrice()) }}₫

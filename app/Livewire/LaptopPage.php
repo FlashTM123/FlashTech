@@ -2,27 +2,21 @@
 
 namespace App\Livewire;
 
-use App\Models\Laptop;
-
-use Livewire\WithPagination;
-
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\Laptop;
 
 class LaptopPage extends Component
 {
     use WithPagination;
 
-    // Số lượng sản phẩm hiển thị trên mỗi trang
     public $search = ''; // Biến lưu từ khóa tìm kiếm
     public $limit = 10; // Số lượng sản phẩm hiển thị trên mỗi trang
+    public $selected = []; // Danh sách ID sản phẩm được chọn
 
-    // Biến lưu trang hiện tại
-
-    // From update
     public $laptopId;
     public $name;
     public $brand;
-
 
     protected $queryString = ['search']; // Lưu từ khóa tìm kiếm vào URL
 
@@ -45,18 +39,18 @@ class LaptopPage extends Component
                 ->error('Sản phẩm không tồn tại!');
         }
     }
+
+   
     public function render()
     {
         $laptops = Laptop::query()
-        ->where(function ($query) {
-            $query->where('name', 'like', '%' . $this->search . '%')
-                ->orWhereHas('brand', function ($q) {
-                    $q->where('name', 'like', '%' . $this->search . '%');
-                });
-        })
-        ->paginate($this->limit);
-
-
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('brand', function ($q) {
+                        $q->where('name', 'like', '%' . $this->search . '%');
+                    });
+            })
+            ->paginate($this->limit);
 
         return view('livewire.laptop-page', compact('laptops'));
     }

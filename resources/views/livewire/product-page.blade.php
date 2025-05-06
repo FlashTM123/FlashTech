@@ -33,9 +33,7 @@
                     <kbd class="kbd kbd-sm">K</kbd>
                   </label>
             </div>
-            <a href="{{ route('product.create') }}" class="btn btn-primary gap-2">
-                ➕ Thêm sản phẩm
-            </a>
+      
 
         </div>
 

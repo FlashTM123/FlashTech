@@ -49,6 +49,7 @@ class ComponentController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity' => $request->quantity,
             'image' => $request->image,
+            'description' => $request->description,
         ]);
         flash()->option('position', 'bottom-center')
             ->option('icon', 'success')
@@ -89,11 +90,12 @@ class ComponentController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity' => $request->quantity,
             'image' => $request->image,
+            'description' => $request->description,
         ]);
 
         flash()->option('position', 'bottom-center')
             ->option('icon', 'success')
-            ->success('The component has been updated successfully!');  
+            ->success('The component has been updated successfully!');
         return redirect ()->route('component.index');
     }
 

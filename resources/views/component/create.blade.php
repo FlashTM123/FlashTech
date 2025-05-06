@@ -61,6 +61,10 @@
                     <label class="">Image</label>
                     <input type="text" name="image" class="file-input w-full" required>
                 </div>
+                <div>
+                    <label class="">Description</label>
+                    <textarea name="description" class="textarea textarea-bordered w-full" required></textarea>
+                </div>
 
                 <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-outline btn-secondary">

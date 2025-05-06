@@ -1,16 +1,40 @@
 <div x-data="{laptopId: @entangle('LaptopId'), name: @entangle('name'), brand: @entangle('brand'))}" >
-    <div class="flex justify-between mb-3">
-        <select name="" id="" class="select w-fit" wire:model.live='limit'>
-            <option value="1">1</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-        </select>
-    </div>
-    <div class="flex justify-center items-center mb-4">
+    <div class="flex flex-col gap-6">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <h2 class="text-2xl font-semibold">Laptop List</h2>
 
-        <input type="text" wire:model.live.debounce.300ms="search"   placeholder="Search by name" class="input input-bordered  mb-4" class="input input-bordered  mb-4" >
+                <select name="" id="" class="select w-fit" wire:model.live='limit'>
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
 
-    </div>
+            <div>
+
+                <label class="input">
+
+                      <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                      </g>
+                    </svg>
+                    <input type="search" class="grow" placeholder="Search" wire:model.live.debounce.150ms='search' />
+                    <kbd class="kbd kbd-sm">⌘</kbd>
+                    <kbd class="kbd kbd-sm">K</kbd>
+                  </label>
+            </div>
+            <a href="{{ route('laptop.create') }}" class="btn btn-outline btn-primary">
+                ➕ Thêm sản phẩm
+            </a>
+
+        </div>
     <div class="my-3">
         <div>
             <div class="overflow-x-auto">
@@ -60,6 +84,7 @@
                             <td class="text-center">
                                 <img src="{{ $laptop->image }}" alt="Laptop Image" class="w-12 h-12 object-cover rounded-lg">
                             </td>
+                            
 
                             <td class="text-center">
                                 <div class="flex space-x-2">
@@ -79,6 +104,6 @@
                 </table>
             </div>
         </div>
-        {{ $laptops->links('') }}
+        {{ $laptops->links() }}
     </div>
 </div>

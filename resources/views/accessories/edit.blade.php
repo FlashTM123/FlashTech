@@ -62,6 +62,10 @@
                     <label class="">Image</label>
                     <input type="text" name="image" class="file-input w-full" required value="{{ $accessories -> image }}">
                 </div>
+                <div>
+                    <label class="">Description</label>
+                    <textarea name="description" class="textarea textarea-bordered w-full" required>{{ $accessories -> description }}</textarea>
+                </div>
 
                 <div class="flex justify-end gap-4 mt-6">
                     <button type="submit" class="btn btn-outline btn-secondary">  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 576 512" stroke="currentColor">

@@ -14,7 +14,7 @@ class Component extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id'];
+    protected $fillable = ['name', 'brand_id', 'type', 'capacity', 'original_price', 'discount', 'promotional_price', 'quantity', 'status', 'image','product_id', 'description'];
 
     public $timestamps = false;
 
@@ -24,6 +24,19 @@ class Component extends Model
     }
     public function product(){
         return $this->belongsTo(Product::class, 'product_id','id');
+    }
+    protected static function booted()
+    {
+        static::created(function ($component) {
+            Product::create([
+                'component_id' => $component->id,
+                'description' => "$component->description",
+            ]);
+        });
+
+        static::deleted(function ($component) {
+            Product::where('component_id', $component->id)->delete();
+        });
     }
 
     // Trong model Component.php

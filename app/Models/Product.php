@@ -24,13 +24,13 @@ class Product extends Model
     // Quan hệ với Component
     public function component()
     {
-        return $this->belongsTo(Component::class, 'component_id', 'id');
+        return $this->belongsTo(Component::class);
     }
 
     // Quan hệ với Accessories
     public function accessories()
     {
-        return $this->belongsTo(Accessories::class, 'accessories_id', 'id');
+        return $this->belongsTo(Accessories::class);
     }
 
     // Quan hệ với OrderDetail
@@ -85,5 +85,9 @@ class Product extends Model
     public function getProductQuantity()
     {
         return $this->laptop?->quantity ?? $this->component?->quantity ?? $this->accessories?->quantity;
+    }
+    public function getProductColor()
+    {
+        return $this->laptop?->color ?? $this->component?->color ?? $this->accessories?->color;
     }
 }

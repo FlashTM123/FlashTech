@@ -56,7 +56,11 @@ class AccessoriesController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
+            'description' => $request->description,
         ]);
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('The accessories has been added successfully!');
 
         return redirect()->route('accessories.index');
     }
@@ -95,8 +99,11 @@ class AccessoriesController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
-
+            'description' => $request->description,
         ]);
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('The accessories has been updated successfully!');
         return redirect()->route('accessories.index');
     }
 
@@ -106,6 +113,9 @@ class AccessoriesController extends Controller
     public function destroy(Accessories $accessories)
     {
         $accessories->delete();
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('The accessories has been deleted successfully!');
 
         return view('accessories.index');
     }
