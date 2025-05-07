@@ -44,22 +44,11 @@
 
         <!-- Nút -->
         <div>
-            @if ($product->getProductQuantity() > 0)
-                <form action="{{ route('customer.addToCart') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <input type="hidden" name="product_name" value="{{ $product->getProductName() }}">
                     <input type="hidden" name="product_price" value="{{ $product->getProductPrice() }}">
                     <input type="hidden" name="product_image" value="{{ $product->getProductImage() }}">
-                    <button type="submit" class="btn btn-primary w-full text-lg rounded-xl">
-                        <i class="fas fa-cart-plus mr-2"></i> Thêm vào giỏ
-                    </button>
-                </form>
-            @else
-                <button class="btn btn-disabled w-full text-lg rounded-xl">
-                    <i class="fas fa-times-circle mr-2"></i> Hết hàng
-                </button>
-            @endif
+            <livewire:add-to-cart :product="$product" />
         </div>
     </div>
 </div>

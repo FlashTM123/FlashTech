@@ -131,11 +131,28 @@ class CartController extends Controller
         $subtotal = 0;
 
         foreach ($cart as $id => $product) {
+            // Lấy sản phẩm từ cơ sở dữ liệu
             $dbProduct = Product::find($id);
             if (!$dbProduct) {
                 unset($cart[$id]); // Xóa sản phẩm không tồn tại khỏi giỏ hàng
                 continue;
             }
+
+            // Kiểm tra số lượng sản phẩm trong kho
+            if ($dbProduct->getProductQuantity() < $product['quantity']) {
+                flash()->options(['position' => 'bottom-center'])->error('Sản phẩm ' . $product['name']  . ' không đủ số lượng trong kho.');
+                return redirect()->route('customer.cart');
+            }
+
+            // Giảm số lượng sản phẩm trong kho
+            if ($dbProduct->laptop) {
+                $dbProduct->laptop->decrement('quantity', $product['quantity']);
+            } elseif ($dbProduct->component) {
+                $dbProduct->component->decrement('quantity', $product['quantity']);
+            } elseif ($dbProduct->accessories) {
+                $dbProduct->accessories->decrement('quantity', $product['quantity']);
+            }
+
             $subtotal += $product['price'] * $product['quantity'];
         }
 
@@ -148,6 +165,7 @@ class CartController extends Controller
 
         $totalPrice = $subtotal + $shippingFee; // Tổng tiền bao gồm phí ship
 
+        // Tạo đơn hàng
         $order = Order::create([
             'customer_id' => session('customer')->id,
             'address' => $request->input('address'),
@@ -157,6 +175,7 @@ class CartController extends Controller
             'status' => 'pending',
         ]);
 
+        // Lưu chi tiết đơn hàng
         foreach ($cart as $id => $product) {
             $order->items()->create([
                 'product_id' => $id,
@@ -172,6 +191,7 @@ class CartController extends Controller
         if ($request->input('payment_method') === 'bank_transfer') {
             return redirect()->route('customer.bankTransferInstructions')->with('success', 'Đặt hàng thành công! Vui lòng làm theo hướng dẫn chuyển khoản.');
         }
+
         flash()->options(['position' => 'bottom-center'])->success('Đặt hàng thành công!');
         return Redirect::route('customer.home');
     }

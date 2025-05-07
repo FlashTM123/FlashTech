@@ -7,6 +7,13 @@
                 Danh sách sản phẩm
             </h2>
 
+            <select name="" id="" class="select select-bordered w-fit" wire:model.live='filter'>
+                <option value="all">Tất cả</option>
+                <option value="laptop">Laptop</option>
+                <option value="component">Linh kiện</option>
+                <option value="accessories">Phụ kiện</option>
+            </select>
+
                 <select name="" id="" class="select w-fit" wire:model.live='limit'>
                     <option value="1">1</option>
                     <option value="5">5</option>
@@ -33,7 +40,7 @@
                     <kbd class="kbd kbd-sm">K</kbd>
                   </label>
             </div>
-      
+
 
         </div>
 
@@ -59,11 +66,11 @@
                                 @if ($product->laptop)
                                     <span class="badge badge-outline">Laptop</span>
                                 @elseif ($product->component)
-                                    <span class="badge badge-outline">Component</span>
+                                    <span class="badge badge-outline">Linh kiện</span>
                                 @elseif ($product->accessories)
-                                    <span class="badge badge-outline">Accessories</span>
+                                    <span class="badge badge-outline">Phụ kiện</span>
                                 @else
-                                    <span class="badge badge-outline">Unknown</span>
+                                    <span class="badge badge-outline">Không xác định</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -77,7 +84,7 @@
                                         </span>
                                     </div>
                                 @else
-                                    <span class="font-semibold text-base-content">
+                                    <span class="text-red-500 font-bold text-lg">
                                         {{ number_format($product->getProductPrice()) }} Đ
                                     </span>
                                 @endif

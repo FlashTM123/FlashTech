@@ -9,6 +9,42 @@
         <i class="fas fa-chart-pie text-primary"></i>
         Thống kê
     </h1>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Thống kê đơn hàng -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-shopping-cart text-blue-500"></i>
+                    Tổng số đơn hàng
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ $totalOrders }}</p>
+            </div>
+        </div>
+
+
+        <!-- Thống kê sản phẩm -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-box-open text-green-500"></i>
+                    Tổng số sản phẩm
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ $totalProducts }}</p>
+            </div>
+        </div>
+        <!-- Thống kê khách hàng -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-users text-red-500"></i>
+                    Tổng số khách hàng
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ $totalCustomers }}</p>
+            </div>
+        </div>
+
+
+    </div>
 
     <!-- Biểu đồ doanh thu -->
     <div class="card bg-base-100 shadow-lg mb-8">
@@ -109,6 +145,52 @@
             </div>
         </div>
     </div>
+
+    <!-- Bảng sản phẩm đã hết hàng -->
+    <div class="card bg-base-100 shadow-lg mt-8">
+        <div class="card-body">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-times-circle text-red-500"></i>
+                Sản phẩm đã hết hàng
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr class="bg-base-200">
+                            <th class="text-center">#</th>
+                            <th>Tên sản phẩm</th>
+                            <th class="text-center">Danh mục</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($outofStockProducts as $index => $product)
+                            <tr>
+                                <td class="text-center">{{ $index + 1 }}</td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        @if($product->getProductImage())
+                                        <div class="avatar">
+                                            <div class="w-8 rounded">
+                                                <img src="{{ $product->getProductImage() }}" alt="{{ $product->getProductName() }}">
+                                            </div>
+                                        </div>
+                                        @endif
+                                        {{ $product->getProductName() }}
+                                    </div>
+                                </td>
+                                <td class="text-center">{{ $product->category->name ?? 'Không xác định' }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center text-gray-500">Không có sản phẩm nào đã hết hàng.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class=""></div>
 
 
 </div>

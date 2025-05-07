@@ -28,7 +28,13 @@ class ManageController extends Controller
             3 => 'Accessory',
         ];
 
+        $totalOrders = Order::count(); // Tổng số đơn hàng
+        $totalProducts = Product::count(); // Tổng số sản phẩm
+        $totalCustomers = Customer::count(); // Tổng số khách hàng
         // Lấy danh sách sản phẩm bán chạy
+        $outofStockProducts = Product::all()->filter(function ($product) {
+            return $product->getProductQuantity() == 0;
+        });
         $bestSellingProducts = Product::withSum('orderDetails', 'quantity')
             ->having('order_details_sum_quantity', '>', 0)
             ->orderByDesc('order_details_sum_quantity')
@@ -49,7 +55,7 @@ class ManageController extends Controller
             return $product->getProductQuantity() < 10;
         });
 
-        return view('manage.index', compact('revenueByMonth', 'bestSellingProducts','lowStockProducts')); // Load trang quản lý
+        return view('manage.index', compact('revenueByMonth', 'bestSellingProducts','lowStockProducts', 'totalOrders', 'totalProducts', 'totalCustomers', 'outofStockProducts')); // Load trang quản lý
     }
 
 
