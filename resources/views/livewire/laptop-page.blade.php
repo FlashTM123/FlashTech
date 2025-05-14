@@ -42,6 +42,7 @@
                     <thead class="text-white-800 dark:text-dark-700">
                     <tr>
                         <th class="text-center">#</th>
+                        <th class="text-center">Image</th>
                         <th class="text-center">Name</th>
                         <th class="text-center">Brand</th>
                         <th class="text-center">Color</th>
@@ -54,7 +55,6 @@
                         <th class="text-center">Promotional price</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center">Image</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
@@ -62,6 +62,9 @@
                     @forelse ($laptops as  $laptop)
                         <tr class="hover:bg-base-200/50">
                             <th class="text-center">{{ $laptop->id}}</th>
+                            <td class="text-center">
+                                <img src="{{ $laptop->image }}" alt="Laptop Image" class="w-12 h-12 object-cover rounded-lg">
+                            </td>
                             <td class="text-center">{{ $laptop->name }}</td>
                             <td class="text-center">{{ $laptop->brand ? $laptop->brand->name : 'N/A' }}</td>
                             <td class="text-center">{{ $laptop->color }}</td>
@@ -81,10 +84,8 @@
                                     <span class="text-red-400">Out of stock</span>
                                 @endif
                             </td>
-                            <td class="text-center">
-                                <img src="{{ $laptop->image }}" alt="Laptop Image" class="w-12 h-12 object-cover rounded-lg">
-                            </td>
-                            
+
+
 
                             <td class="text-center">
                                 <div class="flex space-x-2">

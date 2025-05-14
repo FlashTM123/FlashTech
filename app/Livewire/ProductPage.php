@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Product;
+use Livewire\WithPagination;
 
 class ProductPage extends Component
 {
+    use WithPagination;
     public $filter = 'all'; // Giá trị mặc định của bộ lọc
     public $search = ''; // Giá trị tìm kiếm
     public $limit = 10; // Số lượng bản ghi hiển thị mỗi trang
@@ -36,7 +38,9 @@ class ProductPage extends Component
                 ->orWhereHas('accessories', function ($subQuery) {
                     $subQuery->where('name', 'like', '%' . $this->search . '%');
                 });
-            });
+
+            })
+            ->paginate($this->limit);
         }
 
         // Phân trang

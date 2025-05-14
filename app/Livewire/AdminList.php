@@ -9,11 +9,12 @@ class AdminList extends Component
 {
     public $admins;
 
-    public function deleteAdmin($id)
+   public function delete($id)
     {
         DB::table('admin')->where('id', $id)->delete();
-        $this->admins = DB::table('admin')->get();
-        session()->flash('admin_deleted', 'Admin deleted successfully!');
+        flash()->option('position', 'bottom-center')
+            ->option('icon', 'success')
+            ->success('Xóa admin thành công!');
     }
     public function render()
     {

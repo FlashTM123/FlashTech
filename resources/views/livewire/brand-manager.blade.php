@@ -1,6 +1,6 @@
 <div class="container mx-auto p-6">
     <div class="flex justify-between items-center mb-6 max-w-5xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-800">📦 Brand List</h2>
+        <h2 class="text-2xl font-bold ">📦 Quản lý thương hiệu</h2>
         <select name="" id="" class="select w-fit" wire:model.live='limit'>
             <option value="1">1</option>
             <option value="5">5</option>
@@ -26,31 +26,31 @@
                 <kbd class="kbd kbd-sm">K</kbd>
               </label>
         </div>
-        <button onclick="showAddBrandModal()" class="btn btn-primary btn-sm">
-            ➕ Add Brand
+        <button onclick="showAddBrandModal()" class="btn btn-outline btn-primary" >
+            <i class="fa fa-plus"></i>
         </button>
     </div>
 
 
 
-    <div class="overflow-x-auto rounded-lg shadow border bg-white">
+    <div class="overflow-x-auto rounded-lg shadow border bg-dark">
         <table class="table w-full">
-            <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
+            <thead class=" text-white-700 text-sm uppercase">
                 <tr>
                     <th class="p-3">#</th>
-                    <th class="p-3">Name</th>
-                    <th class="p-3 text-center">Action</th>
+                    <th class="p-3 text-center">Tên thương hiệu</th>
+                    <th class="p-3 text-center">Hành động</th>
                 </tr>
             </thead>
             <tbody id="brand-list">
                 @foreach($brands as $brand)
-                    <tr class="hover:bg-gray-50 border-b text-sm">
-                        <td class="p-3 font-medium text-gray-800">{{ $brand->id }}</td>
-                        <td class="p-3">{{ $brand->name }}</td>
+                    <tr class="">
+                        <td class="p-3 font-medium ">{{ $brand->id }}</td>
+                        <td class="p-3 text-center">{{ $brand->name }}</td>
                         <td class="p-3 text-center">
                             <div class="flex justify-center gap-2">
-                                <button onclick="showEditBrandModal({{ $brand }})" class="btn btn-warning btn-sm">✏️ Edit</button>
-                                <button type="button" class="btn btn-error btn-sm" onclick="confirmDelete('{{ $brand->id }}')">🗑️ Delete</button>
+                                <button onclick="showEditBrandModal({{ $brand }})" class="btn btn-outline btn-warning"><i class="fa fa-pencil-alt"></i></button>
+                                <button type="button" class="btn btn-outline btn-error" wire:click='delete({{ $brand->id}})'><i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -66,12 +66,12 @@
 <script>
     function showAddBrandModal() {
         Swal.fire({
-            title: 'Add Brand',
+            title: 'Thêm thương hiệu mới',
             html: `
-                <input type="text" id="brand-name" class="swal2-input" placeholder="Brand Name">
+                <input type="text" id="brand-name" class="swal2-input" placeholder="Nhâp tên thương hiệu">
             `,
             showCancelButton: true,
-            confirmButtonText: 'Add',
+            confirmButtonText: 'Thêm',
             preConfirm: () => {
                 const name = document.getElementById('brand-name').value;
                 if (!name ) {
@@ -95,12 +95,12 @@
 
     function showEditBrandModal(brand) {
         Swal.fire({
-            title: 'Edit Brand',
+            title: 'Sửa thương hiệu',
             html: `
-                <input type="text" id="brand-name" class="swal2-input" value="${brand.name}" placeholder="Brand Name">
+                <input type="text" id="brand-name" class="swal2-input" value="${brand.name}" placeholder="Nhâp tên thương hiệu">
             `,
             showCancelButton: true,
-            confirmButtonText: 'Update',
+            confirmButtonText: 'Sửa',
             preConfirm: () => {
                 const name = document.getElementById('brand-name').value;
 
@@ -114,7 +114,7 @@
                 axios.put("{{ route('brand.update', ':id') }}".replace(':id', brand.id), result.value)
 
                     .then(response => {
-                        Swal.fire('Success', 'Brand updated successfully', 'success');
+                        Swal.fire('Thành công', 'Thương hiệu đã được sửa thành công', 'success');
                         location.reload();
                     })
                     .catch(error => {
@@ -123,33 +123,8 @@
             }
 
         });
-
     }
-    function confirmDelete(brandId) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "This action cannot be undone!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById("delete-form-" + brandId).submit();
-            }
-        });
-    }
-    document.addEventListener("DOMContentLoaded", function() {
 
-        @if(session('delete_success'))
-        Swal.fire({
-            title: "Deleted Successfully!",
-            text: "The laptop has been removed successfully.",
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "OK"
-        });
-        @endif
-    });
+
+
 </script>

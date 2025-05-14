@@ -35,6 +35,9 @@ class ManageController extends Controller
         $outofStockProducts = Product::all()->filter(function ($product) {
             return $product->getProductQuantity() == 0;
         });
+        $revenueByYear = Order::sum('total_price'); // Tổng doanh thu của tất cả các năm
+       $completedOrders = Order::where('status', 'completed')->count(); // Tổng số đơn hàng đã hoàn thành
+       $canceledOrders = Order::where('status', 'cancelled')->count(); // Tổng số đơn hàng đã hủy
         $bestSellingProducts = Product::withSum('orderDetails', 'quantity')
             ->having('order_details_sum_quantity', '>', 0)
             ->orderByDesc('order_details_sum_quantity')
@@ -52,10 +55,24 @@ class ManageController extends Controller
             ->orderBy('month')
             ->get();
         $lowStockProducts = Product::all()->filter(function ($product) {
-            return $product->getProductQuantity() < 10;
+            return $product->getProductQuantity() < 10 && $product->getProductQuantity() > 0;
         });
 
-        return view('manage.index', compact('revenueByMonth', 'bestSellingProducts','lowStockProducts', 'totalOrders', 'totalProducts', 'totalCustomers', 'outofStockProducts')); // Load trang quản lý
+        return view(
+            'manage.index',
+            compact(
+                'revenueByMonth',
+                'bestSellingProducts',
+                'lowStockProducts',
+                'totalOrders',
+                'totalProducts',
+                'totalCustomers',
+                'outofStockProducts',
+                'completedOrders',
+                'canceledOrders',
+                'revenueByYear'
+            )
+        ); // Load trang quản lý
     }
 
 

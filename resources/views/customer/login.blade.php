@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<html lang="vi" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <title>Đăng nhập | FlashGear</title>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,7 @@
     }
 
     .glass {
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(10px);
       border-radius: 1.5rem;
       box-shadow: 0 8px 32px rgba(0,0,0,0.1);
@@ -44,8 +44,8 @@
       <!-- Form đăng nhập -->
       <div class="glass p-10">
         <div class="mb-8 text-center">
-          <h1 class="text-4xl font-bold text-gray-800">Đăng nhập</h1>
-          <p class="text-gray-500 mt-2">Truy cập tài khoản để mua sắm ngay hôm nay!</p>
+          <h1 class="text-4xl font-bold text-gray-200">Đăng nhập</h1>
+          <p class="text-gray-200 mt-2">Truy cập tài khoản để mua sắm ngay hôm nay!</p>
         </div>
 
         @if (session('error'))

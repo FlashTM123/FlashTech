@@ -15,7 +15,7 @@
                     <th>#</th>
                     <th>👤 Tên</th>
                     <th>📧 Email</th>
-                    <th>🔒 Mật khẩu</th>
+                    <th>🔒 Mật khẩu (mã hóa)</th>
                     <th>📞 Điện thoại</th>
                     <th>📆 Tạo lúc</th>
                     <th>🕓 Cập nhật</th>
@@ -38,19 +38,12 @@
                             <div class="flex justify-center gap-2">
                                 <!-- Edit -->
                                 <a href="{{ route('admin.edit', $admin->id) }}"
-                                   class="btn btn-sm btn-warning btn-outline rounded-lg hover:scale-105 transition-transform">
+                                   class="btn btn-outline btn-warning">
                                     📝
                                 </a>
 
                                 <!-- Delete -->
-                                <form id="delete-form-{{ $admin->id }}" action="{{ route('admin.destroy', $admin->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="deleteAdmin({{ $admin->id }})"
-                                            class="btn btn-sm btn-error btn-outline rounded-lg hover:scale-105 transition-transform">
-                                        🗑️
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-outline btn-error" wire:click='delete({{$admin->id}})'>🗑️</button>
                             </div>
                         </td>
                     </tr>
@@ -60,24 +53,5 @@
     </div>
 
     <!-- SweetAlert -->
-    <script>
-        function deleteAdmin(adminId) {
-            Swal.fire({
-                title: 'Bạn chắc chắn?',
-                text: "Thao tác này sẽ xóa quản trị viên!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Xóa',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + adminId).submit();
-                }
-            });
-        }
 
-
-    </script>
 </div>

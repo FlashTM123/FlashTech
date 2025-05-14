@@ -43,6 +43,7 @@
             <tr>
                 <th>#</th>
                 <th class="text-center">Name</th>
+                <th>Image</th>
                 <th>Brand</th>
                 <th>Color</th>
                 <th>Type</th>
@@ -51,7 +52,6 @@
                 <th class="text-center">Promotional price</th>
                 <th>Quantity</th>
                 <th class="text-center">Status</th>
-                <th>Image</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
@@ -59,6 +59,9 @@
             @forelse ($accessories as $accessory)
                 <tr class="hover:border-b">
                     <th class="p-4">{{ $accessory->id }}</th>
+                    <td class="p-3">
+                        <img src="{{ $accessory->image }}" alt="Accessory Image" class="w-12 h-12 object-cover rounded-lg">
+                    </td>
                     <td class="text-center">{{ $accessory->name }}</td>
                     <td class="p-3">{{ $accessory->brand ? $accessory->brand->name : 'N/A' }}</td>
                     <td class="p-3">{{ $accessory->color }}</td>
@@ -73,9 +76,6 @@
                         @else
                             <span class="text-red-400">Out of stock</span>
                         @endif
-                    </td>
-                    <td class="p-3">
-                        <img src="{{ $accessory->image }}" alt="Accessory Image" class="w-12 h-12 object-cover rounded-lg">
                     </td>
                     <td class="p-3 text-center">
                         <div class="flex space-x-2">

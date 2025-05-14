@@ -42,7 +42,37 @@
                 <p class="text-3xl font-bold text-primary">{{ $totalCustomers }}</p>
             </div>
         </div>
+        <!-- Thống kê đơn hàng hoàn thành -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-check-circle text-yellow-500"></i>
+                    Đơn hàng đã hoàn thành
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ $completedOrders }}</p>
+            </div>
+        </div>
+        <!-- Thống kê đơn hàng bị hủy -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-times-circle text-red-500"></i>
+                    Đơn hàng đã hủy
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ $canceledOrders }}</p>
+            </div>
+        </div>
 
+        <!-- Thống kê doanh thu -->
+        <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+                <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                    <i class="fas fa-money-bill-wave text-green-500"></i>
+                    Doanh thu theo năm
+                </h2>
+                <p class="text-3xl font-bold text-primary">{{ number_format($revenueByYear, 0, ',', '.') }} VNĐ</p>
+            </div>
+        </div>
 
     </div>
 
@@ -159,7 +189,7 @@
                         <tr class="bg-base-200">
                             <th class="text-center">#</th>
                             <th>Tên sản phẩm</th>
-                            <th class="text-center">Danh mục</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -178,7 +208,7 @@
                                         {{ $product->getProductName() }}
                                     </div>
                                 </td>
-                                <td class="text-center">{{ $product->category->name ?? 'Không xác định' }}</td>
+
                             </tr>
                         @empty
                             <tr>
@@ -199,33 +229,121 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Biểu đồ doanh thu (giữ nguyên)
+        // Tạo danh sách các tháng từ 1 đến 12
+        const allMonths = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
+
+        // Dữ liệu doanh thu từ backend
+        const revenueData = {!! json_encode($revenueByMonth->pluck('revenue', 'month')) !!};
+
+        // Chuẩn hóa dữ liệu để đảm bảo có đủ 12 tháng
+        const normalizedData = allMonths.map((month, index) => {
+            const monthNumber = index + 1; // Tháng bắt đầu từ 1
+            return revenueData[monthNumber] || 0; // Nếu không có dữ liệu, mặc định là 0
+        });
+
+        // Mảng màu cho từng tháng
+        const colors = [
+            'rgba(255, 99, 132, 0.8)',  // Tháng 1
+            'rgba(54, 162, 235, 0.8)', // Tháng 2
+            'rgba(255, 206, 86, 0.8)', // Tháng 3
+            'rgba(75, 192, 192, 0.8)', // Tháng 4
+            'rgba(153, 102, 255, 0.8)',// Tháng 5
+            'rgba(255, 159, 64, 0.8)', // Tháng 6
+            'rgba(199, 199, 199, 0.8)',// Tháng 7
+            'rgba(83, 102, 255, 0.8)', // Tháng 8
+            'rgba(255, 99, 71, 0.8)',  // Tháng 9
+            'rgba(60, 179, 113, 0.8)', // Tháng 10
+            'rgba(123, 104, 238, 0.8)',// Tháng 11
+            'rgba(255, 215, 0, 0.8)'   // Tháng 12
+        ];
+
+        // Biểu đồ doanh thu
         const revenueCtx = document.getElementById('revenueChart').getContext('2d');
         const revenueChart = new Chart(revenueCtx, {
             type: 'bar',
             data: {
-                labels: {!! json_encode($revenueByMonth->pluck('month')->map(fn($m) => "Tháng $m")) !!},
+                labels: allMonths, // Hiển thị tất cả các tháng
                 datasets: [{
-                    label: 'Revenue (VNĐ)',
-                    data: {!! json_encode($revenueByMonth->pluck('revenue')) !!},
-                    backgroundColor: 'rgba(79, 70, 229, 0.7)',
-                    borderColor: 'rgba(79, 70, 229, 1)',
+                    label: 'Doanh thu (VNĐ)',
+                    data: normalizedData, // Dữ liệu đã chuẩn hóa
+                    backgroundColor: colors, // Áp dụng màu sắc cho từng tháng
+                    borderColor: colors.map(color => color.replace('0.8', '1')), // Đường viền đậm hơn
                     borderWidth: 1,
-                    borderRadius: 4
+                    borderRadius: 8,
+                    hoverBackgroundColor: colors.map(color => color.replace('0.8', '1')) // Màu khi hover
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString() + '₫';
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: {
+                                size: 14,
+                                family: 'Arial, sans-serif',
+                                weight: 'bold'
+                            },
+                            color: '#4f46e5'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                // Định dạng số tiền trong tooltip
+                                return context.raw.toLocaleString('vi-VN') + ' ₫';
                             }
                         }
                     }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#6b7280'
+                        },
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.8
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            // Định dạng số tiền trên trục Y
+                            callback: function(value) {
+                                return value.toLocaleString('vi-VN') + ' ₫';
+                            },
+                            font: {
+                                size: 12
+                            },
+                            color: '#6b7280'
+                        },
+                        grid: {
+                            color: 'rgba(200, 200, 200, 0.2)'
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 20,
+                        bottom: 20,
+                        left: 10,
+                        right: 10
+                    }
+                },
+                elements: {
+                    bar: {
+                        maxBarThickness: 50
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutBounce'
                 }
             }
         });

@@ -90,4 +90,5 @@ class Product extends Model
     {
         return $this->laptop?->color ?? $this->component?->color ?? $this->accessories?->color;
     }
+
 }

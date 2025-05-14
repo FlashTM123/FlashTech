@@ -50,6 +50,7 @@
                 <thead class="text-base font-semibold text-base-content/80 bg-base-200">
                     <tr>
                         <th class="text-center">#</th>
+                        <th>Image</th>
                         <th class="text-center">Tên sản phẩm</th>
                         <th class="text-center">Loại</th>
                         <th class="text-center">Giá</th>
@@ -61,6 +62,9 @@
                     @foreach($products as $index => $product)
                         <tr class="hover:bg-base-300/30 transition-all duration-150">
                             <td class="text-center font-semibold">{{ $product->id }}</td>
+                            <td class="p-3">
+                                <img src="{{ $product->getProductImage() }}" alt="Product Image" class="w-12 h-12 object-cover justify-center rounded-lg">
+                            </td>
                             <td class="text-center">{{ $product->getProductName() }}</td>
                             <td class="text-center">
                                 @if ($product->laptop)

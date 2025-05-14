@@ -140,7 +140,7 @@ class CartController extends Controller
 
             // Kiểm tra số lượng sản phẩm trong kho
             if ($dbProduct->getProductQuantity() < $product['quantity']) {
-                flash()->options(['position' => 'bottom-center'])->error('Sản phẩm ' . $product['name']  . ' không đủ số lượng trong kho.');
+                flash()->options(['position' => 'bottom-center'])->error('Sản phẩm ' . $product['name']  . ' hiện không đủ số lượng trong kho.');
                 return redirect()->route('customer.cart');
             }
 

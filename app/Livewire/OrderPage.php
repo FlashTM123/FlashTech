@@ -54,7 +54,11 @@ class OrderPage extends Component
         // Lọc theo khoảng thời gian
         if($this->dateRange === 'today') {
             $query->whereDate('created_at', Carbon::today());
-        } 
+        } elseif($this->dateRange === 'yesterday') {
+            $query->whereDate('created_at', Carbon::yesterday());
+        } elseif($this->dateRange === 'this_week') {
+            $query->whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()]);
+        }
 
         // Sắp xếp theo thời gian tạo (mới nhất lên đầu)
         $orders = $query->with('customer', 'admin')

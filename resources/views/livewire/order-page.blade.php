@@ -15,7 +15,7 @@
             <select name="" id="" class="select select-bordered w-fit" wire:model.live='dateRange'>
                 <option value="all">All</option>
                 <option value="today">Today</option>
-
+                <option value="this_week">This Week</option>
             </select>
         </div>
         <div class="overflow-x-auto">

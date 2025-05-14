@@ -41,9 +41,9 @@
             <thead>
             <tr>
                 <th class="text-center">#</th>
+                <th>Image</th>
                 <th class="text-center">Name</th>
                 <th>Brand</th>
-
                 <th>Type</th>
                 <th>Capacity</th>
                 <th class="text-center">Original price</th>
@@ -51,7 +51,6 @@
                 <th class="text-center">Promotional price</th>
                 <th class="text-center">Quantity</th>
                 <th class="text-center">Status</th>
-                <th>Image</th>
                 <th class="text-center">Action</th>
             </tr>
             </thead>
@@ -59,6 +58,9 @@
             @forelse ($components as $index => $component)
                 <tr class="hover:border-b">
                     <th class="text-center">{{ $component->id }}</th>
+                    <td class="p-3">
+                        <img src="{{ $component->image }}" alt="Laptop Image" class="w-12 h-12 object-cover rounded-lg">
+                    </td>
                     <td class="text-center">{{ $component->name }}</td>
                     <td class="p-3">{{ $component->brand ? $component->brand->name : 'N/A' }}</td>
 
@@ -78,9 +80,6 @@
                         @endif
                     </td>
 
-                    <td class="p-3">
-                        <img src="{{ $component->image }}" alt="Laptop Image" class="w-12 h-12 object-cover rounded-lg">
-                    </td>
                     <td class="text-center">
                         <div class="flex space-x-2">
                             <a href="{{ route('component.edit', $component->id) }}" class="btn btn-outline btn-secondary">

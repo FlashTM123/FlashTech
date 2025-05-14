@@ -5,13 +5,13 @@
 <head>
     @livewireStyles
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" data-theme="dark">
     <title>@yield("title") | FlashGear Admin</title>
 
     <!-- Font & Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Theme switch -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -51,36 +51,34 @@
             @auth('admin')
                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
                     @csrf
-                    <button type="button" class="btn btn-outline btn-error btn-sm" onclick="confirmLogout()">Log out</button>
+                    <button type="button" class="btn btn-outline btn-error btn-sm" onclick="confirmLogout()">Đăng xuất</button>
                 </form>
             @endauth
-            <button id="theme-toggle" class="btn btn-circle bg-base-200 hover:bg-base-300">
-                <span id="theme-icon" class="text-xl"></span>
-            </button>
+            
         </div>
     </div>
 
     <!-- Sidebar -->
     <aside class="fixed top-16 left-0 w-64 h-[calc(100%-4rem)] bg-base-200 text-base-content shadow-xl z-40 overflow-y-auto p-4">
         <ul class="menu gap-2">
-            <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="{{ route('manage.index') }}"><i class="fa-solid fa-chart-line"></i> Thống kê</a></li>
             <li><a href="{{ route('admin.index') }}"><i class="fa-solid fa-user"></i> Admin</a></li>
-            <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="{{ route('customers.index') }}"><i class="fa-solid fa-users"></i> Khách hàng</a></li>
 
             <li>
                 <details open>
-                    <summary><i class="fa-solid fa-box"></i> Products</summary>
+                    <summary><i class="fa-solid fa-box"></i> Sản phẩm</summary>
                     <ul class="ml-4">
-                        <li><a href="{{ route('product.index') }}"><i class="fa-solid fa-box"></i> Product List</a></li>
+                        <li><a href="{{ route('product.index') }}"><i class="fa-solid fa-box"></i> Danh sách sản phẩm</a></li>
                         <li><a href="{{ route('laptop.index') }}"><i class="fa-solid fa-laptop"></i> Laptop</a></li>
-                        <li><a href="{{ route('component.index') }}"><i class="fa-solid fa-microchip"></i> Components</a></li>
-                        <li><a href="{{ route('accessories.index') }}"><i class="fa-solid fa-keyboard"></i> Accessories</a></li>
+                        <li><a href="{{ route('component.index') }}"><i class="fa-solid fa-microchip"></i> Linh kiện</a></li>
+                        <li><a href="{{ route('accessories.index') }}"><i class="fa-solid fa-keyboard"></i> Phụ kiện</a></li>
                     </ul>
                 </details>
             </li>
-            <li><a href="{{ route('brand.index') }}"><i class="fa-solid fa-copyright"></i> Brands</a></li>
+            <li><a href="{{ route('brand.index') }}"><i class="fa-solid fa-copyright"></i> Thương hiệu</a></li>
 
-            <li><a href="{{ route('order.index') }}"><i class="fa-solid fa-cart-shopping"></i> Orders</a></li>
+            <li><a href="{{ route('order.index') }}"><i class="fa-solid fa-cart-shopping"></i> Đơn hàng</a></li>
         </ul>
     </aside>
 
