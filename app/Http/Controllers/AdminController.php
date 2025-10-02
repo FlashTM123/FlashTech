@@ -21,7 +21,7 @@ class AdminController extends Controller
         //
         $admins = Admin::all();
 
-        return view('admin.index', compact('admins'));
+        return view('Admins.admin.index', compact('admins'));
     }
 
     /**
@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        return view('Admins.admin.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class AdminController extends Controller
 
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được tạo thành công!');
-        return Redirect::route('admin.index');
+        return Redirect::route('Admins.admin.index');
     }
 
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('admin.edit', ['admin' => $admin]);
+        return view('Admins.admin.edit', ['admin' => $admin]);
     }
 
     /**
@@ -101,7 +101,7 @@ class AdminController extends Controller
 
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được cập nhật thành công!');
-        return Redirect::route('admin.index');
+        return Redirect::route('Admins.admin.index');
 
     }
 
@@ -113,11 +113,11 @@ class AdminController extends Controller
     {
         $admin->delete();
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được xóa thành công!');
-        return Redirect::route('admin.index');
+        return Redirect::route('Admins.admin.index');
     }
     public function login()
     {
-        return view('admin.login');
+        return view('Admins.admin.login');
     }
     public function LoginProcess(Request $request)
     {
@@ -127,7 +127,7 @@ class AdminController extends Controller
             Auth::guard('admin')->login($admin);
             session(['admin' => $admin]);
             flash()->options(['position' => 'bottom-center'])->success('Đăng nhập thành công!');
-            return Redirect::route('manage.index');
+            return Redirect::route('Admins.manage.index');
         } else {
             flash()->error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.');
             return Redirect::back();
@@ -138,7 +138,7 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         session()->forget('admin');
         flash()->options(['position' => 'top-right'])->success('Đăng xuất thành công!');
-        return Redirect::route('admin.login');
+        return Redirect::route('Admins.admin.login');
     }
 
 }

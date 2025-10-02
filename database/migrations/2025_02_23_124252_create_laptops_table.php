@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('laptops', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('name');
-            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
 
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();

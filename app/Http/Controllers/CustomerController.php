@@ -14,7 +14,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return view('customers.index' , compact('customers'));
+        return view('Admins.customers.index' , compact('customers'));
     }
 
     public function profile()
@@ -25,7 +25,7 @@ class CustomerController extends Controller
         // Tải lịch sử đơn hàng của khách hàng
         $customer->load('orders'); // Eager load quan hệ 'orders'
 
-        return view('customer.profile', compact('customer'));
+        return view('Admins.customer.profile', compact('customer'));
     }
 
     public function getOrders()

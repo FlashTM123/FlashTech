@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('compoments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->string('type');
             $table->string('capacity');
             $table->decimal('original_price', 8, 0)->nullable();

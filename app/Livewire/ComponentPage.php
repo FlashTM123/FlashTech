@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component as LivewireComponent;
 use Livewire\WithPagination;
-use App\Models\Component;
+use App\Models\Components;
 
 class ComponentPage extends LivewireComponent
 {
@@ -27,7 +27,7 @@ class ComponentPage extends LivewireComponent
     }
     public function delete($id)
     {
-        $component = Component::find($id);
+        $component = Components::find($id);
         if ($component) {
             $component->delete();
             flash()->option('position', 'bottom-center')
@@ -41,7 +41,7 @@ class ComponentPage extends LivewireComponent
     }
     public function render()
     {
-        $components = Component::query()
+        $components = Components::query()
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhereHas('brand', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');

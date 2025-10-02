@@ -24,7 +24,7 @@ class Product extends Model
     // Quan hệ với Component
     public function component()
     {
-        return $this->belongsTo(Component::class);
+        return $this->belongsTo(Components::class);
     }
 
     // Quan hệ với Accessories

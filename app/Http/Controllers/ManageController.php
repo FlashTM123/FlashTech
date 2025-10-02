@@ -37,7 +37,7 @@ class ManageController extends Controller
         });
         $revenueByYear = Order::sum('total_price'); // Tổng doanh thu của tất cả các năm
        $completedOrders = Order::where('status', 'completed')->count(); // Tổng số đơn hàng đã hoàn thành
-       $canceledOrders = Order::where('status', 'cancelled')->count(); // Tổng số đơn hàng đã hủy
+       $canceledOrders = Order::where('status', 'Cancel')->count(); // Tổng số đơn hàng đã hủy
         $bestSellingProducts = Product::withSum('orderDetails', 'quantity')
             ->having('order_details_sum_quantity', '>', 0)
             ->orderByDesc('order_details_sum_quantity')
@@ -59,7 +59,7 @@ class ManageController extends Controller
         });
 
         return view(
-            'manage.index',
+            'Admins.manage.index',
             compact(
                 'revenueByMonth',
                 'bestSellingProducts',

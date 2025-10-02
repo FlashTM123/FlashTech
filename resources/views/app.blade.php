@@ -6,14 +6,14 @@
     @livewireStyles
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" data-theme="dark">
-    <title>@yield("title") | FlashGear Admin</title>
+    <title>@yield("title") | FlashTech</title>
 
     <!-- Font & Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Theme switch -->
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function () {
             const themeToggle = document.getElementById("theme-toggle");
             const themeIcon = document.getElementById("theme-icon");
@@ -35,7 +35,7 @@
                     : '<i class="fas fa-moon"></i>';
             });
         });
-    </script>
+    </script> --}}
 </head>
 <body class="bg-gradient-to-br from-indigo-100 via-white to-cyan-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-300 ease-in-out min-h-screen">
 
@@ -43,7 +43,7 @@
     <div class="navbar fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-900/70 border-b border-base-300 shadow-md">
         <div class="flex-1">
             <a href="{{ route('manage.index') }}" class="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent tracking-wide flex items-center gap-2">
-                <i class="fa-solid fa-bolt animate-spin-slow text-indigo-500 dark:text-indigo-300"></i> FlashGear Admin
+                <i class="fa-solid fa-bolt animate-spin-slow text-indigo-500 dark:text-indigo-300"></i> FlashTech
             </a>
         </div>
         <div class="flex gap-4 items-center">

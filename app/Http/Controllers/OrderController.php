@@ -20,7 +20,7 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
             ->paginate(10); // Phân trang
 
-        return view('order.index', compact('orders'));
+        return view('Admins.order.index', compact('orders'));
     }
 
     /**
@@ -73,6 +73,6 @@ class OrderController extends Controller
     public function show($id){
         $order = Order::with('items.product')->findOrFail($id); // Lấy thông tin đơn hàng theo ID
 
-        return view('order.show', compact('order')); // Trả về view với thông tin đơn hàng
+        return view('Admins.order.show', compact('order')); // Trả về view với thông tin đơn hàng
     }
 }

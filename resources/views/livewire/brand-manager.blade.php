@@ -31,32 +31,33 @@
         </button>
     </div>
 
+    <div class="my-3">
 
-
-    <div class="overflow-x-auto rounded-lg shadow border bg-dark">
-        <table class="table w-full">
-            <thead class=" text-white-700 text-sm uppercase">
-                <tr>
-                    <th class="p-3">#</th>
-                    <th class="p-3 text-center">Tên thương hiệu</th>
-                    <th class="p-3 text-center">Hành động</th>
-                </tr>
-            </thead>
-            <tbody id="brand-list">
-                @foreach($brands as $brand)
-                    <tr class="">
-                        <td class="p-3 font-medium ">{{ $brand->id }}</td>
-                        <td class="p-3 text-center">{{ $brand->name }}</td>
-                        <td class="p-3 text-center">
-                            <div class="flex justify-center gap-2">
-                                <button onclick="showEditBrandModal({{ $brand }})" class="btn btn-outline btn-warning"><i class="fa fa-pencil-alt"></i></button>
-                                <button type="button" class="btn btn-outline btn-error" wire:click='delete({{ $brand->id}})'><i class="fa fa-trash"></i></button>
-                            </div>
-                        </td>
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead class=" text-white-700 text-sm uppercase">
+                    <tr>
+                        <th class="p-3">#</th>
+                        <th class="p-3 text-center">Tên thương hiệu</th>
+                        <th class="p-3 text-center">Hành động</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="brand-list">
+                    @foreach($brands as $brand)
+                        <tr class="">
+                            <td class="p-3 font-medium ">{{ $brand->id }}</td>
+                            <td class="p-3 text-center">{{ $brand->name }}</td>
+                            <td class="p-3 text-center">
+                                <div class="flex justify-center gap-2">
+                                    <button onclick="showEditBrandModal({{ $brand }})" class="btn btn-outline btn-warning"><i class="fa fa-pencil-alt"></i></button>
+                                    <button type="button" class="btn btn-outline btn-error" wire:click='delete({{ $brand->id}})'><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="mt-6">

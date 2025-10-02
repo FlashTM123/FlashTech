@@ -8,6 +8,7 @@ use App\Models\Laptop;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Components;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,7 +20,7 @@ class ProductController extends Controller
     {
         $products = Product::with(['laptop', 'component', 'accessories']);
 
-        return view('product.index', compact('products'));
+        return view('Admins.product.index', compact('products'));
     }
 
     /**
@@ -27,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        return view('Admins.product.create');
     }
 
     /**
@@ -54,7 +55,7 @@ class ProductController extends Controller
 
         $product->save();
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được thêm thành công!');
-        return redirect()->route('product.index');
+        return redirect()->route('Admins.product.index');
     }
 
     /**
@@ -66,7 +67,7 @@ class ProductController extends Controller
 
         $detail = $product->laptop ?? $product->component ?? $product->accessories;
 
-        return view('product.show', compact('product', 'detail'));
+        return view('Admins.product.show', compact('product', 'detail'));
     }
 
     /**
@@ -74,7 +75,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        return view('Admins.product.edit', compact('product'));
     }
 
     /**
@@ -111,7 +112,7 @@ class ProductController extends Controller
         $product->save();
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được cập nhật thành công!');
 
-        return redirect()->route('product.index');
+        return redirect()->route('Admins.product.index');
     }
 
     /**
@@ -123,7 +124,7 @@ class ProductController extends Controller
         if ($product->laptop_id) {
             Laptop::where('id', $product->laptop_id)->delete();
         } elseif ($product->component_id) {
-            Component::where('id', $product->component_id)->delete();
+            Components::where('id', $product->component_id)->delete();
         } elseif ($product->accessories_id) {
             Accessories::where('id', $product->accessories_id)->delete();
         }
@@ -132,7 +133,7 @@ class ProductController extends Controller
         $product->delete();
 
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được xóa thành công!');
-        return redirect()->route('product.index');
+        return redirect()->route('Admins.product.index');
     }
 
     /**

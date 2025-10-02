@@ -17,7 +17,7 @@
         <!-- Logo -->
         <a href="{{ url('/') }}"
            class="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent flex items-center gap-2">
-            <i class="fa-solid fa-bolt animate-spin-slow text-indigo-500"></i> FlashGear
+            <i class="fa-solid fa-bolt animate-spin-slow text-indigo-500"></i> FlashTech
         </a>
     </div>
 
@@ -52,8 +52,8 @@
                     class="menu menu-sm dropdown-content mt-4 z-50 p-3 shadow-xl bg-white dark:bg-gray-800 text-black dark:text-white rounded-xl w-56 space-y-2">
                     <li>
                         <a href="{{ route('customer.profile') }}"
-                           class="hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-md px-2 py-1">
-                            {{ session('customer')->name }}
+                           class="hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-md px-2 py-1" style="font-size: 18px">
+                            Thông tin cá nhân
                         </a>
                     </li>
                     <li>

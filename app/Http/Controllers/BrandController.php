@@ -17,7 +17,7 @@ class BrandController extends Controller
        $query = Brand::query();
 
        $brands = $query->paginate(10);
-        return view('brand.index', compact('brands'));
+        return view('Admins.brand.index', compact('brands'));
     }
 
     /**
@@ -25,7 +25,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('brand.create');
+        return view('Admins.brand.create');
     }
 
     /**
@@ -35,9 +35,12 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:brands,name',
+        ]);
+
         $brand = Brand::create([
             'name' => $request->name,
-
         ]);
 
         return response()->json($brand);
@@ -56,7 +59,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('brand.edit', ['brand' => $brand]);
+        return view('Admins.brand.edit', ['brand' => $brand]);
     }
 
     /**
@@ -79,6 +82,6 @@ class BrandController extends Controller
     {
        
         $brand->delete();
-        return redirect()->route('brand.index')->with('delete_success','Brand deleted successfully!');
+        return redirect()->route('Admins.brand.index')->with('delete_success','Brand deleted successfully!');
     }
 }

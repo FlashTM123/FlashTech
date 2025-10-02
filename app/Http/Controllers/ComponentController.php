@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Component;
+use App\Models\Components;
 use App\Models\Brand;
 use App\Http\Requests\StoreComponentRequest;
 use App\Http\Requests\UpdateComponentRequest;
@@ -12,7 +12,7 @@ class ComponentController extends Controller
 
     public function index(Request $request)
     {
-        $query = Component::query();
+        $query = Components::query();
 
         if ($request->has('brand') && !empty($request->brand)) {
             $query->whereHas('brand', function ($q) use ($request) {
@@ -22,7 +22,7 @@ class ComponentController extends Controller
         $components = $query->paginate(10);
 
         $brands = Brand::get();
-       return view ('component.index', ['components' => $components, 'brands' => $brands]);
+       return view ('Admins.component.index', ['components' => $components, 'brands' => $brands]);
     }
 
     /**
@@ -31,15 +31,15 @@ class ComponentController extends Controller
     public function create()
     {
         $brands = Brand::get();
-        return view('component.create', ['brands' => $brands]);
+        return view('Admins.component.create', ['brands' => $brands]);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreComponentRequest $request)
     {
-        $components = Component::create([
+        $components = Components::create([
             'name' => $request->name,
             'brand_id' => $request->brand_id,
             'type' => $request->type,
@@ -55,13 +55,13 @@ class ComponentController extends Controller
             ->option('icon', 'success')
             ->success('The component has been added successfully!');
 
-        return redirect()->route('component.index');
+        return redirect()->route('Admins.component.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Component $component)
+    public function show(Components $component)
     {
         //
     }
@@ -69,16 +69,16 @@ class ComponentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Component $component)
+    public function edit(Components $component)
     {
         $brands = Brand::get();
-        return view('component.edit', ['component' => $component, 'brands' => $brands]);
+        return view('Admins.component.edit', ['component' => $component, 'brands' => $brands]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateComponentRequest $request, Component $component)
+    public function update(UpdateComponentRequest $request, Components $component)
     {
         $component->update([
             'name' => $request->name,
@@ -102,9 +102,9 @@ class ComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Component $component)
+    public function destroy(Components $component)
     {
         $component->delete();
-        return redirect()->route('component.index')->with("delete_success","The component has been deleted successfully!");
+        return redirect()->route('Admins.component.index')->with("delete_success","The component has been deleted successfully!");
     }
 }

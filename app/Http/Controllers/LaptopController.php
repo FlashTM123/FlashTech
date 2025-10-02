@@ -32,7 +32,7 @@ class LaptopController extends Controller
         $brands = Brand::get();
 
 
-        return view('laptop.index', [
+        return view('Admins.laptop.index', [
             'laptops' => $laptops,
             'brands' => $brands // Truyền danh sách brand vào view
         ]);
@@ -45,7 +45,7 @@ class LaptopController extends Controller
     {
         $brands = Brand::get();
 
-        return view('laptop.create',['brands' => $brands], );
+        return view('Admins.laptop.create',['brands' => $brands], );
     }
 
     /**
@@ -72,7 +72,7 @@ class LaptopController extends Controller
 
 //        dd($request->all());
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được thêm thành công!');
-        return redirect()->route('laptop.index');
+        return redirect()->route('Admins.laptop.index');
     }
 
     /**
@@ -91,7 +91,7 @@ class LaptopController extends Controller
         $brands = Brand::get();
 
 
-        return view('laptop.edit', ['laptop' => $laptop, 'brands' => $brands], );
+        return view('Admins.laptop.edit', ['laptop' => $laptop, 'brands' => $brands], );
     }
 
     /**
@@ -115,7 +115,7 @@ class LaptopController extends Controller
             'description' => $request->description,
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được cập nhật thành công!');
-        return redirect()->route('laptop.index');
+        return redirect()->route('Admins.laptop.index');
     }
 
     /**
@@ -125,7 +125,7 @@ class LaptopController extends Controller
     {
         $laptop->delete();
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được xóa thành công!');
-        return redirect()->route('laptop.index');
+        return redirect()->route('Admins.laptop.index');
     }
 
     /**

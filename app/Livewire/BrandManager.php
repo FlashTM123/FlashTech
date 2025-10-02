@@ -4,7 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Brand;
+use App\Models\Laptop;
 use Livewire\WithPagination;
+use App\Models\Accessories;
+use App\Models\Components;
 
 class BrandManager extends Component
 {
@@ -21,10 +24,13 @@ class BrandManager extends Component
     {
         $brands = Brand::find($id);
         if ($brands) {
+            Laptop::where('brand_id', $brands->id)->delete();
+            Accessories::where('brand_id', $brands->id)->delete();
+            Components::where('brand_id', $brands->id)->delete();
             $brands->delete();
             flash()->option('position', 'bottom-center')
                 ->option('icon', 'success')
-                ->success('Xóa thương hiệu thành công!');
+                ->success("Xóa thương hiệu " . $brands->name . " thành công!");
         } else {
             flash()->option('position', 'bottom-center')
                 ->option('icon', 'error')

@@ -3,7 +3,7 @@
 
       <!-- Về cửa hàng -->
       <div>
-        <h2 class="font-bold text-lg mb-4">FlashGear</h2>
+        <h2 class="font-bold text-lg mb-4">FlashTech</h2>
         <p class="text-sm leading-relaxed">
           Nền tảng chuyên cung cấp laptop, linh kiện và phụ kiện chính hãng, giá tốt, hỗ trợ kỹ thuật tận tâm.
         </p>
@@ -49,6 +49,6 @@
     </div>
 
     <div class="text-center py-4 border-t border-base-300 text-sm">
-      © {{ date('Y') }} FlashGear - All rights reserved by FlashTM.
+      © {{ date('Y') }} FlashTech - All rights reserved by FlashTM.
     </div>
   </footer>

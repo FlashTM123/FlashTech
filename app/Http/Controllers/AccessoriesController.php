@@ -28,7 +28,7 @@ class AccessoriesController extends Controller
         $accessories = $query->paginate(5);
         $brands = Brand::get();
 
-        return view('accessories.index', ['accessories' => $accessories, 'brands' => $brands]);
+        return view('Admins.accessories.index', ['accessories' => $accessories, 'brands' => $brands]);
     }
 
     /**
@@ -38,7 +38,7 @@ class AccessoriesController extends Controller
     {
         $brands = Brand::get();
 
-        return view('accessories.create', compact('brands', ));
+        return view('Admins.accessories.create', compact('brands', ));
     }
 
     /**
@@ -62,7 +62,7 @@ class AccessoriesController extends Controller
             ->option('icon', 'success')
             ->success('The accessories has been added successfully!');
 
-        return redirect()->route('accessories.index');
+        return redirect()->route('Admins.accessories.index');
     }
 
     /**
@@ -81,7 +81,7 @@ class AccessoriesController extends Controller
         $brands = Brand::get();
 
 
-        return view('accessories.edit', compact('accessories', 'brands', ));
+        return view('Admins.accessories.edit', compact('accessories', 'brands', ));
     }
 
     /**
@@ -104,7 +104,7 @@ class AccessoriesController extends Controller
         flash()->option('position', 'bottom-center')
             ->option('icon', 'success')
             ->success('The accessories has been updated successfully!');
-        return redirect()->route('accessories.index');
+        return redirect()->route('Admins.accessories.index');
     }
 
     /**
@@ -117,6 +117,6 @@ class AccessoriesController extends Controller
             ->option('icon', 'success')
             ->success('The accessories has been deleted successfully!');
 
-        return view('accessories.index');
+        return view('Admins.accessories.index');
     }
 }
