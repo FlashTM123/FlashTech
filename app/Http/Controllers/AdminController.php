@@ -127,7 +127,7 @@ class AdminController extends Controller
             Auth::guard('admin')->login($admin);
             session(['admin' => $admin]);
             flash()->options(['position' => 'bottom-center'])->success('Đăng nhập thành công!');
-            return Redirect::route('Admins.manage.index');
+            return Redirect::route('manage.index');
         } else {
             flash()->error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.');
             return Redirect::back();

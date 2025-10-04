@@ -54,16 +54,16 @@
 
                 <div>
                     <label class="">Original price (VND)</label>
-                    <input type="text" step="0.01" name="original_price" class="input input-bordered w-full" required>
+                    <input type="text" step="0.01" name="original_price" id="original_price" class="input input-bordered w-full" required>
                 </div>
                 <div>
                     <label class="">Discount (%)</label>
-                    <input type="text"  name="discount" class="input input-bordered w-full" >
+                    <input type="text"  name="discount" id="discount" class="input input-bordered w-full" >
                 </div>
 
                 <div>
                     <label class="">Promotional price (VND)</label>
-                    <input type="text" step="0.01" name="promotional_price" class="input input-bordered w-full" >
+                    <input type="text" step="0.01" name="promotional_price" id="promotional_price" class="input input-bordered w-full" >
                 </div>
 
                 <div>
@@ -111,6 +111,28 @@
         @endif
 
 
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalPriceInput = document.getElementById('original_price');
+            const discountInput = document.getElementById('discount');
+            const promotionalPriceInput = document.getElementById('promotional_price');
+
+            function calculatePromotionalPrice() {
+                const originalPrice = parseFloat(originalPriceInput.value) || 0;
+                const discount = parseFloat(discountInput.value) || 0;
+                
+                if (discount > 0 && discount <= 100) {
+                    const promotionalPrice = originalPrice - (originalPrice * discount / 100);
+                    promotionalPriceInput.value = Math.round(promotionalPrice);
+                } else {
+                    promotionalPriceInput.value = Math.round(originalPrice);
+                }
+            }
+
+            originalPriceInput.addEventListener('input', calculatePromotionalPrice);
+            discountInput.addEventListener('input', calculatePromotionalPrice);
+        });
     </script>
 
 @endsection

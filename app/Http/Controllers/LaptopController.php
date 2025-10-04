@@ -53,6 +53,7 @@ class LaptopController extends Controller
      */
     public function store(StoreLaptopRequest $request)
     {
+        $promotional_price = $this->calculatePromotionalPrice($request->original_price, $request->discount);
         $laptops = Laptop::create([
             'name' => $request->name,
             'brand_id'=> $request->brand_id,
@@ -72,7 +73,7 @@ class LaptopController extends Controller
 
 //        dd($request->all());
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được thêm thành công!');
-        return redirect()->route('Admins.laptop.index');
+        return redirect()->route('laptop.index');
     }
 
     /**
@@ -115,7 +116,7 @@ class LaptopController extends Controller
             'description' => $request->description,
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được cập nhật thành công!');
-        return redirect()->route('Admins.laptop.index');
+        return redirect()->route('laptop.index');
     }
 
     /**
@@ -142,5 +143,12 @@ class LaptopController extends Controller
 
         // Trả về kết quả dưới dạng JSON
         return response()->json($laptops);
+    }
+    private function calculatePromotionalPrice($originalPrice, $discount)
+    {
+        if ($discount > 0 && $discount < 100) {
+            return $originalPrice - ($originalPrice * $discount / 100);
+        }
+        return $originalPrice; // Nếu không có giảm giá, trả về giá gốc
     }
 }

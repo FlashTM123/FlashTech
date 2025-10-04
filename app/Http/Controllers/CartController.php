@@ -6,13 +6,31 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    private function isLoggedIn()
+    {
+        // Kiểm tra nhiều cách đăng nhập khác nhau
+        return Auth::check() || 
+               session()->has('customer') || 
+               session()->has('user') || 
+               session()->has('logged_in');
+    }
 
+    private function redirectToLogin()
+    {
+        flash()->options(['position' => 'bottom-center'])->error('Vui lòng đăng nhập để tiếp tục.');
+        return redirect()->route('customer.login');
+    }
 
     public function cart()
     {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         $cart = session()->get('cart', []);
 
         // Kiểm tra sản phẩm trong giỏ hàng có tồn tại trong bảng products
@@ -25,12 +43,15 @@ class CartController extends Controller
         // Cập nhật lại giỏ hàng trong session
         session()->put('cart', $cart);
 
-
         return view('customer.cart', compact('cart'));
     }
 
     public function addToCart(Request $request)
     {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         $cart = session()->get('cart', []);
 
         // Lấy thông tin sản phẩm từ cơ sở dữ liệu
@@ -47,9 +68,9 @@ class CartController extends Controller
         }
 
         $cart[$product->id] = [
-            'name' => $detail->name ?? $product->name, // Lấy tên từ bảng liên quan hoặc bảng products
-            'price' => $price, // Lấy giá từ bảng liên quan hoặc bảng products
-            'image' => $product->getProductImage(), // Lấy hình ảnh từ phương thức
+            'name' => $detail->name ?? $product->name,
+            'price' => $price,
+            'image' => $product->getProductImage(),
             'quantity' => isset($cart[$product->id]) ? $cart[$product->id]['quantity'] + 1 : 1,
         ];
 
@@ -58,12 +79,13 @@ class CartController extends Controller
         return Redirect::route('customer.home');
     }
 
-
     public function updateCart(Request $request): \Illuminate\Http\RedirectResponse
     {
-        // Lấy sản phẩm có id và số lượng muốn cập nhật
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         $products = $request->product;
-        // Lấy cart
         $cart = session()->get('cart', []);
         foreach ($products as $id => $quantity) {
             $cart[$id]['quantity'] = $quantity;
@@ -71,57 +93,73 @@ class CartController extends Controller
         session()->put('cart', $cart);
         return Redirect::route('customer.cart');
     }
+
     public function updateQuantity(Request $request): \Illuminate\Http\JsonResponse
-{
-    $cart = session()->get('cart', []);
-    $id = $request->input('id');
-    $quantity = $request->input('quantity');
+    {
+        if (!$this->isLoggedIn()) {
+            return response()->json(['success' => false, 'message' => 'Vui lòng đăng nhập.']);
+        }
 
-    if (isset($cart[$id])) {
-        $cart[$id]['quantity'] = $quantity;
-        session()->put('cart', $cart);
+        $cart = session()->get('cart', []);
+        $id = $request->input('id');
+        $quantity = $request->input('quantity');
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = $quantity;
+            session()->put('cart', $cart);
+        }
+
+        return response()->json(['success' => true]);
     }
-
-    return response()->json(['success' => true]);
-}
 
     public function remove($id): \Illuminate\Http\RedirectResponse
     {
-        // Lấy cart
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         $cart = session()->get('cart', []);
-        // Xóa sản phẩm khỏi cart
         unset($cart[$id]);
-        // Cập nhật lại session
         session()->put('cart', $cart);
         return Redirect::route('customer.cart');
     }
 
     public function removeAll(): \Illuminate\Http\RedirectResponse
     {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         session()->forget('cart');
         return Redirect::route('customer.cart');
     }
 
     public function checkout()
     {
-        $cart = session('cart', []); // Lấy giỏ hàng từ session
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
+        $cart = session('cart', []);
         $subtotal = array_sum(array_map(function ($item) {
             return $item['price'] * $item['quantity'];
         }, $cart));
 
-        $shippingFee = 30000; // Phí vận chuyển cố định
+        $shippingFee = 30000;
         $total = $subtotal + $shippingFee;
 
-        // Lấy thông tin người dùng từ session
-        $customer = session('customer');
-        $address = $customer->address ?? ''; // Lấy địa chỉ từ thông tin người dùng, nếu không có thì để trống
+        $customer = session('customer') ?? Auth::user();
+        $address = $customer->address ?? '';
 
-        // Truyền dữ liệu vào view
         return view('customer.checkout', compact('cart', 'subtotal', 'shippingFee', 'total', 'address'));
     }
 
     public function processCheckout(Request $request)
     {
+        if (!$this->isLoggedIn()) {
+            return $this->redirectToLogin();
+        }
+
         $cart = session()->get('cart', []);
         if (empty($cart)) {
             return redirect()->route('customer.cart')->with('error', 'Giỏ hàng của bạn đang trống.');
@@ -195,5 +233,4 @@ class CartController extends Controller
         flash()->options(['position' => 'bottom-center'])->success('Đặt hàng thành công!');
         return Redirect::route('customer.home');
     }
-
 }
