@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
-            $table->foreignId('color_id')->constrained('colors');
             $table->string('type');
             $table->decimal('original_price', 8, 0)->nullable();
             $table->integer('discount')->default(0);

@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orderdetails', function (Blueprint $table) {
-            $table->Integer('order_id'); // Define order_id column
-            $table->Integer('product_id'); // Define product_id column
+
             $table->integer('quantity');
             $table->decimal('price', 8, 0);
             $table->primary(['order_id', 'product_id']); // Composite primary key
-            $table->timestamps();   
+            $table->timestamps();
 
             // Add foreign key constraints
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

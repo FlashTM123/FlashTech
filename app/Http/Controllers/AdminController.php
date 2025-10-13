@@ -42,7 +42,8 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admin,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|unique:admin,phone',
-
+            'created_at' => 'nullable|date',
+            'updated_at' => 'nullable|date',
         ]);
 
         // Xử lý upload ảnh
@@ -53,10 +54,11 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được tạo thành công!');
-        return Redirect::route('Admins.admin.index');
+        return Redirect::route('admin.index');
     }
 
 
@@ -101,7 +103,7 @@ class AdminController extends Controller
 
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được cập nhật thành công!');
-        return Redirect::route('Admins.admin.index');
+        return Redirect::route('admin.index');
 
     }
 

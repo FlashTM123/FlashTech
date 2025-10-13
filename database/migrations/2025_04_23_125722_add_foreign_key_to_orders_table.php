@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('id')->on('admin')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('admin_id')->references('id')->on('admin');
         });
     }
 
