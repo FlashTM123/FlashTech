@@ -20,7 +20,6 @@
                             <th class="text-center">Họ tên</th>
                             <th class="text-center">Ảnh</th>
                             <th class="text-center">Email</th>
-                            <th class="text-center">Mật khẩu</th>
                             <th class="text-center">Ngày sinh</th>
                             <th class="text-center">Giới tính</th>
                             <th class="text-center">Điện thoại</th>
@@ -45,9 +44,7 @@
                                         <span class="truncate max-w-[150px] inline-block">{{ $customer->email }}</span>
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    <span class="badge badge-sm badge-ghost">{{ $customer->password }}</span>
-                                </td>
+                             
                                 <td class="text-center">{{ \Carbon\Carbon::parse($customer->date_of_birth)->format('d/m/Y') }}</td>
                                 <td class="text-center">
                                     <span class="badge {{ $customer->gender === 'Male' ? 'badge-info' : 'badge-rose-500' }}">

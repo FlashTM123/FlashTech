@@ -1,60 +1,91 @@
-<div class="p-6 bg-base-100 rounded-3xl shadow-2xl">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-        <h2 class="text-2xl font-bold tracking-tight text-base-content">👑 Quản lý Quản trị viên</h2>
-        <a href="{{ route('admin.create') }}" class="btn btn-outline btn-primary btn-md rounded-xl shadow hover:scale-105 transition-transform">
-            ➕ Thêm quản trị viên
-        </a>
+<div class="p-6 bg-base-100 rounded-xl shadow-lg">
+    <!-- Filters & Search -->
+    <div class="flex flex-col sm:flex-row gap-3 items-center mb-6">
+        <div class="form-control flex-1">
+            <input type="text" placeholder="🔍 Tìm kiếm theo tên, email, số điện thoại..." class="input input-bordered rounded-lg" />
+        </div>
+        <select wire:model.live="selectedRole" class="select select-bordered select-sm rounded-lg w-full sm:w-48">
+            <option value="">🧑 Tất cả vai trò</option>
+            <option value="admin">👑 Admin</option>
+            <option value="moderator">🛡️ Moderator</option>
+            <option value="support">💬 Support</option>
+        </select>
+        <select wire:model.live="selectedStatus" class="select select-bordered select-sm rounded-lg w-full sm:w-48">
+            <option value="">✅ Tất cả trạng thái</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Vô hiệu hóa</option>
+        </select>
     </div>
 
     <!-- Table -->
-    <div class="my-3">
-
-        <div class="overflow-x-auto">
-            <table class="table w-full text-center">
-                <thead class="bg-base-200 text-base-content">
-                    <tr class="text-sm">
-                        <th>#</th>
-                        <th>👤 Tên</th>
-                        <th>📧 Email</th>
-                        <th>🔒 Mật khẩu (mã hóa)</th>
-                        <th>📞 Điện thoại</th>
-                        <th>📆 Tạo lúc</th>
-                        <th>🕓 Cập nhật</th>
-                        <th>⚙️ Hành động</th>
+    <div class="overflow-x-auto">
+        <table class="table w-full">
+            <thead class="bg-base-200 text-base-content">
+                <tr class="text-sm">
+                    <th>#</th>
+                    <th>👤 Tên</th>
+                    <th>📧 Email</th>
+                    <th>📞 Điện thoại</th>
+                    <th>🧑 Vai trò</th>
+                    <th>✅ Trạng thái</th>
+                    <th>📆 Tạo lúc</th>
+                    <th class="text-center">⚙️ Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($admins as $index => $admin)
+                    <tr class="hover:bg-base-300/30 transition-colors duration-200">
+                        <td>{{ $index + 1 }}</td>
+                        <td class="font-medium">{{ $admin->name }}</td>
+                        <td>{{ $admin->email }}</td>
+                        <td>{{ $admin->phone ?? '---' }}</td>
+                        <td>
+                            @php
+                                $roleColor = match($admin->role ?? 'admin') {
+                                    'admin' => 'badge-error',
+                                    'moderator' => 'badge-warning',
+                                    'support' => 'badge-info',
+                                    default => 'badge-neutral'
+                                };
+                                $roleLabel = match($admin->role ?? 'admin') {
+                                    'admin' => '👑 Admin',
+                                    'moderator' => '🛡️ Moderator',
+                                    'employee' => '💬 Employee',
+                                    default => '❓ Khác'
+                                };
+                            @endphp
+                            <span class="badge {{ $roleColor }} text-white text-xs">{{ $roleLabel }}</span>
+                        </td>
+                        <td>
+                            @php
+                                $status = $admin->status ?? 1;
+                            @endphp
+                            @if($status == 1)
+                                <span class="badge badge-success text-white text-xs">✅ Hoạt động</span>
+                            @else
+                                <span class="badge badge-error text-white text-xs">❌ Vô hiệu</span>
+                            @endif
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($admin->created_at)->format('d/m/Y') }}</td>
+                        <td>
+                            <div class="flex justify-center gap-2">
+                                <a href="{{ route('admin.edit', $admin->id) }}" class="btn btn-outline btn-warning btn-xs rounded-lg">
+                                    📝 Sửa
+                                </a>
+                                <button type="button" class="btn btn-outline btn-error btn-xs rounded-lg" wire:click='delete({{ $admin->id }})'>
+                                    🗑️ Xóa
+                                </button>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($admins as $index => $admin)
-                        <tr class="hover:bg-base-300/30 transition-colors duration-200">
-                            <td>{{ $index + 1 }}</td>
-                            <td class="font-medium">{{ $admin->name }}</td>
-                            <td>{{ $admin->email }}</td>
-                            <td>
-                                <span class="badge badge-outline badge-primary text-xs">{{$admin->password}}</span>
-                            </td>
-                            <td>{{ $admin->phone }}</td>
-                            <td>{{ \Carbon\Carbon::parse($admin->created_at)->format('d/m/Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($admin->updated_at)->format('d/m/Y') }}</td>
-                            <td>
-                                <div class="flex justify-center gap-2">
-                                    <!-- Edit -->
-                                    <a href="{{ route('admin.edit', $admin->id) }}"
-                                       class="btn btn-outline btn-warning">
-                                        📝
-                                    </a>
-    
-                                    <!-- Delete -->
-                                    <button type="button" class="btn btn-outline btn-error" wire:click='delete({{$admin->id}})'>🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center py-8 text-gray-500">
+                            <span class="text-lg">😔 Không có quản trị viên nào</span>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
-
-    <!-- SweetAlert -->
-
 </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('profile_image')->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
+            $table->enum('role',['admin', 'moderator','employee', 'user']);
             $table->timestamps();
         });
     }

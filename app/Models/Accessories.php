@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
+use MongoDB\Laravel\Eloquent\Model;
 
 class Accessories extends Model
 {
     /** @use HasFactory<\Database\Factories\AccessoriesFactory> */
     use HasFactory;
+    protected $connection = 'mongodb';
 
     protected $table = 'accessories';
 

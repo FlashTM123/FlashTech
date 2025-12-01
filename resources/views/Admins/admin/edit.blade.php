@@ -1,99 +1,186 @@
 @extends('app')
 
-@section('title', 'Sửa thông tin admin: ' . $admin->name)
+@section('title', 'Sửa thông tin: ' . $admin->name)
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-800 via-purple-800 to-pink-700 py-12 px-6">
-    <div class="w-full max-w-4xl bg-white/90 backdrop-blur-sm dark:bg-gray-900/80 rounded-3xl shadow-2xl p-10 animate-fade-in-up">
-        <h2 class="text-4xl font-extrabold text-center text-purple-800 dark:text-white mb-6 tracking-wide">
-            🛠️ Edit Admin Info
-        </h2>
-        <p class="text-center text-sm text-gray-500 dark:text-gray-300 mb-10">Update the admin information below.</p>
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-base-content">🛠️ Cập Nhật Thông Tin Người Dùng</h1>
+            <p class="text-sm text-gray-500 mt-1">Sửa đổi thông tin cho: <span class="font-semibold text-base-content">{{ $admin->name }}</span></p>
+        </div>
+        <a href="{{ route('admin.index') }}" class="btn btn-outline btn-sm rounded-lg">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
 
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
-                <strong class="font-bold">⚠️ Oops! Có lỗi rồi:</strong>
-                <ul class="list-disc ml-5 mt-2">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+    <!-- Form Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form -->
+        <div class="lg:col-span-2 bg-base-100 rounded-xl shadow-lg p-8 border border-base-300">
+            @if ($errors->any())
+                <div class="alert alert-error mb-6 rounded-lg">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                        <h3 class="font-bold">⚠️ Có lỗi xảy ra:</h3>
+                        <ul class="list-disc ml-5 mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
+            <form action="{{ route('admin.update', $admin->id) }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
+
+                <!-- Thông tin cơ bản -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-base-content flex items-center gap-2">
+                        <i class="fa-solid fa-user-circle text-indigo-600"></i> Thông tin cơ bản
+                    </h3>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <!-- Name -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Họ và tên <span class="text-error">*</span></span>
+                            </label>
+                            <input type="text" name="name" value="{{ $admin->name }}" class="input input-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('name') input-error @enderror" placeholder="Nguyễn Văn A" required>
+                            @error('name') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Email <span class="text-error">*</span></span>
+                            </label>
+                            <input type="email" name="email" value="{{ $admin->email }}" class="input input-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('email') input-error @enderror" placeholder="admin@example.com" required>
+                            @error('email') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Số điện thoại <span class="text-error">*</span></span>
+                            </label>
+                            <input type="text" name="phone" value="{{ $admin->phone }}" class="input input-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('phone') input-error @enderror" placeholder="0901234567" required>
+                            @error('phone') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Mật khẩu</span>
+                                <span class="label-text text-xs text-gray-500">(để trống nếu không đổi)</span>
+                            </label>
+                            <input type="password" name="password" class="input input-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('password') input-error @enderror" placeholder="••••••••">
+                            @error('password') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vai trò & Trạng thái -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-base-content flex items-center gap-2">
+                        <i class="fa-solid fa-shield text-indigo-600"></i> Vai trò & Trạng thái
+                    </h3>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <!-- Role -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Vai trò <span class="text-error">*</span></span>
+                            </label>
+                            <select name="role" class="select select-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('role') select-error @enderror" required>
+                                <option value="admin" @if($admin->role === 'admin') selected @endif>👑 Admin - Toàn quyền hệ thống</option>
+                                <option value="moderator" @if($admin->role === 'moderator') selected @endif>🛡️ Moderator - Quản lý nội dung</option>
+                                <option value="employee" @if($admin->role === 'employee') selected @endif>💬 Employee - Nhân viên hỗ trợ khách hàng</option>
+                            </select>
+                            @error('role') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-semibold">Trạng thái <span class="text-error">*</span></span>
+                            </label>
+                            <select name="status" class="select select-bordered rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('status') select-error @enderror" required>
+                                <option value="1" @if($admin->status === 1 || $admin->status === '1') selected @endif>🟢 Hoạt động</option>
+                                <option value="0" @if($admin->status === 0 || $admin->status === '0') selected @endif>🔴 Vô hiệu hóa</option>
+                            </select>
+                            @error('status') <span class="text-error text-sm mt-1"><i class="fa-solid fa-exclamation-circle"></i> {{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3 justify-end pt-4 border-t border-base-300">
+                    <a href="{{ route('admin.index') }}" class="btn btn-outline rounded-lg">
+                        <i class="fa-solid fa-xmark"></i> Hủy
+                    </a>
+                    <button type="submit" class="btn btn-primary rounded-lg">
+                        <i class="fa-solid fa-floppy-disk"></i> Lưu Thay Đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Info Card -->
+        <div class="lg:col-span-1">
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800 sticky top-20 space-y-4">
+                <h3 class="font-bold text-base-content flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb text-yellow-500"></i> Thông tin tài khoản
+                </h3>
+
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <p class="font-semibold text-base-content">📧 Email</p>
+                        <p class="text-gray-600 dark:text-gray-400">{{ $admin->email }}</p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-base-content">📅 Ngày tạo</p>
+                        <p class="text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($admin->created_at)->format('d/m/Y H:i') }}</p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-base-content">🔄 Cập nhật lần cuối</p>
+                        <p class="text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($admin->updated_at)->format('d/m/Y H:i') }}</p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-base-content">👑 Vai trò hiện tại</p>
+                        @php
+                            $roleLabel = match($admin->role) {
+                                'admin' => 'Admin (Toàn quyền)',
+                                'moderator' => 'Moderator (Quản lý)',
+                                'support' => 'Support (Hỗ trợ)',
+                                default => 'Không xác định'
+                            };
+                        @endphp
+                        <p class="text-gray-600 dark:text-gray-400">{{ $roleLabel }}</p>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-base-content">✅ Trạng thái hiện tại</p>
+                        @if($admin->status == 1)
+                            <p class="text-green-600 dark:text-green-400">🟢 Hoạt động</p>
+                        @else
+                            <p class="text-red-600 dark:text-red-400">🔴 Vô hiệu hóa</p>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="alert alert-info rounded-lg text-sm">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <span>Vô hiệu hóa tài khoản sẽ chặn đăng nhập mà không xóa dữ liệu</span>
+                </div>
             </div>
-        @endif
-
-        <form action="{{ route('admin.update', $admin->id) }}" method="POST" enctype="multipart/form-data" class="grid sm:grid-cols-2 gap-8">
-            @csrf
-            @method('PUT')
-
-            <!-- Name -->
-            <div>
-                <label class="label-text font-semibold text-purple-700 dark:text-white">👤 Full Name</label>
-                <input type="text" name="name" value="{{ $admin->name }}" class="input input-bordered input-lg w-full mt-2 shadow-inner" required>
-            </div>
-
-            <!-- Email -->
-            <div>
-                <label class="label-text font-semibold text-purple-700 dark:text-white">📧 Email Address</label>
-                <input type="email" name="email" value="{{ $admin->email }}" class="input input-bordered input-lg w-full mt-2 shadow-inner" required>
-            </div>
-
-            <!-- Password -->
-            <div>
-                <label class="label-text font-semibold text-purple-700 dark:text-white">🔐 Password</label>
-                <input type="password" name="password" value="{{ $admin->password }}" class="input input-bordered input-lg w-full mt-2 shadow-inner">
-            </div>
-
-            <!-- Phone -->
-            <div>
-                <label class="label-text font-semibold text-purple-700 dark:text-white">📱 Phone Number</label>
-                <input type="text" name="phone" value="{{ $admin->phone }}" class="input input-bordered input-lg w-full mt-2 shadow-inner">
-            </div>
-
-            <!-- Buttons -->
-            <div class="col-span-2 flex flex-col sm:flex-row justify-center items-center gap-6 mt-8">
-                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all duration-300 hover:from-pink-500 hover:to-yellow-500 hover:shadow-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 576 512" stroke="currentColor">
-                        <path fill="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0z"/>
-                    </svg>
-                    Update Admin
-                </button>
-
-                <a href="{{ route('admin.index') }}" class="px-8 py-3 border border-purple-500 text-purple-700 dark:text-white font-semibold rounded-full hover:bg-purple-600 hover:text-white transition-all duration-300">
-                    ⬅️ Cancel
-                </a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    @if(session('update_success'))
-    Swal.fire({
-        title: "✅ Đã cập nhật!",
-        text: "Thông tin admin đã được cập nhật thành công.",
-        icon: "success",
-        confirmButtonColor: "#6366f1",
-        confirmButtonText: "OK"
-    });
-    @endif
-</script>
-
-<style>
-    @keyframes fade-in-up {
-        0% {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .animate-fade-in-up {
-        animation: fade-in-up 0.8s ease-out forwards;
-    }
-</style>
 @endsection

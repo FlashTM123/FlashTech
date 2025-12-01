@@ -38,22 +38,31 @@ class ManageController extends Controller
         $revenueByYear = Order::sum('total_price'); // Tổng doanh thu của tất cả các năm
        $completedOrders = Order::where('status', 'completed')->count(); // Tổng số đơn hàng đã hoàn thành
        $canceledOrders = Order::where('status', 'Cancel')->count(); // Tổng số đơn hàng đã hủy
-        $bestSellingProducts = Product::withSum('orderDetails', 'quantity')
-            ->having('order_details_sum_quantity', '>', 0)
-            ->orderByDesc('order_details_sum_quantity')
-            ->take(5)
-            ->get()
+        $bestSellingProducts = Product::all()
             ->map(function ($product) use ($typeNames) {
-                // Gán tên sản phẩm dựa trên type_id
+                // Tính tổng số lượng bán của sản phẩm
+                $totalQuantity = $product->orderDetails()->sum('quantity') ?? 0;
+                $product->order_details_sum_quantity = $totalQuantity;
                 $product->type_name = $typeNames[$product->type_id] ?? 'Không xác định';
                 return $product;
-            });
+            })
+            ->filter(function ($product) {
+                return $product->order_details_sum_quantity > 0;
+            })
+            ->sortByDesc('order_details_sum_quantity')
+            ->take(5)
+            ->values();
 
         // Lấy dữ liệu doanh thu theo tháng (nếu cần)
-        $revenueByMonth = Order::selectRaw('MONTH(created_at) as month, SUM(total_price) as revenue')
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+        $allOrders = Order::all();
+        $revenueByMonth = $allOrders->groupBy(function ($order) {
+            return \Carbon\Carbon::parse($order->created_at)->format('m');
+        })->map(function ($orders, $month) {
+            return [
+                'month' => $month,
+                'revenue' => $orders->sum('total_price')
+            ];
+        })->values();
         $lowStockProducts = Product::all()->filter(function ($product) {
             return $product->getProductQuantity() < 10 && $product->getProductQuantity() > 0;
         });

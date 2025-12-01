@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Orderdetail extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderdetailFactory> */
     use HasFactory;
+    protected $connection = 'mongodb';
 
     protected $table = "orderdetails";
     protected $fillable = ['order_id', 'product_id', 'product_type', 'quantity', 'price'];

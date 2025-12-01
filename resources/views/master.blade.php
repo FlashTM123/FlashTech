@@ -2,86 +2,26 @@
 @livewireStyles
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield("title")</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const themeToggle = document.getElementById("theme-toggle");
-            const themeIcon = document.getElementById("theme-icon");
-            const htmlElement = document.documentElement;
-
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme) {
-                htmlElement.setAttribute("data-theme", savedTheme);
-                themeIcon.className = savedTheme === "light" ? "sun-icon" : "moon-icon";
-            }
-
-            themeToggle.addEventListener("click", function () {
-                let currentTheme = htmlElement.getAttribute("data-theme");
-                let newTheme = currentTheme === "light" ? "dark" : "light";
-                htmlElement.setAttribute("data-theme", newTheme);
-                localStorage.setItem("theme", newTheme);
-                themeIcon.className = newTheme === "light" ? "sun-icon" : "moon-icon";
-            });
-        });
-    </script>
-    <style>
-    .navbar {
-    z-index: 50;
-}
-
-
-
-}
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-        .theme-toggle .sun-icon::before {
-            content: "☀️";
-        }
-        .theme-toggle .moon-icon::before {
-            content: "🌙";
-        }
-        main {
-            margin-top: 20px; /* Thêm khoảng cách phía trên */
-        }
-    </style>
-    <!-- SweetAlert2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <title>@yield("title") - FlashTech</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
-<body class="bg-base-100 text-base-content flex flex-col min-h-screen">
-
+<body class="bg-gradient-to-br from-gray-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col">
 
     <!-- Header -->
     @include('layouts.header')
 
-    
-
     <!-- Main Content -->
-    <main class="container mx-auto p-6 flex-1 mt-6">
+    <main class="flex-1 container mx-auto px-4 py-8 mt-20">
         @yield('content')
     </main>
 
     <!-- Footer -->
     @include('layouts.footer')
-
-    <!-- Theme Toggle Button -->
-
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -89,7 +29,7 @@
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
+                title: '✅ Thành công',
                 text: '{{ session('success') }}',
                 confirmButtonText: 'OK'
             });
@@ -98,7 +38,7 @@
         @if(session('error'))
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
+                title: '❌ Lỗi',
                 text: '{{ session('error') }}',
                 confirmButtonText: 'OK'
             });

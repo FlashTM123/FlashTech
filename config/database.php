@@ -61,6 +61,11 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+         'mongodb' => [
+        'driver' => 'mongodb',
+        'dsn' => env('MONGODB_URI', 'mongodb://localhost:27017'),
+        'database' => env('MONGODB_DATABASE', 'flashgear_db'),
+    ],
 
         'mariadb' => [
             'driver' => 'mariadb',

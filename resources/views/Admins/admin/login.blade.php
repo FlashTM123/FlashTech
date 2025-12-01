@@ -1,133 +1,166 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="vi" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe",
-                            "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6",
-                            "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af",
-                            "900": "#1e3a8a", "950": "#172554"
-                        }
-                    }
-                },
-                fontFamily: {
-                    sans: ["Inter", "ui-sans-serif", "system-ui", "Segoe UI", "Roboto", "Arial", "sans-serif"]
-                }
-            }
-        }
-    </script>
+    <title>FlashTech - Đăng Nhập Admin</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="h-full w-full">
-<div class="px-6 py-12 lg:px-8">
-    <div class="my-10">
-        <div class="sm:mx-auto sm:w-full sm:max-w-xl">
-            <h2 class="text-center bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent uppercase text-3xl font-bold">FlashGear Admin</h2>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-black min-h-screen flex items-center justify-center p-4">
+
+<!-- Background Animation -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s"></div>
+    <div class="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 4s"></div>
+</div>
+
+<div class="w-full max-w-md">
+    <!-- Logo & Title -->
+    <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl">
+                <i class="fas fa-bolt text-white text-2xl"></i>
+            </div>
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-xl">
+        <h1 class="text-4xl font-bold text-white mb-2">
+            Flash<span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Tech</span>
+        </h1>
+        <p class="text-gray-400">Hệ thống quản lý admin</p>
+    </div>
 
+    <!-- Login Form -->
+    <div class="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20">
+        <h2 class="text-2xl font-bold text-white mb-6">Đăng Nhập</h2>
 
-            <form action="{{ route('admin.LoginProcess') }}" method="POST" class="grid grid-flow-row auto-rows-min gap-3 space-y-6 border bg-white rounded-2xl border-gray-200 shadow-xl p-6">
-                    <h2 class="text-2xl font-semibold">Sign in</h2>
-                @csrf
-               <div>
-                   <label for="email" class="pt-0 label label-text font-semibold">
-                    <span>
-                        Email
-                    </span>
-                   </label>
-                   <div class="flex-1 relative">
-                       <input id="email" type="email" name="email" placeholder="Email Address...." class="input border border-gray-300 rounded-lg w-full pl-10 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none">
-                         <svg class="inline w-5 h-5 absolute top-1/2 -translate-y-1/2 left-3 text-gray-400 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                           <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                       </svg>
+        <form action="{{ route('admin.LoginProcess') }}" method="POST" class="space-y-5">
+            @csrf
 
+            <!-- Email -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-white font-semibold">📧 Email</span>
+                </label>
+                <div class="relative">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="admin@example.com"
+                        class="input input-bordered w-full rounded-lg bg-white/5 border-white/20 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition-all"
+                        required
+                    >
+                    <i class="fas fa-envelope absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
 
-                   </div>
-               </div>
-              <div>
-                  <label for="password" class="pt-0 label label-text font-semibold">
-                    <span>
-                        Password
-                    </span>
-                  </label>
-                  <div class="flex-1 relative">
-                      <input id="password" type="password" name="password" placeholder="Password...." class="input border border-gray-300 rounded-lg w-full pl-10 py-2 focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none">
-                      <svg class="inline w-5 h-5 absolute top-1/2 -translate-y-1/2 left-3 text-gray-400 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                          <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
+            <!-- Password -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-white font-semibold">🔐 Mật khẩu</span>
+                </label>
+                <div class="relative">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        class="input input-bordered w-full rounded-lg bg-white/5 border-white/20 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition-all"
+                        required
+                    >
+                    <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
 
+            <!-- Remember Me -->
+            <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" name="remember" class="checkbox checkbox-sm rounded">
+                    <span class="text-sm text-gray-300">Ghi nhớ tài khoản</span>
+                </label>
+            </div>
 
-                  </div>
-              </div>
-                <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-lg text-sm font-medium focus:ring-4 focus:ring-primary-300">
-                    Sign in
-                </button>
-            </form>
-        </div>
-        <div class="text-center mt-6 text-gray-500 text-sm">
-            <aside>
-               
-                    © {{ date('Y') }} FlashGear - All rights reserved by FlashTM.
+            <!-- Submit Button -->
+            <button
+                type="submit"
+                class="w-full btn bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 border-0 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 py-3"
+            >
+                <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+            </button>
+        </form>
 
-            </aside>
+        <!-- Divider -->
+        <div class="divider divider-neutral my-6 before:bg-white/10 after:bg-white/10"></div>
+
+        <!-- Info Box -->
+        <div class="bg-indigo-500/20 border border-indigo-500/30 rounded-lg p-4 mb-4">
+            <p class="text-sm text-indigo-200">
+                <i class="fas fa-info-circle mr-2"></i>
+                <strong>Demo Credentials:</strong><br>
+                Email: admin@example.com<br>
+                Password: 12345678
+            </p>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            @if(session('error'))
+    <!-- Footer -->
+    <div class="text-center mt-8 text-gray-400 text-sm">
+        <p>© {{ date('Y') }} FlashTech. Bảo lưu tất cả quyền.</p>
+        <p class="mt-2 text-xs">Được phát triển bởi <span class="text-indigo-400 font-semibold">FlashTM</span></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Handle flash messages
+        @if(session('error'))
             Swal.fire({
-                title: "Error!",
+                title: "❌ Lỗi!",
                 text: "{{ session('error') }}",
                 icon: "error",
-                confirmButtonColor: "#d33",
-                confirmButtonText: "OK"
+                confirmButtonColor: "#ef4444",
+                confirmButtonText: "OK",
+                background: '#1a1a2e',
+                color: '#ffffff'
             });
-            @endif
+        @endif
 
-                const loginForm = document.querySelector("form");
-
-                loginForm.addEventListener("submit", function (e) {
-                    e.preventDefault(); // Ngăn chặn submit ngay lập tức
-
-                    Swal.fire({
-                        title: "Signing in...",
-                        text: "Please wait a moment",
-                        allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading(); // Hiển thị hiệu ứng loading
-                        }
-                    });
-
-                    setTimeout(() => {
-                        loginForm.submit();
-                    });
-                });
-
-                @if(session('login_success'))
+        @if(session('success'))
             Swal.fire({
-                title: "Success!",
-                text: "{{ session('login_success') }}",
+                title: "✅ Thành công!",
+                text: "{{ session('success') }}",
                 icon: "success",
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: "OK"
+                confirmButtonColor: "#10b981",
+                confirmButtonText: "OK",
+                background: '#1a1a2e',
+                color: '#ffffff'
             });
-            @endif
+        @endif
+
+        // Form submission with loading
+        const loginForm = document.querySelector("form");
+
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "⏳ Đang đăng nhập...",
+                text: "Vui lòng chờ một chút",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                background: '#1a1a2e',
+                color: '#ffffff'
+            });
+
+            setTimeout(() => {
+                loginForm.submit();
+            }, 500);
         });
-    </script>
+    });
+</script>
 
-
-</div>
 </body>
 </html>

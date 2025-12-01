@@ -31,6 +31,12 @@ class CustomerController extends Controller
     public function getOrders()
     {
         $customer = auth()->user();
+
+        // Kiểm tra xem customer có tồn tại hay không
+        if (!$customer) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $orders = $customer->orders()->latest()->get();
         return response()->json($orders);
     }

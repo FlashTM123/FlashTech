@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 
 class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatable
@@ -12,6 +12,7 @@ class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatab
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
     use Authenticatable;
+    protected $connection = 'mongodb';
 
     protected $table = 'customers';
 

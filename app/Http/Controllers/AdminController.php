@@ -42,20 +42,16 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admin,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|unique:admin,phone',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'role' => 'required|in:admin,moderator,employee',
         ]);
-
-        // Xử lý upload ảnh
-
 
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'created_at' => $request->created_at,
-            'updated_at' => $request->updated_at,
+            'role' => $request->role,
+            'status' => 1, // Auto set to active
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được tạo thành công!');
         return Redirect::route('admin.index');
@@ -89,18 +85,17 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admin,email,' . $admin->id,
             'password' => 'nullable|string|min:6',
             'phone' => 'required|string|unique:admin,phone,' . $admin->id,
-
+            'role' => 'required|in:admin,moderator,employee',
+            'status' => 'required|in:0,1',
         ]);
-
-        // Xử lý upload ảnh mới nếu có
-
 
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $admin->password,
             'phone' => $request->phone,
-
+            'role' => $request->role,
+            'status' => $request->status,
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Quản trị viên đã được cập nhật thành công!');
         return Redirect::route('admin.index');
@@ -126,12 +121,18 @@ class AdminController extends Controller
         $admin = Admin::where('email', $request->email)->first();
 
         if ($admin && Hash::check($request->password, $admin->password)) {
+            // Kiểm tra xem tài khoản có bị vô hiệu hóa không
+            if ($admin->status == 0) {
+                flash()->error('❌ Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên!');
+                return Redirect::back();
+            }
+
             Auth::guard('admin')->login($admin);
             session(['admin' => $admin]);
-            flash()->options(['position' => 'bottom-center'])->success('Đăng nhập thành công!');
+            flash()->options(['position' => 'bottom-center'])->success('✅ Đăng nhập thành công!');
             return Redirect::route('manage.index');
         } else {
-            flash()->error('Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.');
+            flash()->error('❌ Đăng nhập thất bại! Vui lòng kiểm tra lại thông tin đăng nhập.');
             return Redirect::back();
         }
     }
@@ -140,7 +141,7 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         session()->forget('admin');
         flash()->options(['position' => 'top-right'])->success('Đăng xuất thành công!');
-        return Redirect::route('Admins.admin.login');
+        return Redirect::route('admin.login');
     }
 
 }

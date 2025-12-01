@@ -95,7 +95,7 @@ Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout')
 
 
 Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () {
-    Route::prefix('admins')->group(function () {
+    Route::middleware(['role:admin'])->prefix('admins')->group(function(){
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
         Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
@@ -103,11 +103,11 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{admin}/edit', [AdminController::class, 'update'])->name('admin.update');
         Route::delete('/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
-
-    Route::prefix('customers')->group(function () {
+    Route::middleware(['role:admin,employee,moderator'])->prefix('customers')->group(function(){
         Route::get('/', [CustomerController::class, 'index'])->name('customers.index');
+        Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     });
-    Route::prefix('brand')->group(function(){
+    Route::middleware(['role:admin,employee'])->prefix('brand')->group(function(){
         Route::get('/', [BrandController::class, 'index'])->name('brand.index');
         Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
         Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
@@ -115,7 +115,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{brand}/edit', [BrandController::class, 'update'])->name('brand.update');
         Route::delete('/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');
     });
-    Route::prefix('laptop')->group(function(){
+    Route::middleware(['role:admin,employee'])->prefix('laptop')->group(function(){
         Route::get('/', [LaptopController::class, 'index'])->name('laptop.index');
         Route::get('/create', [LaptopController::class, 'create'])->name('laptop.create');
         Route::post('/store', [LaptopController::class, 'store'])->name('laptop.store');
@@ -124,10 +124,10 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::delete('/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
         Route::get('/laptops/search', [LaptopController::class, 'search'])->name('laptop.search');
     });
-    Route::prefix('manage')->group(function(){
+    Route::middleware(['role:admin,employee,moderator'])->prefix('manage')->group(function(){
         Route::get('/', [ManageController::class, 'index'])->name('manage.index');
     });
-    Route::prefix('component')->group(function(){
+    Route::middleware(['role:admin,employee'])->prefix('component')->group(function(){
         Route::get('/', [ComponentController::class, 'index'])->name('component.index');
         Route::get('/create', [ComponentController::class, 'create'])->name('component.create');
         Route::post('/store', [ComponentController::class, 'store'])->name('component.store');
@@ -135,7 +135,7 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
         Route::put('/{component}/edit', [ComponentController::class, 'update'])->name('component.update');
         Route::delete('/{component}', [ComponentController::class, 'destroy'])->name('component.destroy');
     });
-    Route::prefix('accessories')->group(function(){
+    Route::middleware(['role:admin,employee'])->prefix('accessories')->group(function(){
         Route::get('/', [AccessoriesController::class, 'index'])->name('accessories.index');
         Route::get('/create', [AccessoriesController::class, 'create'])->name('accessories.create');
         Route::post('/store', [AccessoriesController::class, 'store'])->name('accessories.store');
@@ -145,14 +145,14 @@ Route::middleware(['adminLoginMiddleware'])->prefix('admin')->group(function () 
     });
 
 
-    Route::prefix('products')->group(function () {
+    Route::middleware(['role:admin,employee'])->prefix('products')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
 
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
 
     });
-    Route::prefix('orders')->group(function(){
+    Route::middleware(['role:admin,moderator'])->prefix('orders')->group(function(){
         Route::get('/', [OrderController::class, 'index'])->name('order.index');
         Route::put('/orders/{id}/update-status', [OrderController::class, 'updateStatus'])
             ->name('orders.updateStatus')

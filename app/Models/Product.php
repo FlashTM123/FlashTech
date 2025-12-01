@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Product extends Model
 {
@@ -12,6 +12,8 @@ class Product extends Model
     protected $table = "products";
     protected $primaryKey = "id";
     protected $fillable = ['laptop_id', 'component_id', 'accessories_id', 'description'];
+
+    protected $connection = 'mongodb';
 
     public $timestamps = false;
 
