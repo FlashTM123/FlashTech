@@ -45,7 +45,7 @@
                     <label class="label font-semibold">
                         <i class="fas fa-laptop w-5 h-5 mr-2 text-indigo-500"></i>Laptop ID
                     </label>
-                    <input type="number" name="laptop_id" class="input input-bordered w-full" value="{{ $product->laptop->id ?? '' }}">
+                    <input type="text" name="laptop_id" class="input input-bordered w-full bg-gray-100 cursor-not-allowed" value="{{ $product->laptop_id ?? '' }}" readonly>
                 </div>
 
                 <!-- Component ID -->
@@ -53,7 +53,7 @@
                     <label class="label font-semibold">
                         <i class="fas fa-cogs w-5 h-5 mr-2 text-indigo-500"></i>Component ID
                     </label>
-                    <input type="number" name="component_id" class="input input-bordered w-full" value="{{ $product->component->id ?? '' }}">
+                    <input type="text" name="component_id" class="input input-bordered w-full bg-gray-100 cursor-not-allowed" value="{{ $product->component_id ?? '' }}" readonly>
                 </div>
 
                 <!-- Accessories ID -->
@@ -61,7 +61,7 @@
                     <label class="label font-semibold">
                         <i class="fas fa-headphones w-5 h-5 mr-2 text-indigo-500"></i>Accessories ID
                     </label>
-                    <input type="number" name="accessories_id" class="input input-bordered w-full" value="{{ $product->accessories->id ?? '' }}">
+                    <input type="text" name="accessories_id" class="input input-bordered w-full bg-gray-100 cursor-not-allowed" value="{{ $product->accessories_id ?? '' }}" readonly>
                 </div>
 
                 <!-- Mô tả sản phẩm -->

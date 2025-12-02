@@ -55,7 +55,7 @@ class ProductController extends Controller
 
         $product->save();
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được thêm thành công!');
-        return redirect()->route('Admins.product.index');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -112,7 +112,7 @@ class ProductController extends Controller
         $product->save();
         flash()->options(['position' => 'bottom-center'])->success('Sản phẩm đã được cập nhật thành công!');
 
-        return redirect()->route('Admins.product.index');
+        return redirect()->route('product.index');
     }
 
     /**

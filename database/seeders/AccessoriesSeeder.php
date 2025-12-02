@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use App\Models\Product;
 
 class AccessoriesSeeder extends Seeder
 {
@@ -128,7 +129,14 @@ class AccessoriesSeeder extends Seeder
         ];
         foreach ($accessories as $accessory) {
             if (!DB::table('accessories')->where('name', $accessory['name'])->exists()) {
-                DB::table('accessories')->insert($accessory);
+                // Tạo Accessories record
+                $accessoryRecord = DB::table('accessories')->insertGetId($accessory);
+
+                // Tự động tạo Product record liên kết
+                Product::create([
+                    'accessories_id' => $accessoryRecord,
+                    'description' => $accessory['name'] . ' - ' . $accessory['type'] . ' - ' . $accessory['color']
+                ]);
             }
         }
     }

@@ -3,83 +3,105 @@
 @section('title', 'Add Component')
 
 @section('content')
-    <div class="container mx-auto p-6">
-        <div class="overflow-x-auto">
-            <h2 class="text-2xl font-bold text-center mb-6">Add Component</h2>
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="mb-8">
+                <h2 class="text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">⚙️ Thêm Linh kiện Mới</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Tạo một sản phẩm linh kiện mới để quản lý</p>
+            </div>
 
-            @if(session('success'))
-                <div class="alert alert-success mb-4">{{ session('success') }}</div>
-            @endif
-
-            <form action="{{ route('component.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form action="{{ route('component.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 space-y-6 border border-gray-200 dark:border-gray-700">
                 @csrf
 
-                <div>
-                    <label class="">Name</label>
-                    <input type="text" name="name" class="input input-bordered w-full" required>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-microchip text-indigo-600 mr-2"></i>Tên sản phẩm</label>
+                        <input type="text" name="name" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="Nhập tên linh kiện" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-tag text-purple-600 mr-2"></i>Thương hiệu</label>
+                        <select name="brand_id" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500">
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label class="">Brand</label>
-                    <select name="brand_id" class="select">
-                        @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}">
-                                {{ $brand->name }}
-                            </option>
-                        @endforeach
-                    </select>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-keyboard text-blue-600 mr-2"></i>Loại</label>
+                        <input type="text" name="type" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="VD: RAM, GPU, SSD" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-database text-yellow-600 mr-2"></i>Dung lượng</label>
+                        <input type="text" name="capacity" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="VD: 16GB, 512GB" required>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-tag text-gray-600 mr-2"></i>Giá gốc (Đ)</label>
+                        <input type="text" step="0.01" name="original_price" id="original_price" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="0" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-percent text-orange-600 mr-2"></i>Giảm giá (%)</label>
+                        <input type="text" name="discount" id="discount" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-fire text-red-600 mr-2"></i>Giá ưu đãi (Đ)</label>
+                        <input type="text" step="0.01" name="promotional_price" id="promotional_price" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="0">
+                    </div>
                 </div>
 
                 <div>
-                    <label class="">Type</label>
-                    <input type="text" name="type" class="input input-bordered w-full" required>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-box text-indigo-600 mr-2"></i>Số lượng</label>
+                    <input type="number" name="quantity" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="0" required>
                 </div>
 
                 <div>
-                    <label class="">Capacity</label>
-                    <input type="text" name="capacity" class="input input-bordered w-full" required>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-image text-purple-600 mr-2"></i>Link ảnh sản phẩm</label>
+                    <input type="text" name="image" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" placeholder="https://..." required>
                 </div>
 
                 <div>
-                    <label class="">Original price (VND)</label>
-                    <input type="text" step="0.01" name="original_price" class="input input-bordered w-full" required>
-                </div>
-                <div>
-                    <label class="">Discount (%)</label>
-                    <input type="text"  name="discount" class="input input-bordered w-full" >
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-pen text-pink-600 mr-2"></i>Mô tả chi tiết</label>
+                    <textarea name="description" class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-indigo-500" rows="4" placeholder="Mô tả đầy đủ về sản phẩm..." required></textarea>
                 </div>
 
-                <div>
-                    <label class="">Promotional price (VND)</label>
-                    <input type="text" step="0.01" name="promotional_price" class="input input-bordered w-full" >
-                </div>
-                <div>
-                    <label class="">Quantity</label>
-                    <input type="number" name="quantity" class="input input-bordered w-full" required>
-                </div>
-
-                <div>
-                    <label class="">Image</label>
-                    <input type="text" name="image" class="file-input w-full" required>
-                </div>
-                <div>
-                    <label class="">Description</label>
-                    <textarea name="description" class="textarea textarea-bordered w-full" required></textarea>
-                </div>
-
-                <div class="flex justify-end gap-4 mt-6">
-                    <button type="submit" class="btn btn-outline btn-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add
+                <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="{{ route('component.index') }}" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Quay lại
+                    </a>
+                    <button type="submit" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-indigo-500/50 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-plus mr-2"></i>Thêm Linh kiện
                     </button>
-                    <a href="{{ route('component.index') }}" class="btn btn-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Cancel</a>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalPriceInput = document.getElementById('original_price');
+            const discountInput = document.getElementById('discount');
+            const promotionalPriceInput = document.getElementById('promotional_price');
+
+            function calculatePromotionalPrice() {
+                const originalPrice = parseFloat(originalPriceInput.value) || 0;
+                const discount = parseFloat(discountInput.value) || 0;
+
+                if (discount > 0 && discount <= 100) {
+                    const promotionalPrice = originalPrice - (originalPrice * discount / 100);
+                    promotionalPriceInput.value = Math.round(promotionalPrice);
+                } else {
+                    promotionalPriceInput.value = Math.round(originalPrice);
+                }
+            }
+
+            originalPriceInput.addEventListener('input', calculatePromotionalPrice);
+            discountInput.addEventListener('input', calculatePromotionalPrice);
+        });
+    </script>
+
 @endsection

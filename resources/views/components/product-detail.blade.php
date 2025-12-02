@@ -88,6 +88,70 @@
                 @endif
             </div>
 
+            <!-- Quick Specs Preview -->
+            @if ($detail)
+                <div class="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-indigo-600 dark:text-indigo-400"></i>
+                        Thông số kỹ thuật chính
+                    </h3>
+                    <div class="space-y-2">
+                        @if ($detail instanceof App\Models\Laptop)
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-cpu text-indigo-500 mr-2"></i>CPU:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->cpu }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-memory text-purple-500 mr-2"></i>RAM:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->ram }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-video text-pink-500 mr-2"></i>GPU:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->vga }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-hard-drive text-orange-500 mr-2"></i>Lưu trữ:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->storage }}</span>
+                            </div>
+                        @elseif ($detail instanceof App\Models\Components)
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-tag text-indigo-500 mr-2"></i>Loại:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->type }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-database text-purple-500 mr-2"></i>Dung lượng:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->capacity }}</span>
+                            </div>
+                        @elseif ($detail instanceof App\Models\Accessories)
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-tag text-indigo-500 mr-2"></i>Loại:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->type }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-palette text-pink-500 mr-2"></i>Màu:
+                                </span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $detail->color }}</span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
             <!-- Action Buttons -->
             <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -162,7 +226,7 @@
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                @if ($product->laptop)
+                                @if ($detail instanceof App\Models\Laptop)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                         <td class="py-4 px-4 font-semibold text-gray-900 dark:text-white w-1/3">CPU</td>
                                         <td class="py-4 px-4 text-gray-700 dark:text-gray-300">{{ $detail->cpu }}</td>
@@ -179,7 +243,7 @@
                                         <td class="py-4 px-4 font-semibold text-gray-900 dark:text-white">Lưu trữ</td>
                                         <td class="py-4 px-4 text-gray-700 dark:text-gray-300">{{ $detail->storage }}</td>
                                     </tr>
-                                @elseif ($product->component)
+                                @elseif ($detail instanceof App\Models\Components)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                         <td class="py-4 px-4 font-semibold text-gray-900 dark:text-white">Loại</td>
                                         <td class="py-4 px-4 text-gray-700 dark:text-gray-300">{{ $detail->type }}</td>
@@ -188,7 +252,7 @@
                                         <td class="py-4 px-4 font-semibold text-gray-900 dark:text-white">Dung lượng</td>
                                         <td class="py-4 px-4 text-gray-700 dark:text-gray-300">{{ $detail->capacity }}</td>
                                     </tr>
-                                @elseif ($product->accessories)
+                                @elseif ($detail instanceof App\Models\Accessories)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                         <td class="py-4 px-4 font-semibold text-gray-900 dark:text-white">Loại</td>
                                         <td class="py-4 px-4 text-gray-700 dark:text-gray-300">{{ $detail->type }}</td>

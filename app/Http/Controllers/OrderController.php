@@ -15,10 +15,33 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['customer', 'admin'])
-            ->orderByRaw("FIELD(status, 'Pending') DESC") // Đưa trạng thái "Pending" lên đầu
+        // Lấy tất cả orders và sắp xếp trong PHP (MongoDB không hỗ trợ orderByRaw)
+        $allOrders = Order::with(['customer', 'admin'])
             ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
-            ->paginate(10); // Phân trang
+            ->get();
+
+        // Sắp xếp trong PHP: Pending lên trước, sau đó các status khác
+        $sorted = $allOrders->sort(function ($a, $b) {
+            $statusOrder = ['Pending' => 0, 'Confirmed' => 1, 'Shipped' => 2, 'Delivered' => 3, 'Cancelled' => 4];
+            $aOrder = $statusOrder[$a->status] ?? 5;
+            $bOrder = $statusOrder[$b->status] ?? 5;
+            return $aOrder <=> $bOrder;
+        })->values();
+
+        // Phân trang thủ công từ collection
+        $perPage = 10;
+        $page = request()->get('page', 1);
+        $items = $sorted->forPage($page, $perPage);
+
+        $orders = new \Illuminate\Pagination\Paginator(
+            $items,
+            $perPage,
+            $page,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
 
         return view('Admins.order.index', compact('orders'));
     }

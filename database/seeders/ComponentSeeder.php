@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class ComponentSeeder extends Seeder
 {
@@ -127,7 +128,14 @@ class ComponentSeeder extends Seeder
     ];
         foreach ($components as $component) {
             if(!DB::table('components')->where('name', $component['name'])->exists()) {
-                DB::table('components')->insert($component);
+                // Tạo Component record
+                $componentRecord = DB::table('components')->insertGetId($component);
+
+                // Tự động tạo Product record liên kết
+                Product::create([
+                    'component_id' => $componentRecord,
+                    'description' => $component['name'] . ' - ' . $component['type'] . ' - ' . $component['capacity']
+                ]);
             }
         }
     }

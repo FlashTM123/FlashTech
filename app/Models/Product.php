@@ -20,19 +20,19 @@ class Product extends Model
     // Quan hệ với Laptop
     public function laptop()
     {
-        return $this->belongsTo(Laptop::class);
+        return $this->belongsTo(Laptop::class, 'laptop_id', 'id');
     }
 
     // Quan hệ với Component
     public function component()
     {
-        return $this->belongsTo(Components::class);
+        return $this->belongsTo(Components::class, 'component_id', 'id');
     }
 
     // Quan hệ với Accessories
     public function accessories()
     {
-        return $this->belongsTo(Accessories::class);
+        return $this->belongsTo(Accessories::class, 'accessories_id', 'id');
     }
 
     // Quan hệ với OrderDetail

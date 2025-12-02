@@ -67,7 +67,7 @@ class LaptopController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
-            'description' => $request->description,
+
 
         ]);
 
@@ -113,7 +113,7 @@ class LaptopController extends Controller
             'promotional_price'=> $request->promotional_price,
             'quantity'=>$request->quantity,
             'image'=>$request->image,
-            'description' => $request->description,
+           
         ]);
         flash()->options(['position' => 'bottom-center'])->success('Laptop đã được cập nhật thành công!');
         return redirect()->route('laptop.index');

@@ -20,10 +20,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // BrandSeeder::class,
-            // ComponentSeeder::class,
-            // LaptopSeeder::class,
+            ComponentSeeder::class,
+            LaptopSeeder::class,
+            AccessoriesSeeder::class,
             // ProductSeeder::class,
-            AdminSeeder::class,
+            // AdminSeeder::class,
         ]);
 
         // User::factory()->create([

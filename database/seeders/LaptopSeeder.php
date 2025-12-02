@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB; // Sửa namespace của DB
+use App\Models\Laptop;
+use App\Models\Product;
 
 class LaptopSeeder extends Seeder
 {
@@ -259,10 +261,18 @@ class LaptopSeeder extends Seeder
 
         foreach ($laptops as $laptop) {
             if (!DB::table('laptops')->where('name', $laptop['name'])->exists()) {
-                DB::table('laptops')->insert($laptop);
+                // Tạo Laptop record
+                $laptopRecord = DB::table('laptops')->insertGetId($laptop);
+
+                // Tự động tạo Product record liên kết
+                Product::create([
+                    'laptop_id' => $laptopRecord,
+                    'description' => $laptop['name'] . ' - ' . $laptop['cpu'] . ' - ' . $laptop['ram'] . ' - ' . $laptop['storage']
+                ]);
             }
         }
 
 
     }
 }
+
