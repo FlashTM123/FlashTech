@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             LaptopSeeder::class,
             AccessoriesSeeder::class,
             // ProductSeeder::class,
-            // AdminSeeder::class,
+            AdminSeeder::class,
         ]);
 
         // User::factory()->create([
