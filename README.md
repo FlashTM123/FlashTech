@@ -301,7 +301,7 @@ composer update --with-all-dependencies
 
 ## 📄 License
 
-Dự án này được phát triển cho mục đích học tập.
+Dự án này được phát triển cho mục đích học tập và nộp CV thực tập.
 
 ---
 
